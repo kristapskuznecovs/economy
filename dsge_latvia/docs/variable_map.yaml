@@ -63,29 +63,29 @@ Y_t:
   status: verified
 
 z_t:
-  meaning: Neutral technology level (stationary component)
-  source: Appendix A (Eq. 53/63/76)
-  status: needs_review
+  meaning: Stationary neutral technology level (technology shock in production)
+  source: WP 5/2020, production function text (Eq. 4) + Appendix A (Eq. 53/63/76)
+  status: verified
 
 z_t_plus:
-  meaning: Trend component (normalization term) in production; redefined in Eq. 81
-  source: Appendix A (Eq. 53/63/76/81)
-  status: needs_review
+  meaning: Technology term scaling the fixed cost in production; redefined in Eq. 81
+  source: WP 5/2020, production function text (Eq. 4) + Appendix A (Eq. 53/63/76/81)
+  status: verified
 
 psi_t:
-  meaning: Appears in z_t_plus redefinition (Eq. 81)
+  meaning: Investment-specific technology level used in z_t_plus redefinition
   source: Appendix A (Eq. 81)
   status: needs_review
 
 eps_t:
-  meaning: Technology shock in production
-  source: Appendix A (Eq. 53/63/76)
-  status: needs_review
+  meaning: Stationary technology shock in production
+  source: WP 5/2020, production function text (Eq. 4) + Appendix A (Eq. 53/63/76)
+  status: verified
 
 phi:
   meaning: Fixed production cost
-  source: Appendix A (Eq. 52/53)
-  status: needs_review
+  source: WP 5/2020, production function text (Eq. 4) + Appendix A (Eq. 52/53)
+  status: verified
 
 K_t:
   meaning: Private capital stock
@@ -118,41 +118,41 @@ mc_t:
   status: verified
 
 r_t_k:
-  meaning: Rental rate of private capital
-  source: Appendix A (Eq. 52/54)
+  meaning: Rental rate of private capital (real, gross)
+  source: Appendix A (Eq. 52/54); inferred from standard notation
   status: needs_review
 
 r_bar_t_k:
-  meaning: Normalized rental rate of capital
-  source: Appendix A (Eq. 56/67/79)
+  meaning: Normalized (stationary) rental rate of capital
+  source: Appendix A (Eq. 56/67/79); inferred from stationarization
   status: needs_review
 
 R_t_f:
-  meaning: Risk-free (gross) interest rate (working capital rate)
-  source: Appendix A (Eq. 52/55)
+  meaning: Gross nominal risk-free rate used in working-capital financing
+  source: Appendix A (Eq. 52/55); inferred from working-capital setup
   status: needs_review
 
 omega_t:
-  meaning: Real wage (appears in wage bill with working capital rate)
-  source: Appendix A (Eq. 52/55)
+  meaning: Real gross wage (appears in wage bill with working-capital rate)
+  source: Appendix A (Eq. 52/55); inferred from wage bill notation
   status: needs_review
 
 omega_bar_t:
-  meaning: Normalized real wage
-  source: Appendix A (Eq. 56/57)
+  meaning: Normalized (stationary) real wage
+  source: Appendix A (Eq. 56/57); inferred from stationarization
   status: needs_review
 
 tau_t_d:
-  meaning: Price dispersion term or domestic tax wedge (multiplies input costs)
-  source: Appendix A (Eq. 52)
-  status: needs_review
+  meaning: Domestic price mark-up (cost-push) shock for intermediate goods
+  source: WP 5/2020, Section 3.2 (mark-up shocks list) + Appendix A (Eq. 52)
+  status: verified
 
 k_t:
-  meaning: Normalized private capital (stationarized)
-  source: Appendix A (Eq. 56+)
+  meaning: Normalized (stationarized) private capital stock
+  source: Appendix A (Eq. 56+); inferred from stationarization by μ_{z+,t} μ_{ψ,t}
   status: needs_review
 
 k_G_t:
-  meaning: Normalized public capital (stationarized)
-  source: Appendix A (Eq. 79+)
+  meaning: Normalized (stationarized) public capital stock
+  source: Appendix A (Eq. 79+); inferred from stationarization by μ_{z+,t} μ_{ψ,t}
   status: needs_review
