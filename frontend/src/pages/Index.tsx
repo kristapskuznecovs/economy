@@ -4,6 +4,8 @@ import { GlobalAskBar } from '@/components/GlobalAskBar';
 import { HorizonCards } from '@/components/HorizonCards';
 import { WhyExplanation } from '@/components/WhyExplanation';
 import { SankeyView } from '@/components/SankeyView';
+import { InteractiveSankeyFlow } from '@/components/InteractiveSankeyFlow';
+import { ExpenditureHistoryExplorer } from '@/components/ExpenditureHistoryExplorer';
 import { RegionalMap } from '@/components/RegionalMap';
 import { RegionalImpactPanel } from '@/components/RegionalImpactPanel';
 import { InvestmentPanel } from '@/components/InvestmentPanel';
@@ -11,8 +13,9 @@ import { TransparencyDrawer } from '@/components/TransparencyDrawer';
 import { RevenuePanel, ExpenditurePanel } from '@/components/DetailPanels';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
-import { ChevronDown, Sparkles, BarChart3, Lightbulb, Map, GitBranch, List } from 'lucide-react';
+import { ChevronDown, BarChart3, Lightbulb, Map, GitBranch, List } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { useI18n } from '@/lib/i18n';
 
 function DesktopLayout() {
   return (
@@ -29,11 +32,16 @@ function DesktopLayout() {
           {/* Row 3: Why */}
           <WhyExplanation />
 
-          {/* Row 4: Evidence — Sankey + Map */}
+          {/* Row 4: Budget Flow Visualizations */}
           <div className="grid grid-cols-2 gap-4">
+            <InteractiveSankeyFlow />
             <SankeyView />
-            <RegionalMap />
           </div>
+
+          {/* Row 5: Regional Map */}
+          <RegionalMap />
+
+          <ExpenditureHistoryExplorer />
 
           {/* Row 5: Regional + Investment */}
           <RegionalImpactPanel />
@@ -55,6 +63,7 @@ function DesktopLayout() {
 
 function TabletLayout() {
   const [detailsOpen, setDetailsOpen] = useState(false);
+  const { t } = useI18n();
 
   return (
     <div className="flex flex-col h-screen overflow-hidden">
@@ -64,7 +73,9 @@ function TabletLayout() {
           <GlobalAskBar />
           <HorizonCards />
           <WhyExplanation />
+          <InteractiveSankeyFlow />
           <SankeyView />
+          <ExpenditureHistoryExplorer />
           <RegionalMap />
           <RegionalImpactPanel />
           <InvestmentPanel />
@@ -72,7 +83,7 @@ function TabletLayout() {
           <Collapsible open={detailsOpen} onOpenChange={setDetailsOpen}>
             <CollapsibleTrigger asChild>
               <button className="w-full flex items-center justify-between p-3 rounded-lg border bg-card hover:bg-muted/50 transition-colors">
-                <span className="text-sm font-medium">Revenue & Expenditure Details</span>
+                <span className="text-sm font-medium">{t('index.detailsButton')}</span>
                 <ChevronDown className={`h-4 w-4 text-muted-foreground transition-transform ${detailsOpen ? 'rotate-180' : ''}`} />
               </button>
             </CollapsibleTrigger>
@@ -90,6 +101,8 @@ function TabletLayout() {
 }
 
 function MobileLayout() {
+  const { t } = useI18n();
+
   return (
     <div className="flex flex-col h-screen overflow-hidden">
       <Header />
@@ -111,7 +124,9 @@ function MobileLayout() {
             <RegionalImpactPanel />
           </TabsContent>
           <TabsContent value="flow" className="p-3 space-y-4 mt-0">
+            <InteractiveSankeyFlow />
             <SankeyView />
+            <ExpenditureHistoryExplorer />
             <InvestmentPanel />
           </TabsContent>
           <TabsContent value="details" className="p-3 space-y-4 mt-0">
@@ -124,23 +139,23 @@ function MobileLayout() {
         <TabsList className="w-full rounded-none border-t h-12 bg-card">
           <TabsTrigger value="impact" className="flex-1 flex flex-col gap-0.5 text-[10px] py-1 data-[state=active]:bg-transparent">
             <BarChart3 className="h-4 w-4" />
-            Impact
+            {t('index.tab.impact')}
           </TabsTrigger>
           <TabsTrigger value="why" className="flex-1 flex flex-col gap-0.5 text-[10px] py-1 data-[state=active]:bg-transparent">
             <Lightbulb className="h-4 w-4" />
-            Why
+            {t('index.tab.why')}
           </TabsTrigger>
           <TabsTrigger value="map" className="flex-1 flex flex-col gap-0.5 text-[10px] py-1 data-[state=active]:bg-transparent">
             <Map className="h-4 w-4" />
-            Map
+            {t('index.tab.map')}
           </TabsTrigger>
           <TabsTrigger value="flow" className="flex-1 flex flex-col gap-0.5 text-[10px] py-1 data-[state=active]:bg-transparent">
             <GitBranch className="h-4 w-4" />
-            Flow
+            {t('index.tab.flow')}
           </TabsTrigger>
           <TabsTrigger value="details" className="flex-1 flex flex-col gap-0.5 text-[10px] py-1 data-[state=active]:bg-transparent">
             <List className="h-4 w-4" />
-            Details
+            {t('index.tab.details')}
           </TabsTrigger>
         </TabsList>
       </Tabs>

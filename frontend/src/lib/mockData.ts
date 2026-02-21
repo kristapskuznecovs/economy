@@ -1,4 +1,4 @@
-import type { BudgetRow, ScenarioResult, HorizonImpact, RegionalAreaImpact, InvestmentImpact, RevenueSource, ExpenditureItem, SankeyNode, SankeyLink, LatviaArea } from './types';
+import type { BudgetRow, ScenarioResult, HorizonImpact, RegionalAreaImpact, InvestmentImpact, RevenueSource, ExpenditureItem, LatviaArea } from './types';
 import { LATVIA_AREAS } from './types';
 
 export const DEFAULT_BUDGET_ROWS: BudgetRow[] = [
@@ -14,44 +14,40 @@ export const DEFAULT_BUDGET_ROWS: BudgetRow[] = [
   { cofog: "10", category: "Social Protection", icon: "🤝", current_eur_m: 3250, new_eur_m: 3250 },
 ];
 
+// Detailed revenue sources based on Latvian tax system
 export const DEFAULT_REVENUE_SOURCES: RevenueSource[] = [
-  { id: 'riga_tax', label: 'Riga Region Taxes', amount_eur_m: 4200, enabled: true, type: 'regional_tax' },
-  { id: 'pieriga_tax', label: 'Pieriga Region Taxes', amount_eur_m: 1800, enabled: true, type: 'regional_tax' },
-  { id: 'kurzeme_tax', label: 'Kurzeme Region Taxes', amount_eur_m: 1100, enabled: true, type: 'regional_tax' },
-  { id: 'zemgale_tax', label: 'Zemgale Region Taxes', amount_eur_m: 850, enabled: true, type: 'regional_tax' },
-  { id: 'vidzeme_tax', label: 'Vidzeme Region Taxes', amount_eur_m: 780, enabled: true, type: 'regional_tax' },
-  { id: 'latgale_tax', label: 'Latgale Region Taxes', amount_eur_m: 620, enabled: true, type: 'regional_tax' },
-  { id: 'eu_funds', label: 'EU Structural Funds', amount_eur_m: 1850, enabled: true, type: 'eu_funds' },
-  { id: 'borrowing', label: 'Government Borrowing', amount_eur_m: 1200, enabled: true, type: 'borrowing' },
+  { id: 'iin', label: 'Iedzīvotāju ienākuma nodoklis (IIN)', amount_eur_m: 2800, enabled: true, type: 'regional_tax' },
+  { id: 'pvn', label: 'Pievienotās vērtības nodoklis (PVN)', amount_eur_m: 3200, enabled: true, type: 'regional_tax' },
+  { id: 'akcizes', label: 'Akcīzes nodokļi', amount_eur_m: 980, enabled: true, type: 'regional_tax' },
+  { id: 'uzn_ien', label: 'Uzņēmumu ienākuma nodoklis', amount_eur_m: 620, enabled: true, type: 'regional_tax' },
+  { id: 'soc_apdr', label: 'Sociālās apdrošināšanas iemaksas', amount_eur_m: 1850, enabled: true, type: 'regional_tax' },
+  { id: 'nekust_ipas', label: 'Nekustamā īpašuma nodoklis', amount_eur_m: 380, enabled: true, type: 'regional_tax' },
+  { id: 'customs', label: 'Muitas nodokļi', amount_eur_m: 210, enabled: true, type: 'regional_tax' },
+  { id: 'dab_resursi', label: 'Dabas resursu nodokļi', amount_eur_m: 140, enabled: true, type: 'regional_tax' },
+  { id: 'eu_funds', label: 'ES struktūrfondi', amount_eur_m: 850, enabled: true, type: 'eu_funds' },
+  { id: 'borrowing', label: 'Aizņēmumi', amount_eur_m: 380, enabled: true, type: 'borrowing' },
+  { id: 'other_rev', label: 'Citi ieņēmumi', amount_eur_m: 590, enabled: true, type: 'other' },
 ];
 
-export const DEFAULT_EXPENDITURES: ExpenditureItem[] = DEFAULT_BUDGET_ROWS.map(r => ({
-  id: `cofog_${r.cofog}`,
-  label: r.category,
-  cofog: r.cofog,
-  amount_eur_m: r.current_eur_m,
-  kind: 'category' as const,
-}));
-
-export const DEFAULT_SANKEY_NODES: SankeyNode[] = [
-  ...DEFAULT_REVENUE_SOURCES.map(r => ({ id: r.id, title: r.label, color: 'hsl(160, 60%, 40%)' })),
-  ...DEFAULT_EXPENDITURES.map(e => ({ id: e.id, title: e.label, color: 'hsl(215, 40%, 16%)' })),
+export const SAEIMA_VOTE_EXPENDITURES: ExpenditureItem[] = [
+  { id: 'vote_social', label: 'Social Security and Pensions', vote_division: 'Welfare & Special Budgets', amount_eur_m: 3000, kind: 'category' },
+  { id: 'vote_health', label: 'Ministry of Health', vote_division: 'Health', amount_eur_m: 1750, kind: 'category' },
+  { id: 'vote_education', label: 'Ministry of Education and Science', vote_division: 'Education', amount_eur_m: 1650, kind: 'category' },
+  { id: 'vote_finance', label: 'Ministry of Finance (incl. debt service)', vote_division: 'Finance', amount_eur_m: 1300, kind: 'category' },
+  { id: 'vote_defence', label: 'Ministry of Defence', vote_division: 'Defence', amount_eur_m: 1100, kind: 'category' },
+  { id: 'vote_interior', label: 'Ministry of the Interior', vote_division: 'Interior', amount_eur_m: 820, kind: 'category' },
+  { id: 'vote_transport', label: 'Ministry of Transport', vote_division: 'Transport', amount_eur_m: 650, kind: 'category' },
+  { id: 'vote_economics', label: 'Ministry of Economics', vote_division: 'Economics', amount_eur_m: 520, kind: 'category' },
+  { id: 'vote_agriculture', label: 'Ministry of Agriculture', vote_division: 'Agriculture', amount_eur_m: 460, kind: 'category' },
+  { id: 'vote_justice', label: 'Ministry of Justice', vote_division: 'Justice', amount_eur_m: 360, kind: 'category' },
+  { id: 'vote_varam', label: 'Ministry of Environmental Protection and Regional Development', vote_division: 'Environment & Regions', amount_eur_m: 300, kind: 'category' },
+  { id: 'vote_culture', label: 'Ministry of Culture', vote_division: 'Culture', amount_eur_m: 200, kind: 'category' },
+  { id: 'vote_foreign', label: 'Ministry of Foreign Affairs', vote_division: 'Foreign Affairs', amount_eur_m: 170, kind: 'category' },
+  { id: 'vote_constitutional', label: 'Saeima, Presidency and Constitutional Bodies', vote_division: 'Constitutional Bodies', amount_eur_m: 140, kind: 'category' },
 ];
 
-export function generateSankeyLinks(revenues: RevenueSource[], expenditures: ExpenditureItem[]): SankeyLink[] {
-  const totalRevenue = revenues.filter(r => r.enabled).reduce((s, r) => s + r.amount_eur_m, 0);
-  const totalExpenditure = expenditures.reduce((s, e) => s + e.amount_eur_m, 0);
-  const links: SankeyLink[] = [];
-  for (const rev of revenues.filter(r => r.enabled)) {
-    const revShare = rev.amount_eur_m / totalRevenue;
-    for (const exp of expenditures) {
-      const expShare = exp.amount_eur_m / totalExpenditure;
-      const value = Math.round(rev.amount_eur_m * expShare * 10) / 10;
-      if (value > 0) links.push({ source: rev.id, target: exp.id, value });
-    }
-  }
-  return links;
-}
+// Keep legacy export name for compatibility with existing imports.
+export const DEFAULT_EXPENDITURES: ExpenditureItem[] = SAEIMA_VOTE_EXPENDITURES;
 
 const AREA_WEIGHTS: Record<LatviaArea, number> = {
   Riga: 0.42, Pieriga: 0.18, Kurzeme: 0.12, Zemgale: 0.09, Vidzeme: 0.10, Latgale: 0.09,

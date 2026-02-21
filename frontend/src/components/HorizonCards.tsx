@@ -1,10 +1,12 @@
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { TrendingUp, TrendingDown, Users, Coins, BarChart3 } from 'lucide-react';
+import { TrendingUp, TrendingDown, BarChart3 } from 'lucide-react';
 import { useAppStore } from '@/lib/store';
 import type { HorizonImpact } from '@/lib/types';
+import { useI18n } from '@/lib/i18n';
 
 function HorizonCard({ impact, label }: { impact: HorizonImpact; label: string }) {
+  const { t } = useI18n();
   const gdpPos = impact.gdp_real_pct >= 0;
   const jobsPos = impact.employment_jobs >= 0;
 
@@ -21,26 +23,26 @@ function HorizonCard({ impact, label }: { impact: HorizonImpact; label: string }
 
       <div className="space-y-1.5">
         <div>
-          <p className="text-[10px] text-muted-foreground uppercase tracking-wide">GDP</p>
+          <p className="text-[10px] text-muted-foreground uppercase tracking-wide">{t('horizon.gdp')}</p>
           <p className={`text-lg font-bold font-mono ${gdpPos ? 'text-positive' : 'text-negative'}`}>
             {gdpPos ? '+' : ''}{impact.gdp_real_pct}%
           </p>
         </div>
         <div className="flex gap-4">
           <div>
-            <p className="text-[10px] text-muted-foreground">Jobs</p>
+            <p className="text-[10px] text-muted-foreground">{t('horizon.jobs')}</p>
             <p className={`text-sm font-semibold font-mono ${jobsPos ? 'text-positive' : 'text-negative'}`}>
               {jobsPos ? '+' : ''}{impact.employment_jobs.toLocaleString()}
             </p>
           </div>
           <div>
-            <p className="text-[10px] text-muted-foreground">Budget</p>
+            <p className="text-[10px] text-muted-foreground">{t('horizon.budget')}</p>
             <p className={`text-sm font-semibold font-mono ${impact.budget_balance_eur_m >= 0 ? 'text-positive' : 'text-negative'}`}>
               {impact.budget_balance_eur_m > 0 ? '+' : ''}€{impact.budget_balance_eur_m}M
             </p>
           </div>
           <div>
-            <p className="text-[10px] text-muted-foreground">Inflation</p>
+            <p className="text-[10px] text-muted-foreground">{t('horizon.inflation')}</p>
             <p className="text-sm font-semibold font-mono">
               {impact.inflation_pp > 0 ? '+' : ''}{impact.inflation_pp}pp
             </p>
@@ -53,16 +55,17 @@ function HorizonCard({ impact, label }: { impact: HorizonImpact; label: string }
 
 export function HorizonCards() {
   const { activeScenario } = useAppStore();
+  const { t } = useI18n();
 
   if (!activeScenario) {
     return (
       <section className="grid grid-cols-1 md:grid-cols-3 gap-3">
-        {['Year 1', 'Year 5', 'Year 15'].map(label => (
-          <Card key={label} className="p-4 flex items-center justify-center h-32">
+        {[1, 5, 15].map(year => (
+          <Card key={year} className="p-4 flex items-center justify-center h-32">
             <div className="text-center">
               <BarChart3 className="h-6 w-6 text-muted-foreground mx-auto mb-1" />
-              <p className="text-xs text-muted-foreground">{label} impact</p>
-              <p className="text-[10px] text-muted-foreground">Ask a question above</p>
+              <p className="text-xs text-muted-foreground">{t('horizon.yearImpact', { year })}</p>
+              <p className="text-[10px] text-muted-foreground">{t('horizon.askAbove')}</p>
             </div>
           </Card>
         ))}
@@ -76,7 +79,7 @@ export function HorizonCards() {
         <HorizonCard
           key={h.year}
           impact={h}
-          label={`Year ${h.year}`}
+          label={t('horizon.year', { year: h.year })}
         />
       ))}
     </section>

@@ -1,0 +1,83 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Rīga",
+        "name_en": "Riga",
+        "population": 605273,
+        "area_km2": 304
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [24.1052, 56.9496]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Pierīga",
+        "name_en": "Pieriga",
+        "population": 370000,
+        "area_km2": 10133
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [24.3, 56.85]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kurzeme",
+        "name_en": "Kurzeme",
+        "population": 250000,
+        "area_km2": 13596
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [21.5, 56.65]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Zemgale",
+        "name_en": "Zemgale",
+        "population": 230000,
+        "area_km2": 10733
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [23.7, 56.43]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Vidzeme",
+        "name_en": "Vidzeme",
+        "population": 200000,
+        "area_km2": 15246
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [25.4, 57.05]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Latgale",
+        "name_en": "Latgale",
+        "population": 280000,
+        "area_km2": 14547
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [27.3, 56.15]
+      }
+    }
+  ]
+}

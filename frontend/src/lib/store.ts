@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import type { BudgetRow, ChatMessage, SavedScenario, FundingSource, ScenarioResult, RevenueSource, ExpenditureItem } from './types';
-import { DEFAULT_BUDGET_ROWS, DEFAULT_REVENUE_SOURCES, DEFAULT_EXPENDITURES, generateMockScenario, MOCK_CHAT_WELCOME } from './mockData';
+import { DEFAULT_BUDGET_ROWS, DEFAULT_REVENUE_SOURCES, SAEIMA_VOTE_EXPENDITURES, MOCK_CHAT_WELCOME } from './mockData';
 
 interface AppState {
   // Budget
@@ -24,6 +24,7 @@ interface AppState {
   setFundingSource: (source: FundingSource) => void;
   toggleRevenueSource: (id: string, enabled: boolean) => void;
   updateExpenditure: (id: string, amount_eur_m: number) => void;
+  setExpenditures: (items: ExpenditureItem[]) => void;
   askFiscalAssistant: (prompt: string) => Promise<void>;
   sendChatMessage: (message: string) => void;
   saveScenario: (name: string) => void;
@@ -35,7 +36,7 @@ export const useAppStore = create<AppState>((set, get) => ({
   budgetRows: DEFAULT_BUDGET_ROWS.map(r => ({ ...r })),
   fundingSource: 'eu_funds',
   revenueSources: DEFAULT_REVENUE_SOURCES.map(r => ({ ...r })),
-  expenditures: DEFAULT_EXPENDITURES.map(e => ({ ...e })),
+  expenditures: SAEIMA_VOTE_EXPENDITURES.map(e => ({ ...e })),
   isSimulating: false,
   activeScenario: null,
   chatMessages: [{ role: 'assistant', content: MOCK_CHAT_WELCOME }],
@@ -63,6 +64,11 @@ export const useAppStore = create<AppState>((set, get) => ({
         e.id === id ? { ...e, amount_eur_m } : e
       ),
     })),
+
+  setExpenditures: (items) =>
+    set({
+      expenditures: items.map(item => ({ ...item })),
+    }),
 
   askFiscalAssistant: async (prompt) => {
     set({ isSimulating: true });

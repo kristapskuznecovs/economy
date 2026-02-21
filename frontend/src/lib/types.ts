@@ -18,6 +18,7 @@ export interface ExpenditureItem {
   id: string;
   label: string;
   cofog?: string;
+  vote_division?: string;
   amount_eur_m: number;
   kind: 'category' | 'project';
   funded_by?: 'eu_funds' | 'borrowing' | 'taxes' | 'reallocation';
@@ -69,18 +70,6 @@ export interface ScenarioResult {
   key_drivers: string[];
   winners: string[];
   losers: string[];
-}
-
-export interface SankeyNode {
-  id: string;
-  title: string;
-  color: string;
-}
-
-export interface SankeyLink {
-  source: string;
-  target: string;
-  value: number;
 }
 
 export interface DataQuality {

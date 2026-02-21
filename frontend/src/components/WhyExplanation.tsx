@@ -1,10 +1,11 @@
 import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { ArrowRight, Lightbulb, ThumbsUp, ThumbsDown } from 'lucide-react';
 import { useAppStore } from '@/lib/store';
+import { useI18n } from '@/lib/i18n';
 
 export function WhyExplanation() {
   const { activeScenario } = useAppStore();
+  const { t } = useI18n();
 
   if (!activeScenario) return null;
 
@@ -12,12 +13,12 @@ export function WhyExplanation() {
     <section>
       <div className="flex items-center gap-2 mb-3">
         <Lightbulb className="h-4 w-4 text-warning" />
-        <h3 className="text-sm font-semibold">Why This Happens</h3>
+        <h3 className="text-sm font-semibold">{t('why.title')}</h3>
       </div>
 
       {/* Causal Chain */}
       <Card className="p-4 mb-3">
-        <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wide">Causal Chain</p>
+        <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wide">{t('why.causalChain')}</p>
         <div className="flex flex-wrap items-center gap-1">
           {activeScenario.causal_chain.map((step, i) => (
             <span key={i} className="flex items-center gap-1">
@@ -33,7 +34,7 @@ export function WhyExplanation() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
         {/* Key Drivers */}
         <Card className="p-3">
-          <p className="text-xs font-medium text-muted-foreground mb-2">Key Drivers</p>
+          <p className="text-xs font-medium text-muted-foreground mb-2">{t('why.keyDrivers')}</p>
           <ul className="space-y-1">
             {activeScenario.key_drivers.map((d, i) => (
               <li key={i} className="text-xs flex gap-1.5">
@@ -47,7 +48,7 @@ export function WhyExplanation() {
         <Card className="p-3">
           <div className="flex items-center gap-1.5 mb-2">
             <ThumbsUp className="h-3 w-3 text-positive" />
-            <p className="text-xs font-medium text-muted-foreground">Winners</p>
+            <p className="text-xs font-medium text-muted-foreground">{t('why.winners')}</p>
           </div>
           <ul className="space-y-1">
             {activeScenario.winners.map((w, i) => (
@@ -62,7 +63,7 @@ export function WhyExplanation() {
         <Card className="p-3">
           <div className="flex items-center gap-1.5 mb-2">
             <ThumbsDown className="h-3 w-3 text-negative" />
-            <p className="text-xs font-medium text-muted-foreground">Losers</p>
+            <p className="text-xs font-medium text-muted-foreground">{t('why.losers')}</p>
           </div>
           <ul className="space-y-1">
             {activeScenario.losers.map((l, i) => (
