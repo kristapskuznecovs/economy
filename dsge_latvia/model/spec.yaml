@@ -1,0 +1,575 @@
+name: Latvia Fiscal DSGE (Baltic Journal of Economics 2023)
+source:
+  title: Fiscal DSGE model for Latvia
+  year: 2020
+  publisher: Latvijas Banka Working Paper 5/2020
+  pdf_local: dsge_latvia/wp_5_2020_en.pdf
+  pdf_remote: https://datnes.latvijasbanka.lv/papers/wp_5_2020_en.pdf
+  journal_version_pdf_local: dsge_latvia/Fiscal DSGE model for Latvia.pdf
+  notes: "Working paper appendices A/B/C contain the full equation set and tables."
+
+notation:
+  # ASCII variable naming used in this file
+  # Greek letters -> alpha, beta, delta, eta, lambda, mu, nu, omega, phi, pi, psi, rho, sigma, tau
+  # Subscripts/superscripts use underscores and comma-separated indexes, e.g. K_tilde_j,t
+  # Time t is explicit with _t suffix where needed
+  z_plus_t: trend growth in neutral technology
+  nu_star: foreign interest rate premium weight
+
+blocks:
+  - fiscal
+  - foreign_block
+  - measurement
+
+# Fiscal block equations (Section 2.2, equations 4-35)
+# NOTE: Many equations here reference non-fiscal variables from the core block.
+# TODO: Normalize variable names to match the full model spec once non-fiscal equations are added.
+
+equations:
+  - id: eq04
+    name: Intermediate goods production
+    raw: "Y_j,t = (z_t * H_j,t)^(1-alpha) * eps_t * K_tilde_j,t^alpha - z_plus_t * phi"
+    source: "Eq. (4)"
+
+  - id: eq05
+    name: Capital bundle CES (private + public)
+    raw: "K_tilde_j,t = (alpha_k^(1/nu_k) * K_j,t^((nu_k-1)/nu_k) + (1-alpha_k)^(1/nu_k) * K_g,t^((nu_k-1)/nu_k))^(nu_k/(nu_k-1))"
+    source: "Eq. (5)"
+
+  - id: eq06
+    name: Public capital accumulation and time-to-build
+    raw: "K_g,t+1 = (1-delta_g) * K_g,t + A_gi,t-1; G_i,t = b0 * A_gi,t + b1 * A_gi,t-1"
+    source: "Eq. (6)"
+
+  - id: eq07
+    name: Public investment expenditure split
+    raw: "G_i_exp = tau_i_g * G; G_i,t_exp = G_i,t_d + p_t_m_g_i * G_i,t_m"
+    source: "Eq. (7)"
+
+  - id: eq08
+    name: Public investment CES aggregate
+    raw: "G_i,t = ((1-omega_g_i)^(1/eta_g_i) * (G_i,t_d)^((eta_g_i-1)/eta_g_i) + (omega_g_i)^(1/eta_g_i) * (G_i,t_m)^((eta_g_i-1)/eta_g_i))^(eta_g_i/(eta_g_i-1))"
+    source: "Eq. (8)"
+
+  - id: eq09
+    name: Imported public investment demand and variety demand
+    raw: "G_i,t_m = (int_0^1 (G_i,j,t_m)^(1/lambda_m_g_i) dj)^(lambda_m_g_i); G_i,j,t_m = G_i,t_m * (p_t_m_g_i / p_j,t_m_g_i)^(lambda_m_g_i/(1-lambda_m_g_i))"
+    source: "Eq. (9)"
+
+  - id: eq10
+    name: Public investment imports in trade balance
+    raw: "S_t * P_t_star * R_t_nu_star * G_i,t_m * (p_t_m_g_i)^(lambda_m_g_i/(1-lambda_m_g_i))"
+    source: "Eq. (10)"
+
+  - id: eq11
+    name: Optimizing household utility (public consumption enters)
+    raw: "E_0[ sum_{t=0..inf} beta^t * ( zeta_c,t * ln(C_tilde_o,t - b * C_tilde_o,t-1) ) ]"
+    source: "Eq. (11)"
+
+  - id: eq12
+    name: Utility bundle (private + public consumption)
+    raw: "C_tilde_o,t = (alpha_c^(1/nu_c) * C_o,t^((nu_c-1)/nu_c) + (1-alpha_c)^(1/nu_c) * G_c,t^((nu_c-1)/nu_c))^(nu_c/(nu_c-1))"
+    source: "Eq. (12)"
+
+  - id: eq13
+    name: Public consumption expenditure split
+    raw: "G_c_exp = tau_c_g * G; G_c,t_exp = G_c,t_d + p_t_m_g_c * G_c,t_m"
+    source: "Eq. (13)"
+
+  - id: eq14
+    name: Public consumption CES aggregate
+    raw: "G_c,t = ((1-omega_g_c)^(1/eta_g_c) * (G_c,t_d)^((eta_g_c-1)/eta_g_c) + (omega_g_c)^(1/eta_g_c) * (G_c,t_m)^((eta_g_c-1)/eta_g_c))^(eta_g_c/(eta_g_c-1))"
+    source: "Eq. (14)"
+
+  - id: eq15
+    name: Imported public consumption demand and variety demand
+    raw: "G_c,t_m = (int_0^1 (G_c,j,t_m)^(1/lambda_m_g_c) dj)^(lambda_m_g_c); G_c,j,t_m = G_c,t_m * (p_t_m_g_c / p_j,t_m_g_c)^(lambda_m_g_c/(1-lambda_m_g_c))"
+    source: "Eq. (15)"
+
+  - id: eq16
+    name: Public consumption imports in trade balance
+    raw: "S_t * P_t_star * R_t_nu_star * G_c,t_m * (p_t_m_g_c)^(lambda_m_g_c/(1-lambda_m_g_c))"
+    source: "Eq. (16)"
+
+  - id: eq17
+    name: Transfers steady-state share
+    raw: "TR_t = tau_tr_g * G_t"
+    source: "Eq. (17)"
+
+  - id: eq18
+    name: Transfers split across household types
+    raw: "TR_t = lambda_r * TR_r,t + (1-lambda_r) * TR_o,t; tau_r_tr * TR_o,t = (1 - tau_r_tr) * TR_r,t"
+    source: "Eq. (18)"
+
+  - id: eq19
+    name: Restricted household budget constraint
+    raw: "(1 + tau_c,t) * p_t_c * C_r,t = (1 - tau_y,t - tau_w_w,t) * W_t * L_t / P_t + D_b,t * (1 - L_t) + TR_r,t"
+    source: "Eq. (19)"
+
+  - id: eq20
+    name: Government expenditure breakdown
+    raw: "G_t = G_c,t_exp + G_i,t_exp + TR_t + D_b,t*(1-L_t) + ln(R_g,t-1)/pi_t * D_g,t-1 + Z_t"
+    source: "Eq. (20)"
+
+  - id: eq21
+    name: Government debt interest rate
+    raw: "R_g,t = Phi_g,t * R_t_star"
+    source: "Eq. (21)"
+
+  - id: eq22
+    name: Government risk premium
+    raw: "Phi_g,t = ln(R) - ln(R_star) + phi_tilde_g_r * ( D_g,t / (Y_t + Y_t-1 + Y_t-2 + Y_t-3) - dgy ) + eps_g_r_p,t"
+    source: "Eq. (22)"
+    notes: "Check units: paper uses annual debt-to-GDP ratio and small phi_tilde_g_r calibration (10*phi_tilde_g_r=0.05)."
+
+  - id: eq23
+    name: Tax revenue
+    raw: "T_t = tau_c,t * p_t_c * (lambda_r*C_r,t + (1-lambda_r)*C_o,t) + (tau_y,t + tau_w_e,t + tau_w_w,t) * W_t * L_t / P_t + tau_k,t * K_t / P_t * (u_t*r_k,t - p_t_i * a(u_t) - delta * p_t_i) + T_ls,t"
+    source: "Eq. (23)"
+    notes: "Capital income term uses K_t and r_k,t as in paper; confirm exact notation when full core block is added."
+
+  - id: eq24
+    name: Government budget constraint
+    raw: "G_t = Deficit_g,t + T_t"
+    source: "Eq. (24)"
+
+  - id: eq25
+    name: Government debt accumulation
+    raw: "D_g,t = D_g,t-1 / pi_t + Deficit_g,t"
+    source: "Eq. (25)"
+
+  - id: eq26
+    name: Domestic vs foreign holdings of government debt
+    raw: "D_g,t = B_g,t+1 + B_g,t+1_star; B_g_bar = omega_h * D_g"
+    source: "Eq. (26)"
+
+  - id: eq27
+    name: Household FOC for government debt holdings
+    raw: "B_g,t+1 = (1 + gamma_g^(-1) * (E_t[ M_t,t+1_o * R_g,t - 1 ])) * B_g_bar,t+1"
+    source: "Eq. (27)"
+
+  - id: eq28
+    name: Government expenditure steady-state share
+    raw: "G = eta_g * Y"
+    source: "Eq. (28)"
+
+  - id: eq29
+    name: Fiscal rules (generic)
+    raw: "ln(x_t) = (1-rho_x)*ln(x) + rho_x*ln(x_t-1) + (1-rho_x)*phi_x_d*( D_g,t/(Y_t+Y_t-1+Y_t-2+Y_t-3) - dgy ) + (1-rho_x)*phi_x_y*(ln(y_t) - ln(y)) + eps_x,t"
+    source: "Eq. (29)"
+    notes: "x in {g_i,t_exp, g_c,t_exp, tr_t, tau_c,t, tau_y,t, tau_w_e,t, tau_w_w,t, tau_ls,t}."
+
+  - id: eq30
+    name: Capital income tax AR(1)
+    raw: "ln(tau_k,t) = (1-rho_tau_k)*ln(tau_k) + rho_tau_k*ln(tau_k,t-1) + eps_tau_k,t"
+    source: "Eq. (30)"
+
+  - id: eq31
+    name: Resource constraint
+    raw: "Y_t - D_t = Z_t + G_c,t_d + C_t_d + G_i,t_d + I_t_d + [ omega_x*(P_t_m_x)^(1-eta_x) + (1-omega_x)*(P_t)^(1-eta_x) ]^(eta_x/(1-eta_x)) * (1-omega_x) * (P_t_x)^(-lambda_x/(lambda_x-1)) * (P_t_x)^(-eta_f) * Y_t_f"
+    source: "Eq. (31)"
+    notes: "Export price terms use paper notation; confirm exact exponents when full core block is added."
+
+  - id: eq32
+    name: Frictional costs in resource constraint
+    raw: "D_t = mu * G(omega_bar_t; sigma_t-1) * R_t_k * P_k,t-1 * K_bar_t + (K_t_v / Q_t + K_t_h) * chi_t * L_t-1 + gamma_g * (B_g,t+1 - B_g_bar,t+1)^2 / (2 * B_g_bar,t+1)"
+    source: "Eq. (32)"
+
+  - id: eq33
+    name: Net exports definition
+    raw: "NX_t = Exports_t - Imports_t"
+    source: "Eq. (33)"
+
+  - id: eq34
+    name: Net exports in terms of final goods
+    raw: "NX_t = S_t * P_t_c * P_t_x * X_t - S_t * P_t_star * R_t_nu_star * ( C_t_m*(p_t_m_c)^(lambda_m_c/(1-lambda_m_c)) + G_c,t_m*(p_t_m_g_c)^(lambda_m_g_c/(1-lambda_m_g_c)) + I_t_m*(p_t_m_i)^(lambda_m_i/(1-lambda_m_i)) + G_i,t_m*(p_t_m_g_i)^(lambda_m_g_i/(1-lambda_m_g_i)) + X_t_m*(p_t_m_x)^(lambda_m_x/(1-lambda_m_x)) )"
+    source: "Eq. (34)"
+    notes: "First term uses export price; confirm exact price components in core block."
+
+  - id: eq35
+    name: Current account definition
+    raw: "S_t * A_t+1_star + B_g,t_star * R_g,t-1 = NX_t + R_t-1_star * Phi_t-1 * S_t * A_t_star + B_g,t+1_star"
+    source: "Eq. (35)"
+
+# Appendix A: First-order (marginal cost) conditions
+appendix_a_equations:
+  # A.1 Model without public capital
+  - id: eq52
+    name: Cost minimization problem (no public capital)
+    raw: "min_{L_t,K_t} { TC_t = tau_t_d * omega_t * R_t_f * L_t + tau_t_d * r_t_k * K_t + z_t_plus * phi }"
+    source: "Appendix A, Eq. (52)"
+
+  - id: eq53
+    name: Production function (no public capital)
+    raw: "Y_t = (z_t * L_t)^(1-alpha) * eps_t * K_t^alpha - z_t_plus * phi"
+    source: "Appendix A, Eq. (53)"
+
+  - id: eq54
+    name: FOC capital (no public capital)
+    raw: "tau_t_d * r_t_k = mc_t * (z_t * L_t)^(1-alpha) * eps_t * alpha * K_t^(alpha-1)"
+    source: "Appendix A, Eq. (54)"
+
+  - id: eq55
+    name: FOC labor (no public capital)
+    raw: "tau_t_d * R_t_f * omega_t = mc_t * (1-alpha) * z_t^(1-alpha) * L_t^(-alpha) * eps_t * K_t^alpha"
+    source: "Appendix A, Eq. (55)"
+
+  - id: eq56
+    name: Normalized FOC capital (no public capital)
+    raw: "tau_t_d * r_bar_t_k = mc_t * alpha * eps_t * L_t^(1-alpha) * (k_t/(mu_zplus_t*mu_psi_t))^(alpha-1)"
+    source: "Appendix A, Eq. (56)"
+
+  - id: eq57
+    name: Normalized FOC labor (no public capital)
+    raw: "tau_t_d * R_t_f * omega_bar_t = mc_t * (1-alpha) * eps_t * L_t^(-alpha) * (k_t/(mu_zplus_t*mu_psi_t))^alpha"
+    source: "Appendix A, Eq. (57)"
+
+  - id: eq58
+    name: mc_t definition (from 56)
+    raw: "mc_t = (tau_t_d * r_bar_t_k) / (alpha * eps_t * (k_t/(mu_zplus_t*mu_psi_t))^(alpha-1))"
+    source: "Appendix A, Eq. (58)"
+
+  - id: eq59
+    name: mc_t definition (from 57)
+    raw: "mc_t = (tau_t_d * R_t_f * omega_bar_t) / ((1-alpha) * eps_t * (k_t/(mu_zplus_t*mu_psi_t*L_t))^alpha)"
+    source: "Appendix A, Eq. (59)"
+
+  - id: eq60
+    name: Capital-labor ratio (no public capital)
+    raw: "k_t/(mu_zplus_t*mu_psi_t) = (R_t_f * omega_bar_t * L_t / r_bar_t_k) * alpha/(1-alpha)"
+    source: "Appendix A, Eq. (60)"
+
+  - id: eq61
+    name: mc_t simplified (no public capital)
+    raw: "mc_t = (tau_t_d/eps_t) * (1/alpha)^alpha * (1/(1-alpha))^(1-alpha) * (r_bar_t_k)^alpha * (R_t_f * omega_bar_t)^(1-alpha)"
+    source: "Appendix A, Eq. (61)"
+
+  # A.2 Model with public capital in CES bundle
+  - id: eq62
+    name: Cost minimization problem (CES public capital)
+    raw: "min_{L_t,K_t} { TC_t = tau_t_d * omega_t * R_t_f * L_t + tau_t_d * r_t_k * K_t + z_t_plus * phi }"
+    source: "Appendix A, Eq. (62)"
+
+  - id: eq63
+    name: Production function (CES public capital)
+    raw: "Y_t = (z_t * L_t)^(1-alpha) * eps_t * K_tilde_t^alpha - z_t_plus * phi"
+    source: "Appendix A, Eq. (63)"
+
+  - id: eq64
+    name: CES capital bundle
+    raw: "K_tilde_t = (alpha_k^(1/nu_k) * K_t^((nu_k-1)/nu_k) + (1-alpha_k)^(1/nu_k) * K_g,t^((nu_k-1)/nu_k))^(nu_k/(nu_k-1))"
+    source: "Appendix A, Eq. (64)"
+
+  - id: eq65
+    name: FOC capital (CES)
+    raw: "tau_t_d * r_t_k = mc_t * (z_t * L_t)^(1-alpha) * eps_t * alpha * alpha_k^(1/nu_k) * K_tilde_t^(alpha+1/nu_k-1) * K_t^(-1/nu_k)"
+    source: "Appendix A, Eq. (65)"
+
+  - id: eq66
+    name: FOC labor (CES)
+    raw: "tau_t_d * R_t_f * omega_t = mc_t * (1-alpha) * z_t^(1-alpha) * L_t^(-alpha) * eps_t * K_tilde_t^alpha"
+    source: "Appendix A, Eq. (66)"
+
+  - id: eq67
+    name: Normalized FOC capital (CES)
+    raw: "tau_t_d * r_bar_t_k = mc_t * alpha * alpha_k^(1/nu_k) * eps_t * L_t^(1-alpha) * (K_tilde_t/(mu_zplus_t*mu_psi_t))^(alpha+1/nu_k-1) * (k_t/(mu_zplus_t*mu_psi_t))^(-1/nu_k)"
+    source: "Appendix A, Eq. (67)"
+
+  - id: eq68
+    name: Normalized FOC labor (CES)
+    raw: "tau_t_d * R_t_f * omega_bar_t = mc_t * (1-alpha) * eps_t * L_t^(-alpha) * (K_tilde_t/(mu_zplus_t*mu_psi_t))^alpha"
+    source: "Appendix A, Eq. (68)"
+
+  - id: eq69
+    name: mc_t definition (from 67)
+    raw: "mc_t = (tau_t_d * r_bar_t_k) / (alpha * alpha_k^(1/nu_k) * eps_t * (K_tilde_t/(mu_zplus_t*mu_psi_t))^(alpha+1/nu_k-1) * (k_t/(mu_zplus_t*mu_psi_t))^(-1/nu_k))"
+    source: "Appendix A, Eq. (69)"
+
+  - id: eq70
+    name: mc_t definition (from 68)
+    raw: "mc_t = (tau_t_d * R_t_f * omega_bar_t) / ((1-alpha) * eps_t * (K_tilde_t/(mu_zplus_t*mu_psi_t*L_t))^alpha)"
+    source: "Appendix A, Eq. (70)"
+
+  - id: eq71
+    name: Capital-labor ratio (CES)
+    raw: "k_t/(mu_zplus_t*mu_psi_t) = (r_bar_t_k/(R_t_f*omega_bar_t*L_t))^(-nu_k) * ((1-alpha)/alpha)^(-nu_k) * alpha_k * (K_tilde_t/(mu_zplus_t*mu_psi_t))^(1-nu_k)"
+    source: "Appendix A, Eq. (71)"
+
+  - id: eq72
+    name: mc_t simplified (CES, variant 1)
+    raw: "mc_t = (tau_t_d/eps_t) * (K_tilde_t/(mu_zplus_t*mu_psi_t*L_t))^(-alpha) * (R_t_f*omega_bar_t)/(1-alpha)"
+    source: "Appendix A, Eq. (72)"
+
+  - id: eq73
+    name: Capital bundle ratio (CES, variant)
+    raw: "K_tilde_t/(mu_zplus_t*mu_psi_t) = (r_bar_t_k/(R_t_f*omega_bar_t*L_t))^(nu_k/(1-nu_k)) * ((1-alpha)/alpha)^(nu_k/(1-nu_k)) * alpha_k^(nu_k-1) * (k_t/(mu_zplus_t*mu_psi_t))^(1/(1-nu_k))"
+    source: "Appendix A, Eq. (73)"
+
+  - id: eq74
+    name: mc_t simplified (CES, variant 2)
+    raw: "mc_t = (tau_t_d/eps_t) * (R_t_f*omega_bar_t)^(alpha*nu_k/(1-nu_k)) * (r_bar_t_k)^(alpha*nu_k/(nu_k-1)) * (alpha)^(alpha*nu_k/(1-nu_k)) * (alpha_k)^(alpha/(1-nu_k)) * (1-alpha)^(alpha*nu_k/(nu_k-1)-1) * (k_t/(mu_zplus_t*mu_psi_t*L_t))^(alpha/(nu_k-1))"
+    source: "Appendix A, Eq. (74)"
+
+  # A.3 Model with public capital as additional production factor
+  - id: eq75
+    name: Cost minimization problem (public capital as factor)
+    raw: "min_{L_t,K_t} { TC_t = tau_t_d * omega_t * R_t_f * L_t + tau_t_d * r_t_k * K_t + z_t_plus * phi }"
+    source: "Appendix A, Eq. (75)"
+
+  - id: eq76
+    name: Production function (public capital as factor)
+    raw: "Y_t = z_t^(1-alpha-alpha_k) * L_t^(1-alpha) * eps_t * K_t^alpha * K_G,t^(alpha_k) - z_t_plus * phi"
+    source: "Appendix A, Eq. (76)"
+
+  - id: eq77
+    name: FOC capital (public capital as factor)
+    raw: "tau_t_d * r_t_k = mc_t * z_t^(1-alpha-alpha_k) * L_t^(1-alpha) * eps_t * alpha * K_t^(alpha-1) * K_G,t^(alpha_k)"
+    source: "Appendix A, Eq. (77)"
+
+  - id: eq78
+    name: FOC labor (public capital as factor)
+    raw: "tau_t_d * R_t_f * omega_t = mc_t * (1-alpha) * z_t^(1-alpha-alpha_k) * L_t^(-alpha) * eps_t * K_t^alpha * K_G,t^(alpha_k)"
+    source: "Appendix A, Eq. (78)"
+
+  - id: eq79
+    name: Normalized FOC capital (public capital as factor)
+    raw: "tau_t_d * r_bar_t_k = mc_t * alpha * eps_t * L_t^(1-alpha) * (k_t/(mu_zplus_t*mu_psi_t))^(alpha-1) * (k_G,t/(mu_zplus_t*mu_psi_t))^(alpha_k)"
+    source: "Appendix A, Eq. (79)"
+
+  - id: eq80
+    name: Normalized FOC labor (public capital as factor)
+    raw: "tau_t_d * R_t_f * omega_bar_t = mc_t * (1-alpha) * eps_t * L_t^(-alpha) * (k_t/(mu_zplus_t*mu_psi_t))^alpha * (k_G,t/(mu_zplus_t*mu_psi_t))^(alpha_k)"
+    source: "Appendix A, Eq. (80)"
+
+  - id: eq81
+    name: Redefinition of z_t_plus
+    raw: "z_t_plus = psi_t^((alpha+alpha_k)/(1-alpha-alpha_k)) * z_t"
+    source: "Appendix A, Eq. (81)"
+
+  - id: eq82
+    name: mc_t definition (from 79)
+    raw: "mc_t = (tau_t_d * r_bar_t_k) / (alpha * eps_t * (k_t/(mu_zplus_t*mu_psi_t*L_t))^(alpha-1) * (k_G,t/(mu_zplus_t*mu_psi_t))^(alpha_k))"
+    source: "Appendix A, Eq. (82)"
+
+  - id: eq83
+    name: mc_t definition (from 80)
+    raw: "mc_t = (tau_t_d * R_t_f * omega_bar_t) / ((1-alpha) * eps_t * (k_t/(mu_zplus_t*mu_psi_t*L_t))^alpha * (k_G,t/(mu_zplus_t*mu_psi_t))^(alpha_k))"
+    source: "Appendix A, Eq. (83)"
+
+  - id: eq84
+    name: Capital-labor ratio (public capital as factor)
+    raw: "k_t/(mu_zplus_t*mu_psi_t) = (R_t_f * omega_bar_t * L_t / r_bar_t_k) * alpha/(1-alpha)"
+    source: "Appendix A, Eq. (84)"
+
+  - id: eq85
+    name: mc_t simplified (public capital as factor)
+    raw: "mc_t = (tau_t_d/eps_t) * (1/alpha)^alpha * (1/(1-alpha))^(1-alpha) * (r_bar_t_k)^alpha * (R_t_f * omega_bar_t)^(1-alpha) * (k_G,t/(mu_zplus_t*mu_psi_t))^(-alpha_k)"
+    source: "Appendix A, Eq. (85)"
+# Foreign block (Appendix B, Eq. 86)
+foreign_block_equations:
+  - id: eq86
+    name: Foreign SVAR block (matrix form)
+    raw: |
+      X_t = A * X_{t-1} + C * eps_t
+      where
+        X_t = [ log(y*_t/y*), pi*_t - pi*, R*_t - R*, log(mu_z*,t/mu_z*), log(mu_psi*,t/mu_psi*),
+                pi_comp_t - pi_comp, log(y^f_t/y^f), log(s_t/s_{t-1}) ]'
+      A =
+        [ a11 a12 a13  0    0    0    0    0
+          a21 a22 a23 a24   α    0    0    0
+          a31 a32 a33 a34 1-α    0    0    0
+           0   0   0  rho_mu_z 0 0 0 0
+           0   0   0   0 rho_mu_psi 0 0 0
+          a61 a62  0   0   0  a66 a67 0
+          a71  0   0   0   0  a76 a77 0
+           0   0   0   0   0   0   0 rho_s ]
+      C =
+        [ sigma_y*    0        0      0          0        0        0      0
+          c21       sigma_pi*  0      c24   α/(1-α)       0        0      0
+          c31       c32     sigma_R*  c34   α/(1-α)       0        0      0
+           0         0        0   sigma_mu_z     0        0        0      0
+           0         0        0      0     sigma_mu_psi   0        0      0
+           0         0        0      0          0    sigma_pi_comp c67    0
+           0         0        0      0          0        0    sigma_yf    0
+           0         0        0      0          0        0        0   sigma_s ]
+    source: "Appendix B, Eq. (86)"
+    notes: "Matrix elements map to Table 6 parameters (a_ij, c_ij, rho, sigma)."
+
+# Measurement equations (Appendix B, eqs. 87-120)
+measurement_equations:
+  - id: meas087
+    name: Nominal deposit interest rate
+    raw: "R_d_data,t = 400*(R_t - 1)"
+    source: "Eq. (87)"
+
+  - id: meas088
+    name: Nominal government bond yield
+    raw: "R_g_data,t = 400*(R_g,t - 1)"
+    source: "Eq. (88)"
+
+  - id: meas089
+    name: Foreign (EA) nominal interest rate
+    raw: "R_star_data,t = 400*(R_t_star - 1)"
+    source: "Eq. (89)"
+
+  - id: meas090
+    name: GDP deflator inflation
+    raw: "pi_d_data,t = 400*log(pi_t) - 400*log(pi_bar) + eps_pi_d_me,t"
+    source: "Eq. (90)"
+
+  - id: meas091
+    name: CPI inflation (after consumption tax)
+    raw: "pi_c_data,t = 400*log(pi_c_tilde,t) - 400*log(pi_c_bar) + eps_pi_c_me,t"
+    source: "Eq. (91)"
+
+  - id: meas092
+    name: CPI inflation adjustment
+    raw: "pi_c_tilde,t = pi_c,t * (1+tau_c,t) / (1+tau_c,t-1)"
+    source: "Eq. (92)"
+
+  - id: meas093
+    name: Investment deflator inflation
+    raw: "pi_i_data,t = 400*log(pi_i,t) - 400*log(pi_i_bar) + eps_pi_i_me,t"
+    source: "Eq. (93)"
+
+  - id: meas094
+    name: Foreign (EA) CPI inflation
+    raw: "pi_star_data,t = 400*log(pi_star,t)"
+    source: "Eq. (94)"
+
+  - id: meas095
+    name: Competitors' export price inflation
+    raw: "pi_comp_data,t = 400*log(pi_comp,t)"
+    source: "Eq. (95)"
+
+  - id: meas096
+    name: GDP quarter-on-quarter growth
+    raw: "dlog_y_data,t = 100*(log(mu_z,t) + dlog(y_gdp,t) - log(mu_z)) + eps_y_me,t"
+    source: "Eq. (96)"
+
+  - id: meas097
+    name: Measured GDP (net of utilization/monitoring/hiring costs)
+    raw: "y_gdp,t = y_t - p_i,t*a(u_t) - mu*G(omega_bar_t; sigma_t-1)*R_k,t*P_k,t-1*K_t-1 - (n_k*kappa_v/Q_t-1 + n_k*kappa_h)*chi_t*L_t-1 - Gamma_g,t/z_t_plus"
+    source: "Eq. (97)"
+    notes: "Transcribed from Appendix B; verify symbols against core block."
+
+  - id: meas098
+    name: Foreign (EA) GDP QoQ growth
+    raw: "dlog_y_star_data,t = 100*(log(mu_z,t) + dlog(y_star,t) - log(mu_z))"
+    source: "Eq. (98)"
+
+  - id: meas099
+    name: Foreign demand QoQ growth
+    raw: "dlog_yf_data,t = 100*(log(mu_z,t) + dlog(y_f,t) - log(mu_z))"
+    source: "Eq. (99)"
+
+  - id: meas100
+    name: Nominal effective exchange rate QoQ growth
+    raw: "log_s_data,t = 100*log(s_t) + eps_s_me,t"
+    source: "Eq. (100)"
+
+  - id: meas101
+    name: Private consumption QoQ growth
+    raw: "dlog_c_data,t = 100*(log(mu_z,t) + dlog(c_t) - log(mu_z)) + eps_c_me,t"
+    source: "Eq. (101)"
+
+  - id: meas102
+    name: Total investment QoQ growth
+    raw: "dlog_i_data,t = 100*(log(mu_z,t) + log(mu_psi,t) + dlog(i_tot,t) - log(mu_z) - log(mu_psi)) + eps_i_me,t"
+    source: "Eq. (102)"
+
+  - id: meas103
+    name: Total investment definition
+    raw: "i_tot,t = i_t + g_i,t"
+    source: "Eq. (103)"
+
+  - id: meas104
+    name: Exports QoQ growth
+    raw: "dlog_x_data,t = 100*(log(mu_z,t) + dlog(x_t) - log(mu_z)) + eps_x_me,t"
+    source: "Eq. (104)"
+
+  - id: meas105
+    name: Imports QoQ growth
+    raw: "dlog_imp_data,t = 100*(log(mu_z,t) + dlog(imp_t) - log(mu_z)) + eps_imp_me,t"
+    source: "Eq. (105)"
+
+  - id: meas106
+    name: Imports definition
+    raw: "imp_t = c_t_m*(p_t_m_c)^(lambda_m_c/(1-lambda_m_c)) + i_t_m*(p_t_m_i)^(lambda_m_i/(1-lambda_m_i)) + x_t_m*(p_t_m_x)^(lambda_m_x/(1-lambda_m_x)) + g_c,t_m*(p_t_m_g_c)^(lambda_m_g_c/(1-lambda_m_g_c)) + g_i,t_m*(p_t_m_g_i)^(lambda_m_g_i/(1-lambda_m_g_i))"
+    source: "Eq. (106)"
+
+  - id: meas107
+    name: Real labor cost QoQ growth (after-tax CPI deflator)
+    raw: "dlog_wlc_data,t = 100*(log(mu_z,t) + dlog(w_lc,t) - log(mu_z) + log(pi_t) - log(pi_c_tilde,t)) + eps_w_me,t"
+    source: "Eq. (107)"
+
+  - id: meas108
+    name: Labor cost definition
+    raw: "w_lc,t = (1 + tau_w_e,t) * w_t"
+    source: "Eq. (108)"
+
+  - id: meas109
+    name: Unemployment rate QoQ growth
+    raw: "dlog_unemp_data,t = 100*dlog(1 - L_t) + eps_unemp_me,t"
+    source: "Eq. (109)"
+
+  - id: meas110
+    name: Net worth (real house price index) QoQ growth
+    raw: "dlog_n_data,t = 100*(log(mu_z,t) + dlog(n_t) - log(mu_z)) + eps_n_me,t"
+    source: "Eq. (110)"
+
+  - id: meas111
+    name: Lending spread
+    raw: "spread_data,t = 400*(spread_t - spread_bar) + eps_spread_me,t"
+    source: "Eq. (111)"
+
+  - id: meas112
+    name: Spread definition
+    raw: "spread_t = Z_t+1 - R_t"
+    source: "Eq. (112)"
+    notes: "Appendix B includes full expression for Z_t+1; link to financial block once transcribed."
+
+  - id: meas113
+    name: Government consumption QoQ growth
+    raw: "dlog_g_c_data,t = 100*(log(mu_z,t) + dlog(g_c,t) - log(mu_z)) + eps_g_c_me,t"
+    source: "Eq. (113)"
+
+  - id: meas114
+    name: Government investment QoQ growth
+    raw: "dlog_g_i_data,t = 100*(log(mu_z,t) + log(mu_psi,t) + dlog(g_i,t) - log(mu_z) - log(mu_psi)) + eps_g_i_me,t"
+    source: "Eq. (114)"
+
+  - id: meas115
+    name: Government debt-to-GDP ratio
+    raw: "debt2GDP_data,t = D_g,t / (Y_t + Y_t-1 + Y_t-2 + Y_t-3)"
+    source: "Eq. (115)"
+
+  - id: meas116
+    name: Government transfers QoQ growth
+    raw: "dlog_tr_data,t = 100*(log(mu_z,t) + dlog(tr_t) - log(mu_z)) + eps_tr_me,t"
+    source: "Eq. (116)"
+
+  - id: meas117
+    name: Effective consumption tax rate
+    raw: "tau_c_data,t = tau_c,t + eps_tau_c_me,t"
+    source: "Eq. (117)"
+
+  - id: meas118
+    name: Effective labor income tax rate
+    raw: "tau_y_data,t = tau_y,t + eps_tau_y_me,t"
+    source: "Eq. (118)"
+
+  - id: meas119
+    name: Effective employer SSC rate
+    raw: "tau_w_e_data,t = tau_w_e,t + eps_tau_w_e_me,t"
+    source: "Eq. (119)"
+
+  - id: meas120
+    name: Effective employee SSC rate
+    raw: "tau_w_w_data,t = tau_w_w,t + eps_tau_w_w_me,t"
+    source: "Eq. (120)"
+
+appendix_raw_files:
+  appendix_a: dsge_latvia/docs/appendix_a_raw.txt
+  appendix_b: dsge_latvia/docs/appendix_b_raw.txt
+  appendix_c: dsge_latvia/docs/appendix_c_raw.txt

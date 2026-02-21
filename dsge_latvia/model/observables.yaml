@@ -1,0 +1,35 @@
+# NOTE: Observable list inferred from 2023 paper text plus prior working-paper list.
+# Verify against Appendix D measurement equations once supplementary material is available.
+fiscal:
+  - g_cons
+  - g_inv
+  - debt_to_gdp
+  - transfers
+  - tax_c_eff
+  - tax_l_eff
+  - ssc_employee_eff
+  - ssc_employer_eff
+  - gov_bond_yield
+
+non_fiscal:
+  - deposit_rate_short
+  - c_real
+  - i_real
+  - m_real
+  - x_real
+  - gdp_real
+  - labor_cost_real
+  - unemployment_rate
+  - cpi_inflation
+  - i_deflator_inflation
+  - gdp_deflator_inflation
+  - bank_lending_spread
+  - house_price_real
+
+foreign_block:
+  - ea_short_rate
+  - ea_cpi_inflation
+  - ea_gdp_real
+  - latvia_foreign_demand
+  - export_competitor_price
+  - neer

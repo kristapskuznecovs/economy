@@ -1,0 +1,33 @@
+# Fiscal calibrated parameters (Table 1)
+# Source: Working Paper 5/2020, Appendix C (fiscal block table).
+
+eta_g: 0.3800          # Steady-state government spending share per GDP
+
+dgy: 0.3000            # Target public debt per annual GDP
+omega_h: 0.1000        # Share of public debt held domestically
+
+tau_k: 0.1000          # Steady-state capital income tax rate
+tau_w_e: 0.1550        # SSC employer rate
+tau_w_w: 0.0610        # SSC employee rate
+tau_c: 0.2100          # Consumption tax rate
+tau_y: 0.1640          # Labour income tax rate
+
+lambda_m_g_c: 1.0500   # Price mark-up for imported public consumption good
+lambda_m_g_i: 1.0500   # Price mark-up for imported public investment good
+omega_g_c: 0.1300      # Import share in public consumption goods
+omega_g_i: 0.4500      # Import share in public investment goods
+
+tau_r_tr: 0.7000       # Transfer share going to restricted households
+
+tau_c_g: 0.4630        # Public consumption share in total government spending
+tau_i_g: 0.1170        # Public investment share in total government spending
+tau_tr_g: 0.3000       # Transfers share in total government spending
+
+alpha_k: 0.8500        # Share of private capital in aggregate capital bundle
+b0: 1.0000             # Time-to-build parameter (period t)
+b1: 0.0000             # Time-to-build parameter (period t-1)
+
+phi_tilde_g_r: 0.0050  # Risk premium sensitivity; table reports 10*phi_tilde_g_r = 0.0500
+
+theta_ls_d: 0.0000     # Lump-sum tax rule reaction to debt gap
+theta_ls_y: 0.0000     # Lump-sum tax rule reaction to output gap

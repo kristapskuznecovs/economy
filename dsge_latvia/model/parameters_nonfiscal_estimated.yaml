@@ -1,0 +1,178 @@
+# Estimated parameters and shocks, non-fiscal part (Table 5)
+# Source: Working Paper 5/2020, Appendix C.
+
+xi_d:
+  prior: {dist: beta, mean: 0.75, sd: 0.075}
+  posterior: {mode: 0.781, sd: 0.017}
+
+xi_x:
+  prior: {dist: beta, mean: 0.75, sd: 0.075}
+  posterior: {mode: 0.836, sd: 0.022}
+
+xi_m_c:
+  prior: {dist: beta, mean: 0.75, sd: 0.075}
+  posterior: {mode: 0.944, sd: 0.010}
+
+xi_m_i:
+  prior: {dist: beta, mean: 0.75, sd: 0.075}
+  posterior: {mode: 0.650, sd: 0.032}
+
+xi_m_x:
+  prior: {dist: beta, mean: 0.66, sd: 0.10}
+  posterior: {mode: 0.809, sd: 0.024}
+
+kappa_d:
+  prior: {dist: beta, mean: 0.50, sd: 0.15}
+  posterior: {mode: 0.152, sd: 0.043}
+
+kappa_x:
+  prior: {dist: beta, mean: 0.05, sd: 0.02}
+  posterior: {mode: 0.069, sd: 0.009}
+
+kappa_m_c:
+  prior: {dist: beta, mean: 0.50, sd: 0.15}
+  posterior: {mode: 0.448, sd: 0.077}
+
+kappa_m_i:
+  prior: {dist: beta, mean: 0.50, sd: 0.15}
+  posterior: {mode: 0.247, sd: 0.040}
+
+kappa_m_x:
+  prior: {dist: beta, mean: 0.05, sd: 0.02}
+  posterior: {mode: 0.048, sd: 0.006}
+
+nu_working_capital:
+  prior: {dist: beta, mean: 0.50, sd: 0.10}
+  posterior: {mode: 0.548, sd: 0.017}
+
+b_habit:
+  prior: {dist: beta, mean: 0.65, sd: 0.15}
+  posterior: {mode: 0.660, sd: 0.056}
+
+S_dd_times0_1:
+  prior: {dist: gamma, mean: 0.40, sd: 0.15}
+  posterior: {mode: 0.069, sd: 0.013}
+
+sigma_u:
+  prior: {dist: gamma, mean: 0.30, sd: 0.10}
+  posterior: {mode: 0.291, sd: 0.027}
+
+eta_x:
+  prior: {dist: gamma, mean: 1.50, sd: 0.25}
+  posterior: {mode: 1.349, sd: 0.050}
+
+eta_c:
+  prior: {dist: gamma, mean: 1.50, sd: 0.25}
+  posterior: {mode: 1.668, sd: 0.081}
+
+eta_i:
+  prior: {dist: gamma, mean: 1.50, sd: 0.25}
+  posterior: {mode: 1.125, sd: 0.044}
+
+eta_f:
+  prior: {dist: gamma, mean: 1.50, sd: 0.25}
+  posterior: {mode: 1.010, sd: 0.034}
+
+mu_monitoring:
+  prior: {dist: beta, mean: 0.35, sd: 0.075}
+  posterior: {mode: 0.474, sd: 0.014}
+
+F_omega_bar:
+  prior: {dist: beta, mean: 0.015, sd: 0.002}
+  posterior: {mode: 0.020, sd: 0.001}
+
+hshare:
+  prior: {dist: gamma, mean: 0.20, sd: 0.075}
+  posterior: {mode: 0.180, sd: 0.042}
+
+woo:
+  prior: {dist: beta, mean: 0.40, sd: 0.075}
+  posterior: {mode: 0.541, sd: 0.014}
+
+alpha_wo:
+  prior: {dist: beta, mean: 0.90, sd: 0.075}
+  posterior: {mode: 0.891, sd: 0.019}
+
+rho_e:
+  prior: {dist: beta, mean: 0.85, sd: 0.075}
+  posterior: {mode: 0.911, sd: 0.022}
+
+rho_psi:
+  prior: {dist: beta, mean: 0.85, sd: 0.075}
+  posterior: {mode: 0.579, sd: 0.018}
+
+rho_zc:
+  prior: {dist: beta, mean: 0.85, sd: 0.075}
+  posterior: {mode: 0.739, sd: 0.028}
+
+rho_phi:
+  prior: {dist: beta, mean: 0.85, sd: 0.075}
+  posterior: {mode: 0.959, sd: 0.014}
+
+rho_g:
+  prior: {dist: beta, mean: 0.85, sd: 0.075}
+  posterior: {mode: 0.841, sd: 0.020}
+
+rho_gamma:
+  prior: {dist: beta, mean: 0.85, sd: 0.075}
+  posterior: {mode: 0.675, sd: 0.023}
+
+rho_ex:
+  prior: {dist: beta, mean: 0.85, sd: 0.075}
+  posterior: {mode: 0.869, sd: 0.031}
+
+rho_wo:
+  prior: {dist: beta, mean: 0.80, sd: 0.075}
+  posterior: {mode: 0.911, sd: 0.012}
+
+# Shock standard deviations
+sigma_e_times10:
+  prior: {dist: inv_gamma, mean: 0.10, sd: inf}
+  posterior: {mode: 0.100, sd: 0.010}
+
+sigma_psi:
+  prior: {dist: inv_gamma, mean: 0.15, sd: inf}
+  posterior: {mode: 0.101, sd: 0.015}
+
+sigma_zc:
+  prior: {dist: inv_gamma, mean: 0.15, sd: inf}
+  posterior: {mode: 0.075, sd: 0.018}
+
+sigma_phi_times100:
+  prior: {dist: inv_gamma, mean: 0.40, sd: inf}
+  posterior: {mode: 0.097, sd: 0.009}
+
+sigma_td:
+  prior: {dist: inv_gamma, mean: 0.10, sd: inf}
+  posterior: {mode: 0.232, sd: 0.070}
+
+sigma_tx:
+  prior: {dist: inv_gamma, mean: 0.40, sd: inf}
+  posterior: {mode: 0.104, sd: 0.032}
+
+sigma_tm_c:
+  prior: {dist: inv_gamma, mean: 0.50, sd: inf}
+  posterior: {mode: 0.617, sd: 0.264}
+
+sigma_tm_i:
+  prior: {dist: inv_gamma, mean: 0.50, sd: inf}
+  posterior: {mode: 0.926, sd: 0.283}
+
+sigma_tm_x:
+  prior: {dist: inv_gamma, mean: 0.50, sd: inf}
+  posterior: {mode: 0.305, sd: 0.099}
+
+sigma_gamma_times10:
+  prior: {dist: inv_gamma, mean: 0.15, sd: inf}
+  posterior: {mode: 0.280, sd: 0.026}
+
+sigma_ex_times10:
+  prior: {dist: inv_gamma, mean: 0.15, sd: inf}
+  posterior: {mode: 0.169, sd: 0.033}
+
+sigma_wo_times10:
+  prior: {dist: inv_gamma, mean: 0.10, sd: inf}
+  posterior: {mode: 0.189, sd: 0.022}
+
+model_fit:
+  log_marginal_likelihood: -4491.7

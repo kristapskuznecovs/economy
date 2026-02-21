@@ -1,0 +1,47 @@
+# Non-fiscal calibrated parameters (Table 3) and targeted/implied values (Table 4)
+# Source: Working Paper 5/2020, Appendix C.
+
+# Table 3: Calibrated parameters (core block)
+alpha: 0.4000            # Capital share in production of intermediate goods
+beta: 0.9995             # Time discount factor (optimizing households)
+omega_c: 0.4500          # Import share in consumption goods
+omega_i: 0.6500          # Import share in investment goods
+omega_x: 0.3300          # Import share in export goods
+phi_tilde: 0.0100        # Elasticity of domestic risk premium to net foreign assets
+mu_z: 1.0031             # Steady-state quarterly growth rate of neutral technology
+mu_psi: 1.0000           # Steady-state growth rate of investment technology
+pi_bar: 1.0043           # Steady-state gross inflation target
+lambda_d: 1.3000         # Price mark-up for domestic good
+lambda_m_c: 1.0500       # Price mark-up for imported consumption good
+lambda_m_i: 1.0500       # Price mark-up for imported investment good
+lambda_m_x: 1.0500       # Price mark-up for imported exports good
+lambda_x: 1.0500         # Price mark-up for exported good
+nu_working_capital_d: 0.5483  # Working capital fraction, intermediate good
+nu_working_capital_m: 0.5483  # Working capital fraction, imports
+nu_working_capital_x: 0.5483  # Working capital fraction, exports
+lambda_r: 0.5000         # Share of restricted households
+theta_diffusion: 0.5000  # Technology diffusion parameter (common)
+
+# Table 3: Financial frictions block
+W_over_y_times100: 0.1000  # Transfers to entrepreneurs (100 * W / y)
+
+# Table 3: Labour market block
+L_bar: 0.8744             # Steady-state employment rate
+bshare: 0.1000            # Unemployment benefit share of gross wage
+vshare_pct: 0.0000        # Vacancy posting cost as share of GDP
+rho_match: 0.7000         # Exogenous survival rate of a match
+sigma_match: 0.7392       # Unemployment share in matching technology
+
+# Table 4: Targeted steady states
+exports_to_output: 0.6100  # Exports to gross output
+investment_to_output: 0.2200  # Investment to gross output
+net_worth_to_capital: 0.7000  # Firm net worth to capital
+
+# Table 4: Implied parameters
+delta: 0.0412            # Capital quarterly depreciation rate
+phi_x_real: 0.8867        # Real exchange rate
+gamma: 0.9542            # Entrepreneurial survival rate
+sigma_level: 0.6823       # Level parameter in matching function
+job_finding_rate: 0.6762
+vacancy_rate: 0.4286
+consumption_to_output: 0.6477  # Private consumption to gross output

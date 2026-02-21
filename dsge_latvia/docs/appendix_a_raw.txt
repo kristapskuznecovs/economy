@@ -1,0 +1,201 @@
+
+--- page 46 ---
+F IS C A L D S G E MOD EL F O R L A TVI A 5 / 2 0 2 0
+APPENDIX A. FIRST-ORDER (MARGINAL COST) CONDITIONS
+A.1 Model without public capital
+Intermediate goods firms minimize total costs subject to the production function.
+Therefore, the optimization problem we solve here is:
+min(cid:3419)𝑇𝐶 = 𝜏(cid:3031)𝜔 𝑅(cid:3033) 𝐿 +𝜏(cid:3031)𝑟(cid:3038)𝐾 +𝑧(cid:2878)𝜙(cid:3423) (52)
+(cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3047)
+{(cid:3013)(cid:3295),(cid:3012)(cid:3295)}
+subject to
+𝑌 = (𝑧 𝐿 )(cid:2869)(cid:2879)(cid:3080)𝜀 𝐾(cid:3080) −𝑧(cid:2878)𝜙 (53).
+(cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3047)
+The Lagrange multiplier is denoted by 𝑚𝑐 , as it equals the real marginal costs
+(cid:3047)
+function in equilibrium. The first order conditions are:
+𝐾 : 𝜏(cid:3031)𝑟(cid:3038) = 𝑚𝑐 (𝑧 𝐿 )(cid:2869)(cid:2879)(cid:3080)𝜀 𝛼𝐾(cid:3080)(cid:2879)(cid:2869) (54),
+(cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3047)
+𝐿 : 𝜏(cid:3031)𝑅(cid:3033) 𝜔 = 𝑚𝑐 (1−𝛼)𝑧(cid:2869)(cid:2879)(cid:3080)𝐿(cid:2879)(cid:3080)𝜀 𝐾(cid:3080) (55).
+(cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3047)
+Re-normalized, these conditions become:
+(cid:3080)(cid:2879)(cid:2869)
+𝜏(cid:3031)𝑟̅(cid:3038) = 𝑚𝑐 𝛼𝜀 𝐿(cid:2869)(cid:2879)(cid:3080)(cid:3436) (cid:3038)(cid:3295) (cid:3440) (56),
+(cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3047)
+(cid:3091)(cid:3301)(cid:3126),(cid:3295)(cid:3091)(cid:3351),(cid:3295)
+(cid:3080)
+𝜏(cid:3031)𝑅(cid:3033) 𝜔(cid:3365) = 𝑚𝑐 (1−𝛼)𝜀 𝐿(cid:2879)(cid:3080)(cid:3436) (cid:3038)(cid:3295) (cid:3440) (57).
+(cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3091)(cid:3301)(cid:3126),(cid:3295)(cid:3091)(cid:3351),(cid:3295)
+These normalized conditions can also be written as follows:
+(cid:3099)(cid:3279)(cid:3045)̅(cid:3286)
+𝑚𝑐 = (cid:3295) (cid:3295) (58),
+(cid:3047) (cid:3328)(cid:3127)(cid:3117)
+(cid:3080)(cid:3084)(cid:3295)(cid:4678) (cid:3339)(cid:3301)(cid:3126),(cid:3295)(cid:3286) (cid:3339)(cid:3295) (cid:3351),(cid:3295)(cid:3261)(cid:3295)(cid:4679)
+𝑚𝑐 =
+(cid:3099) (cid:3295)(cid:3279)(cid:3019) (cid:3295)(cid:3281) (cid:3104)(cid:3365)(cid:3295)
+(59).
+(cid:3047) (cid:3328)
+((cid:2869)(cid:2879)(cid:3080))(cid:3084)(cid:3295)(cid:4678) (cid:3339)(cid:3301)(cid:3126),(cid:3295)(cid:3286) (cid:3339)(cid:3295) (cid:3351),(cid:3295)(cid:3261)(cid:3295)(cid:4679)
+Equating equations (58) and (59) and substituting the following resulting equation,
+i.e.
+(cid:3281)
+(cid:3038)(cid:3295)
+=
+(cid:3019) (cid:3295)(cid:3104)(cid:3365)(cid:3295)(cid:3013)(cid:3295) (cid:3080)
+(60),
+(cid:3091)(cid:3301)(cid:3126),(cid:3295)(cid:3091)(cid:3351),(cid:3295) (cid:3045) (cid:3295)̅(cid:3286) (cid:2869)(cid:2879)(cid:3080)
+into equation (58) leads to the following expression after some simple algebra:
+𝑚𝑐 =
+(cid:3099) (cid:3295)(cid:3279) (cid:4672)(cid:2869) (cid:4673)(cid:3080)
+(cid:4672)
+(cid:2869) (cid:4673)(cid:2869)(cid:2879)(cid:3080) (𝑟̅(cid:3038))(cid:3080)(cid:3435)𝑅(cid:3033)
+𝜔(cid:3365)
+(cid:3439)(cid:2869)(cid:2879)(cid:3080)
+(61).
+(cid:3047) (cid:3084)(cid:3295) (cid:3080) (cid:2869)(cid:2879)(cid:3080) (cid:3047) (cid:3047) (cid:3047)
+A.2 Model with public capital in CES bundle
+Intermediate goods firms minimize total costs subject to the production function.
+Therefore, the optimization problem we solve here is:
+min(cid:3419)𝑇𝐶 = 𝜏(cid:3031)𝜔 𝑅(cid:3033) 𝐿 +𝜏(cid:3031)𝑟(cid:3038)𝐾 +𝑧(cid:2878)𝜙(cid:3423) (62),
+(cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3047)
+{(cid:3013)(cid:3295),(cid:3012)(cid:3295)}
+subject to
+47
+
+
+--- page 47 ---
+F IS C A L D S G E MOD EL F O R L A TVI A 5 / 2 0 2 0
+𝑌 = (𝑧 𝐿 )(cid:2869)(cid:2879)(cid:3080)𝜀 𝐾(cid:3561)(cid:3080) −𝑧(cid:2878)𝜙 (63)
+(cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3047)
+where:
+(cid:3340)(cid:3286)
+(cid:3117) (cid:3340)(cid:3286)(cid:3127)(cid:3117) (cid:3117) (cid:3340)(cid:3286)(cid:3127)(cid:3117) (cid:3340)(cid:3286)(cid:3127)(cid:3117)
+𝐾(cid:3561)
+(cid:3047)
+= (cid:4678)𝛼 (cid:3038)(cid:3340)(cid:3286)(𝐾 (cid:3047)) (cid:3340)(cid:3286) +(1−𝛼 (cid:3038))(cid:3340)(cid:3286)(𝐾 (cid:3034),(cid:3047)) (cid:3340)(cid:3286) (cid:4679) (64).
+The Lagrange multiplier is denoted by 𝑚𝑐 as it equals the real marginal costs function
+(cid:3047)
+in equilibrium. The first order conditions are:
+𝐾 : 𝜏(cid:3031)𝑟(cid:3038) = 𝑚𝑐 (𝑧 𝐿 )(cid:2869)(cid:2879)(cid:3080)𝜀 𝛼𝛼(cid:2869)/(cid:3092)(cid:3286)𝐾(cid:3561)(cid:3080)(cid:2878)(cid:2869)/(cid:3092)(cid:3286)(cid:2879)(cid:2869) 𝐾(cid:2879)(cid:2869)/(cid:3092)(cid:3286) (65),
+(cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3038) (cid:3047) (cid:3047)
+𝐿 : 𝜏(cid:3031)𝑅(cid:3033) 𝜔 = 𝑚𝑐 (1−𝛼)𝑧(cid:2869)(cid:2879)(cid:3080)𝐿(cid:2879)(cid:3080)𝜀 𝐾(cid:3561)(cid:3080) (66).
+(cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3047)
+Re-normalized, these conditions become:
+𝜏(cid:3031)𝑟̅(cid:3038) = 𝑚𝑐 𝛼𝛼(cid:2869)/(cid:3092)(cid:3286)𝜀 𝐿(cid:2869)(cid:2879)(cid:3080)(cid:3436) (cid:3038)(cid:3560) (cid:3295)
+(cid:3440)(cid:3080)(cid:2878)(cid:2869)/(cid:3092)(cid:3286)(cid:2879)(cid:2869)
+(cid:3436) (cid:3038)(cid:3295)
+(cid:3440)(cid:2879)(cid:2869)/(cid:3092)(cid:3286)
+(67),
+(cid:3047) (cid:3047) (cid:3047) (cid:3038) (cid:3047) (cid:3047) (cid:3091)(cid:3301)(cid:3126),(cid:3295)(cid:3091)(cid:3351),(cid:3295) (cid:3091)(cid:3301)(cid:3126),(cid:3295)(cid:3091)(cid:3351),(cid:3295)
+(cid:3080)
+𝜏(cid:3031)𝑅(cid:3033) 𝜔(cid:3365) = 𝑚𝑐 (1−𝛼)𝜀 𝐿(cid:2879)(cid:3080)(cid:3436) (cid:3038)(cid:3560) (cid:3295) (cid:3440) (68).
+(cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3091)(cid:3301)(cid:3126),(cid:3295)(cid:3091)(cid:3351),(cid:3295)
+These normalized conditions can also be written as follows:
+(cid:3099)(cid:3279)(cid:3045)̅(cid:3286)
+𝑚𝑐 = (cid:3295) (cid:3295) (69),
+(cid:3047)
+(cid:3080)(cid:3080) (cid:3286)(cid:3117)/(cid:3340)(cid:3286)(cid:3084)(cid:3295)(cid:4678) (cid:3339)(cid:3301)(cid:3126),(cid:3295)(cid:3286)(cid:3561) (cid:3339)(cid:3295)
+(cid:3351),(cid:3295)(cid:3261)(cid:3295)(cid:4679)(cid:3328)(cid:3126)(cid:3117)/(cid:3340)(cid:3286)(cid:3127)(cid:3117)
+(cid:4678) (cid:3339)(cid:3301)(cid:3126),(cid:3295)(cid:3286) (cid:3339)(cid:3295)
+(cid:3351),(cid:3295)(cid:3261)(cid:3295)(cid:4679)(cid:3127)(cid:3117)/(cid:3340)(cid:3286)
+𝑚𝑐 =
+(cid:3099) (cid:3295)(cid:3279)(cid:3019) (cid:3295)(cid:3281) (cid:3104)(cid:3365)(cid:3295)
+(70).
+(cid:3047) (cid:3328)
+((cid:2869)(cid:2879)(cid:3080))(cid:3084)(cid:3295)(cid:4678)
+(cid:3339)(cid:3301)(cid:3126),(cid:3295)(cid:3286)(cid:3561)
+(cid:3339)(cid:3295) (cid:3351),(cid:3295)(cid:3261)(cid:3295)(cid:4679)
+Equating equations (69) and (70) and substituting the following resulting equation,
+i.e.
+(cid:3038)(cid:3295) = (cid:3436) (cid:3045) (cid:3295)̅(cid:3286) (cid:3440)(cid:2879)(cid:3092)(cid:3286) (cid:4672)(cid:2869)(cid:2879)(cid:3080) (cid:4673)(cid:2879)(cid:3092)(cid:3286) 𝛼 (cid:3436) (cid:3038)(cid:3560) (cid:3295) (cid:3440)(cid:2869)(cid:2879)(cid:3092)(cid:3286) (71),
+(cid:3091)(cid:3301)(cid:3126),(cid:3295)(cid:3091)(cid:3351),(cid:3295) (cid:3019) (cid:3295)(cid:3281) (cid:3104)(cid:3365)(cid:3295)(cid:3013)(cid:3295) (cid:3080) (cid:3038) (cid:3091)(cid:3301)(cid:3126),(cid:3295)(cid:3091)(cid:3351),(cid:3295)
+into equation (69) leads to the following expression after some simple algebra:
+𝑚𝑐 = (cid:3099) (cid:3295)(cid:3279) (cid:3436) (cid:3038)(cid:3560) (cid:3295) (cid:3440)(cid:2879)(cid:3080) (cid:3019) (cid:3295)(cid:3281) (cid:3104)(cid:3365)(cid:3295) (72).
+(cid:3047)
+(cid:3084)(cid:3295) (cid:3091)(cid:3301)(cid:3126),(cid:3295)(cid:3091)(cid:3351),(cid:3295)(cid:3013)(cid:3295) (cid:2869)(cid:2879)(cid:3080)
+Alternatively, equating equations (69) and (70) and substituting the following
+resulting equation, i.e.
+(cid:3038)(cid:3560) (cid:3295) = (cid:3436) (cid:3045) (cid:3295)̅(cid:3286) (cid:3440)(cid:3092)(cid:3286)/((cid:2869)(cid:2879)(cid:3092)(cid:3286)) (cid:4672)(cid:2869)(cid:2879)(cid:3080) (cid:4673)(cid:3092)(cid:3286)/((cid:2869)(cid:2879)(cid:3092)(cid:3286)) 𝛼(cid:3092)(cid:3286)(cid:2879)(cid:2869) (cid:3436) (cid:3038)(cid:3295) (cid:3440)(cid:2869)/((cid:2869)(cid:2879)(cid:3092)(cid:3286)) (73),
+(cid:3091)(cid:3301)(cid:3126),(cid:3295)(cid:3091)(cid:3351),(cid:3295) (cid:3019) (cid:3295)(cid:3281) (cid:3104)(cid:3365)(cid:3295)(cid:3013)(cid:3295) (cid:3080) (cid:3038) (cid:3091)(cid:3301)(cid:3126),(cid:3295)(cid:3091)(cid:3351),(cid:3295)
+into equation (72) lead to the following expression after some not so simple algebra:
+𝑚𝑐
+(cid:3047)
+= (cid:3099) (cid:3084)(cid:3295)(cid:3279)
+(cid:3295)
+(cid:3435)𝑅 (cid:3047)(cid:3033) 𝜔(cid:3365) (cid:3047)(cid:3439)(cid:3117)(cid:3328) (cid:3127)(cid:3340) (cid:3340)(cid:3286) (cid:3286)(cid:2878)(cid:2869) (𝑟 (cid:3047)̅(cid:3038))(cid:3340)(cid:3328) (cid:3286)(cid:3340) (cid:3127)(cid:3286) (cid:3117)(𝛼)(cid:3117)(cid:3328) (cid:3127)(cid:3340) (cid:3340)(cid:3286) (cid:3286)(𝛼 (cid:3038))(cid:3117)(cid:3127)(cid:3328) (cid:3340)(cid:3286)(1−𝛼)(cid:3340)(cid:3328) (cid:3286)(cid:3340) (cid:3127)(cid:3286) (cid:3117)(cid:2879)(cid:2869) (cid:3436) (cid:3091)(cid:3301)(cid:3126),(cid:3295)(cid:3038) (cid:3091)(cid:3295) (cid:3351),(cid:3295)(cid:3013)(cid:3295)(cid:3440)(cid:3340)(cid:3286)(cid:3328) (cid:3127)(cid:3117) (74).
+48
+
+
+--- page 48 ---
+F IS C A L D S G E MOD EL F O R L A TVI A 5 / 2 0 2 0
+A.3 Model with public capital as an additional production factor
+Intermediate goods firms minimize total costs subject to the production function.
+Therefore, the optimization problem we solve here is:
+min(cid:3419)𝑇𝐶 = 𝜏(cid:3031)𝜔 𝑅(cid:3033) 𝐿 +𝜏(cid:3031)𝑟(cid:3038)𝐾 +𝑧(cid:2878)𝜙(cid:3423) (75)
+(cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3047)
+{(cid:3013)(cid:3295),(cid:3012)(cid:3295)}
+subject to
+𝑌 = 𝑧(cid:2869)(cid:2879)(cid:3080)(cid:2879)(cid:3080)(cid:3286)𝐿(cid:2869)(cid:2879)(cid:3080)𝜀 𝐾(cid:3080)𝐾(cid:3080)(cid:3286) −𝑧(cid:2878)𝜙 (76).
+(cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3008),(cid:3047) (cid:3047)
+The Lagrange multiplier is denoted by 𝑚𝑐 , as it equals the real marginal costs
+(cid:3047)
+function in equilibrium. The first order conditions are:
+𝐾 :𝜏(cid:3031)𝑟(cid:3038) = 𝑚𝑐 𝑧(cid:2869)(cid:2879)(cid:3080)(cid:2879)(cid:3080)(cid:3286)𝐿(cid:2869)(cid:2879)(cid:3080)𝜀 𝛼𝐾(cid:3080)(cid:2879)(cid:2869)(𝐾 )(cid:3080)(cid:3286) (77),
+(cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3008),(cid:3047)
+𝐿 :𝜏(cid:3031)𝑅(cid:3033) 𝜔 = 𝑚𝑐 (1−𝛼)𝑧(cid:2869)(cid:2879)(cid:3080)(cid:2879)(cid:3080)(cid:3286)𝐿(cid:2879)(cid:3080)𝜀 𝐾(cid:3080)(𝐾 )(cid:3080)(cid:3286) (78).
+(cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3008),(cid:3047)
+Re-normalized, these conditions become:
+𝜏(cid:3031)𝑟̅(cid:3038) = 𝑚𝑐 𝛼𝜀 𝐿(cid:2869)(cid:2879)(cid:3080)(cid:3436) (cid:3038)(cid:3295)
+(cid:3440)(cid:3080)(cid:2879)(cid:2869)
+(cid:3436) (cid:3038)(cid:3256),(cid:3295)
+(cid:3440)(cid:3080)(cid:3286)
+(79),
+(cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3047)
+(cid:3091)(cid:3301)(cid:3126),(cid:3295)(cid:3091)(cid:3351),(cid:3295) (cid:3091)(cid:3301)(cid:3126),(cid:3295)(cid:3091)(cid:3351),(cid:3295)
+𝜏(cid:3031)𝑅(cid:3033) 𝜔(cid:3365) = 𝑚𝑐 (1−𝛼)𝜀 𝐿(cid:2879)(cid:3080)(cid:3436) (cid:3038)(cid:3295)
+(cid:3440)(cid:3080)
+(cid:3436) (cid:3038)(cid:3256),(cid:3295)
+(cid:3440)(cid:3080)(cid:3286)
+(80).
+(cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3091)(cid:3301)(cid:3126),(cid:3295)(cid:3091)(cid:3351),(cid:3295) (cid:3091)(cid:3301)(cid:3126),(cid:3295)(cid:3091)(cid:3351),(cid:3295)
+Note that the definition of 𝑧(cid:2878) changes into the following one:
+(cid:3047)
+(cid:3328)(cid:3126)(cid:3328)(cid:3286)
+𝑧(cid:2878) = Ψ(cid:3117)(cid:3127)(cid:3328)(cid:3127)(cid:3328)(cid:3286)𝑧 (81).
+(cid:3047) (cid:3047) (cid:3047)
+These normalized conditions can also be written as follows:
+(cid:3099)(cid:3279)(cid:3045)̅(cid:3286)
+𝑚𝑐 = (cid:3295) (cid:3295) (82),
+(cid:3047)
+(cid:3080)(cid:3084)(cid:3295)(cid:4678) (cid:3339)(cid:3301)(cid:3126),(cid:3295)(cid:3286) (cid:3339)(cid:3295)
+(cid:3351),(cid:3295)(cid:3261)(cid:3295)(cid:4679)(cid:3328)(cid:3127)(cid:3117)
+(cid:4678) (cid:3339)(cid:3301)(cid:3126)(cid:3286) ,(cid:3256) (cid:3295)(cid:3339),(cid:3295)
+(cid:3351),(cid:3295)(cid:4679)(cid:3328)(cid:3286)
+𝑚𝑐 =
+(cid:3099) (cid:3295)(cid:3279)(cid:3019) (cid:3295)(cid:3281) (cid:3104)(cid:3365)(cid:3295)
+(83).
+(cid:3047)
+((cid:2869)(cid:2879)(cid:3080))(cid:3084)(cid:3295)(cid:4678) (cid:3339)(cid:3301)(cid:3126),(cid:3295)(cid:3286) (cid:3339)(cid:3295)
+(cid:3351),(cid:3295)(cid:3261)(cid:3295)(cid:4679)(cid:3328)
+(cid:4678) (cid:3339)(cid:3301)(cid:3126)(cid:3286) ,(cid:3256) (cid:3295)(cid:3339),(cid:3295)
+(cid:3351),(cid:3295)(cid:4679)(cid:3328)(cid:3286)
+Equating equations (82) and (83) and substituting the following resulting equation,
+i.e.
+(cid:3281)
+(cid:3038)(cid:3295)
+=
+(cid:3019) (cid:3295)(cid:3104)(cid:3365)(cid:3295)(cid:3013)(cid:3295) (cid:3080)
+(84),
+(cid:3091)(cid:3301)(cid:3126),(cid:3295)(cid:3091)(cid:3351),(cid:3295) (cid:3045) (cid:3295)̅(cid:3286) (cid:2869)(cid:2879)(cid:3080)
+into equation (82) leads to the following expression after some simple algebra:
+𝑚𝑐 =
+(cid:3099) (cid:3295)(cid:3279) (cid:4672)(cid:2869) (cid:4673)(cid:3080)
+(cid:4672)
+(cid:2869) (cid:4673)(cid:2869)(cid:2879)(cid:3080) (𝑟̅(cid:3038))(cid:3080)(cid:3435)𝑅(cid:3033)
+𝜔(cid:3365)
+(cid:3439)(cid:2869)(cid:2879)(cid:3080)
+(cid:3436)
+(cid:3038)(cid:3256),(cid:3295) (cid:3440)(cid:2879)(cid:3080)(cid:3286)
+(85).
+(cid:3047) (cid:3084)(cid:3295) (cid:3080) (cid:2869)(cid:2879)(cid:3080) (cid:3047) (cid:3047) (cid:3047) (cid:3091)(cid:3301)(cid:3126),(cid:3295)(cid:3091)(cid:3351),(cid:3295)
+49

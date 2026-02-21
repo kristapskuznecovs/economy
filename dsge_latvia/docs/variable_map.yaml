@@ -1,0 +1,158 @@
+# Variable mapping and definitions (step-by-step, verified where possible)
+# status: verified | needs_review
+
+alpha:
+  meaning: Capital share in intermediate goods production
+  source: Table 3 (WP 5/2020)
+  status: verified
+
+alpha_k:
+  meaning: Share of private capital in aggregate capital bundle
+  source: Table 1 (fiscal block)
+  status: verified
+
+nu_k:
+  meaning: Elasticity of substitution between private and public capital
+  source: Table 2 (fiscal block, estimated)
+  status: verified
+
+mu_z:
+  meaning: Steady-state quarterly growth rate of neutral technology
+  source: Table 3 (core block)
+  status: verified
+
+mu_psi:
+  meaning: Steady-state growth rate of investment technology
+  source: Table 3 (core block)
+  status: verified
+
+pi_bar:
+  meaning: Steady-state gross inflation target
+  source: Table 3 (core block)
+  status: verified
+
+omega_c:
+  meaning: Import share in consumption goods
+  source: Table 3 (core block)
+  status: verified
+
+omega_i:
+  meaning: Import share in investment goods
+  source: Table 3 (core block)
+  status: verified
+
+omega_x:
+  meaning: Import share in export goods
+  source: Table 3 (core block)
+  status: verified
+
+lambda_r:
+  meaning: Share of restricted households
+  source: Table 3 (core block)
+  status: verified
+
+# Variables from Appendix A FOCs
+TC_t:
+  meaning: Total costs of intermediate goods firms
+  source: Appendix A (Eq. 52/62/75)
+  status: verified
+
+Y_t:
+  meaning: Intermediate goods output
+  source: Appendix A (Eq. 53/63/76)
+  status: verified
+
+z_t:
+  meaning: Neutral technology level (stationary component)
+  source: Appendix A (Eq. 53/63/76)
+  status: needs_review
+
+z_t_plus:
+  meaning: Trend component (normalization term) in production; redefined in Eq. 81
+  source: Appendix A (Eq. 53/63/76/81)
+  status: needs_review
+
+psi_t:
+  meaning: Appears in z_t_plus redefinition (Eq. 81)
+  source: Appendix A (Eq. 81)
+  status: needs_review
+
+eps_t:
+  meaning: Technology shock in production
+  source: Appendix A (Eq. 53/63/76)
+  status: needs_review
+
+phi:
+  meaning: Fixed production cost
+  source: Appendix A (Eq. 52/53)
+  status: needs_review
+
+K_t:
+  meaning: Private capital stock
+  source: Appendix A (Eq. 52/53)
+  status: verified
+
+K_g_t:
+  meaning: Public capital stock (CES bundle)
+  source: Appendix A (Eq. 64)
+  status: verified
+
+K_G_t:
+  meaning: Public capital stock (additional production factor)
+  source: Appendix A (Eq. 76)
+  status: verified
+
+K_tilde_t:
+  meaning: CES aggregate of private and public capital
+  source: Appendix A (Eq. 64)
+  status: verified
+
+L_t:
+  meaning: Labor input
+  source: Appendix A (Eq. 52/53)
+  status: verified
+
+mc_t:
+  meaning: Real marginal cost (Lagrange multiplier)
+  source: Appendix A (Eq. 54+)
+  status: verified
+
+r_t_k:
+  meaning: Rental rate of private capital
+  source: Appendix A (Eq. 52/54)
+  status: needs_review
+
+r_bar_t_k:
+  meaning: Normalized rental rate of capital
+  source: Appendix A (Eq. 56/67/79)
+  status: needs_review
+
+R_t_f:
+  meaning: Risk-free (gross) interest rate (working capital rate)
+  source: Appendix A (Eq. 52/55)
+  status: needs_review
+
+omega_t:
+  meaning: Real wage (appears in wage bill with working capital rate)
+  source: Appendix A (Eq. 52/55)
+  status: needs_review
+
+omega_bar_t:
+  meaning: Normalized real wage
+  source: Appendix A (Eq. 56/57)
+  status: needs_review
+
+tau_t_d:
+  meaning: Price dispersion term or domestic tax wedge (multiplies input costs)
+  source: Appendix A (Eq. 52)
+  status: needs_review
+
+k_t:
+  meaning: Normalized private capital (stationarized)
+  source: Appendix A (Eq. 56+)
+  status: needs_review
+
+k_G_t:
+  meaning: Normalized public capital (stationarized)
+  source: Appendix A (Eq. 79+)
+  status: needs_review

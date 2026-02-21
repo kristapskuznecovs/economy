@@ -1,0 +1,239 @@
+
+--- page 53 ---
+F IS C A L D S G E MOD EL F O R L A TVI A 5 / 2 0 2 0
+APPENDIX C. CALIBRATION AND ESTIMATION OF THE NON-FISCAL PART OF THE
+MODEL
+Table 3
+Calibrated parameters, non-fiscal part
+Parameter Value Description
+Core block
+𝛼 0.4000 Capital share in production of intermediate goods
+𝛽 0.9995 Time discount factor, optimizing households
+𝜔 0.4500 Import share in consumption goods
+(cid:3030)
+𝜔 0.6500 Import share in investment goods
+(cid:3036)
+𝜔 0.3300 Import share in export goods
+(cid:3051)
+𝜙(cid:3560) 0.0100 Elasticity of domestic risk premium to net foreign assets position
+(cid:3028)
+𝜇 1.0031 Steady-state quarterly growth rate of neutral technology
+(cid:3053)
+𝜇 1.0000 Steady-state growth rate of investment technology
+(cid:3103)
+𝜋(cid:3364) 1.0043 Steady-state gross inflation target
+𝜆 1.3000 Price mark-up for domestic good
+(cid:3031)
+𝜆 1.0500 Price mark-up for imported consumption good
+(cid:3040),(cid:3030)
+𝜆 1.0500 Price mark-up for imported investment good
+(cid:3040),(cid:3036)
+𝜆 1.0500 Price mark-up for imported exports good
+(cid:3040),(cid:3051)
+𝜆 1.0500 Price mark-up for exported good
+(cid:3051)
+𝜈(cid:3033) 0.5483 Working capital fraction, intermediate good
+𝜈∗ 0.5483 Working capital fraction, imports
+𝜈(cid:3051) 0.5483 Working capital fraction, exports
+𝜆 0.5000 Share of restricted households
+(cid:3045)
+𝜃(cid:3031) 0.5000 Technology diffusion parameter (common)
+Financial frictions block
+100𝑊/𝑦 0.1000 Transfers to entrepreneurs
+(cid:3032)
+Labour market block
+𝐿 0.8744 Steady-state fraction of employment (1 – unemployment rate)
+𝑏𝑠ℎ𝑎𝑟𝑒 0.1000 Unemployment benefit share of gross wage
+𝑣𝑠ℎ𝑎𝑟𝑒 (%) 0.0000 Vacancy posting cost as share of GDP
+𝜌 0.7000 Exogenous survival rate of a match
+𝜎 0.7392 Unemployment share in matching technology
+Note. This table contains the key calibrated parameters and steady states of the core model.
+54
+
+
+--- page 54 ---
+F IS C A L D S G E MOD EL F O R L A TVI A 5 / 2 0 2 0
+Table 4
+Targeted steady states and selected implied parameters
+Parameter Description Value
+Targeted steady states
+𝑝 𝑥𝜑(cid:3556)/𝑦 Exports to gross output 0.6100
+(cid:3051)
+𝑝𝑖/𝑦 Investment to gross output 0.2200
+(cid:3036)
+𝑛/(𝑝 𝑘) Firm net worth to capital 0.7000
+(cid:3038)(cid:4593)
+Implied parameters
+𝛿 Capital quarterly depreciation rate 0.0412
+𝜑(cid:3556) Real exchange rate 0.8867
+𝛾 Entrepreneurial survival rate 0.9542
+𝜎 Level parameter in matching function 0.6823
+(cid:3040)
+𝑓 Job finding rate 0.6762
+𝑣 Vacancy rate 0.4286
+𝑝 𝑐/𝑦 Private consumption to gross output 0.6477
+(cid:3030)
+Note. This table contains the key targeted steady states in the model and selected implied parameters.
+55
+
+
+--- page 55 ---
+F IS C A L D S G E MOD EL F O R L A TVI A 5 / 2 0 2 0
+Table 5
+Estimated parameters and shocks, non-fiscal part
+Parameter Description Prior Posterior
+Distr. Mean St.d. Mode St.d.
+𝜉 Calvo parameter, domestic good 𝛽 0.75 0.075 0.781 0.017
+(cid:3031)
+𝜉 Calvo parameter, exports 𝛽 0.75 0.075 0.836 0.022
+(cid:3051)
+𝜉 Calvo parameter, imports for consumption 𝛽 0.75 0.075 0.944 0.010
+(cid:3040),(cid:3030)
+𝜉 Calvo parameter, imports for investment 𝛽 0.75 0.075 0.650 0.032
+(cid:3040),(cid:3036)
+𝜉 Calvo parameter, imports for exports 𝛽 0.66 0.10 0.809 0.024
+(cid:3040),(cid:3051)
+𝜅 Inflation indexation, domestic good 𝛽 0.50 0.15 0.152 0.043
+(cid:3031)
+𝜅 Inflation indexation, exports 𝛽 0.05 0.02 0.069 0.009
+(cid:3051)
+𝜅 Inflation indexation, imports for consumption 𝛽 0.50 0.15 0.448 0.077
+(cid:3040),(cid:3030)
+𝜅 Inflation indexation, imports for investment 𝛽 0.50 0.15 0.247 0.040
+(cid:3040),(cid:3036)
+𝜅 Inflation indexation, imports for exports 𝛽 0.05 0.02 0.048 0.006
+(cid:3040),(cid:3051)
+𝜈(cid:3037) Working capital share 𝛽 0.50 0.1 0.548 0.017
+𝑏 Habit in consumption 𝛽 0.65 0.15 0.660 0.056
+0.1𝑆′′ Investment adjustment costs Γ 0.40 0.15 0.069 0.013
+𝜎 Variable capital utilization Γ 0.30 0.1 0.291 0.027
+(cid:3028)
+𝜂 Elasticity of substitution, domestic good and imports for exports Γ 1.50 0.25 1.349 0.050
+(cid:3051)
+𝜂 Elasticity of substitution, domestic good and imports for consumption Γ 1.50 0.25 1.668 0.081
+(cid:3030)
+𝜂 Elasticity of substitution, domestic good and imports for investment Γ 1.50 0.25 1.125 0.044
+(cid:3036)
+𝜂 Elasticity of substitution, exports and foreign good Γ 1.50 0.25 1.010 0.034
+(cid:3033)
+𝜇 Monitoring cost 𝛽 0.35 0.075 0.474 0.014
+𝐹(𝜔(cid:3365)) Steady-state bankruptcy rate 𝛽 0.015 0.002 0.020 0.001
+ℎ𝑠ℎ𝑎𝑟𝑒 (% Hiring fixed costs Γ 0.20 0.075 0.180 0.042
+𝑤𝑜𝑜 Worker outside option parameter 𝛽 0.40 0.075 0.541 0.014
+𝛼(cid:3048) Power parameter in outside option equation 𝛽 0.90 0.075 0.891 0.019
+𝜌 Persistence, stationary technology 𝛽 0.85 0.075 0.911 0.022
+(cid:3084)
+𝜌 Persistence, marginal efficiency of private investment 𝛽 0.85 0.075 0.579 0.018
+(cid:2956)
+𝜌 (cid:3085)(cid:3278) Persistence, consumption preference shock 𝛽 0.85 0.075 0.739 0.028
+𝜌 (cid:3109)(cid:3561) Persistence, domestic risk premium 𝛽 0.85 0.075 0.959 0.014
+𝜌 Persistence, government spending 𝛽 0.85 0.075 0.841 0.020
+(cid:3034)
+𝜌 Persistence, entrepreneurial wealth 𝛽 0.85 0.075 0.675 0.023
+(cid:3082)
+𝜌 (cid:3084)(cid:3299) Persistence, exports stationary technology 𝛽 0.85 0.075 0.869 0.031
+𝜌 Persistence, outside option 𝛽 0.80 0.075 0.911 0.012
+(cid:3029)(cid:3048)
+Shock standard deviations
+10𝜎 Stationary technology Γ(cid:2879)(cid:2869) 0.10 inf 0.100 0.010
+(cid:3084)
+𝜎 Marginal efficiency of private investment Γ(cid:2879)(cid:2869) 0.15 inf 0.101 0.015
+(cid:2956)
+𝜎 (cid:3085)(cid:3278) Consumption preference shock Γ(cid:2879)(cid:2869) 0.15 inf 0.075 0.018
+100𝜎 (cid:3109)(cid:3561) Domestic risk premium Γ(cid:2879)(cid:2869) 0.40 inf 0.097 0.009
+𝜎 Mark-up, domestic good Γ(cid:2879)(cid:2869) 0.10 inf 0.232 0.070
+(cid:3099)(cid:3279)
+𝜎 (cid:3099)(cid:3299) Mark-up, exports Γ(cid:2879)(cid:2869) 0.40 inf 0.104 0.032
+𝜎 (cid:3099)(cid:3288),(cid:3278) Mark-up, imports for consumption Γ(cid:2879)(cid:2869) 0.50 inf 0.617 0.264
+𝜎 Mark-up, imports for investment Γ(cid:2879)(cid:2869) 0.50 inf 0.926 0.283
+(cid:3099)(cid:3288),(cid:3284)
+𝜎 (cid:3099)(cid:3288),(cid:3299) Mark-up, imports for exports Γ(cid:2879)(cid:2869) 0.50 inf 0.305 0.099
+10𝜎 Entrepreneurial wealth Γ(cid:2879)(cid:2869) 0.15 inf 0.280 0.026
+(cid:3082)
+10𝜎 (cid:3084)(cid:3299) Exports stationary technology Γ(cid:2879)(cid:2869) 0.15 inf 0.169 0.033
+10𝜎 Outside option Γ(cid:2879)(cid:2869) 0.10 inf 0.189 0.022
+(cid:3029)(cid:3048)
+Model fit statistic
+ℒ Log marginal likelihood (Laplace approximation) –4491.7
+Notes. This table contains the estimated parameters for the core model. Note that truncated priors, denoted by Γ, with no mass below
+1.01, have been used for the elasticity parameters 𝜂 , 𝑗={𝑥,𝑐,𝑖,𝑓}.
+(cid:3037)
+56
+
+
+--- page 56 ---
+F IS C A L D S G E MOD EL F O R L A TVI A 5 / 2 0 2 0
+Table 6
+Estimated foreign SVAR parameters
+Parameter Description Prior Posterior
+Distr. Mean St.d. Mode St.d.
+𝜌 Persistence, unit-root technology 𝛽 0.60 0.075 0.707 0.057
+(cid:3091)(cid:3301)
+𝑎 Persistence, EA output 𝛽 0.90 0.075 0.994 0.014
+(cid:2869)(cid:2869)
+𝑎 Persistence, EA inflation 𝛽 0.30 0.075 0.310 0.063
+(cid:2870)(cid:2870)
+𝑎 Persistence, EA interest rate 𝛽 0.70 0.075 0.668 0.060
+(cid:2871)(cid:2871)
+𝑎 Persistence, competitors price inflation 𝛽 0.30 0.075 0.304 0.059
+(cid:2874)(cid:2874)
+𝑎 Persistence, foreign demand 𝛽 0.85 0.075 0.941 0.023
+(cid:2875)(cid:2875)
+𝜌 Persistence, nominal effective exchange rate 𝛽 0.20 0.075 0.132 0.024
+(cid:3046)
+𝑎 Foreign SVAR parameter 𝑁 0.00 0.10 0.012 0.082
+(cid:2869)(cid:2870)
+𝑎 Foreign SVAR parameter 𝑁 –0.10 0.05 –0.059 0.037
+(cid:2869)(cid:2871)
+𝑎 Foreign SVAR parameter 𝑁 0.10 0.10 0.071 0.032
+(cid:2870)(cid:2869)
+𝑎 Foreign SVAR parameter 𝑁 –0.10 0.05 –0.097 0.049
+(cid:2870)(cid:2871)
+𝑎 Foreign SVAR parameter 𝑁 0.00 0.10 0.024 0.064
+(cid:2870)(cid:2872)
+𝑎 Foreign SVAR parameter 𝑁 0.00 0.05 0.010 0.014
+(cid:2870)(cid:2874)
+𝑎 Foreign SVAR parameter 𝑁 0.00 0.05 0.106 0.019
+(cid:2871)(cid:2869)
+𝑎 Foreign SVAR parameter 𝑁 0.10 0.005 0.099 0.005
+(cid:2871)(cid:2870)
+𝑎 Foreign SVAR parameter 𝑁 0.00 0.005 0.002 0.005
+(cid:2871)(cid:2872)
+𝑎 Foreign SVAR parameter 𝑁 0.00 0.05 –0.009 0.047
+(cid:2874)(cid:2869)
+𝑎 Foreign SVAR parameter 𝑁 0.00 0.05 0.007 0.052
+(cid:2874)(cid:2870)
+𝑎 Foreign SVAR parameter 𝑁 0.00 0.05 –0.023 0.022
+(cid:2874)(cid:2875)
+𝑎 Foreign SVAR parameter 𝑁 0.00 0.05 0.001 0.048
+(cid:2875)(cid:2869)
+𝑎 Foreign SVAR parameter 𝑁 0.20 0.05 0.246 0.047
+(cid:2875)(cid:2874)
+𝑐 Foreign SVAR parameter 𝑁 0.10 0.10 0.096 0.017
+(cid:2869)(cid:2875)
+𝑐 Foreign SVAR parameter 𝑁 0.05 0.05 0.018 0.049
+(cid:2870)(cid:2869)
+𝑐 Foreign SVAR parameter 𝑁 0.00 0.05 0.111 0.033
+(cid:2871)(cid:2869)
+𝑐 Foreign SVAR parameter 𝑁 0.00 0.05 0.063 0.022
+(cid:2871)(cid:2870)
+𝑐 Foreign SVAR parameter 𝑁 –0.05 0.05 –0.067 0.045
+(cid:2870)(cid:2872)
+𝑐 Foreign SVAR parameter 𝑁 0.00 0.005 0.001 0.005
+(cid:2871)(cid:2872)
+𝑐 Foreign SVAR parameter 𝑁 0.20 0.05 –0.023 0.022
+(cid:2874)(cid:2875)
+Shock standard deviations
+100𝜎 Unit root technology Γ(cid:2879)(cid:2869) 0.25 inf 0.223 0.038
+(cid:3091)(cid:3301)
+100𝜎 (cid:3052)(cid:3280)(cid:3276) EA GDP Γ(cid:2879)(cid:2869) 0.20 inf 0.256 0.031
+1000𝜎 (cid:3095)(cid:3280)(cid:3276) EA inflation Γ(cid:2879)(cid:2869) 0.25 inf 0.256 0.019
+100𝜎 (cid:3019)(cid:3280)(cid:3276) EA interest rate Γ(cid:2879)(cid:2869) 0.05 inf 0.048 0.005
+10𝜎 (cid:3031)(cid:3032)(cid:3040)∗ Foreign demand Γ(cid:2879)(cid:2869) 0.20 inf 0.239 0.017
+10𝜎 (cid:3095)(cid:3278)(cid:3290)(cid:3288)(cid:3291)(cid:3299) Competitors price on exports side Γ(cid:2879)(cid:2869) 0.15 inf 0.160 0.013
+10𝜎 Nominal effective exchange rate Γ(cid:2879)(cid:2869) 0.15 inf 0.157 0.015
+(cid:3046)
+Notes. This table contains the estimated parameters for the foreign economy. Informative priors are used to
+generate plausible impulse response functions. The structure of the SVAR model used to describe the
+behaviour of the foreign economy is described in Appendix B.
+57

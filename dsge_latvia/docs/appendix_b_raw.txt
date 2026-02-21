@@ -1,0 +1,232 @@
+
+--- page 49 ---
+F IS C A L D S G E MOD EL F O R L A TVI A 5 / 2 0 2 0
+APPENDIX B. FOREIGN BLOCK AND MEASUREMENT EQUATIONS
+B.1 Foreign block
+The adaptation of the DSGE model for forecasting purposes over the last years has
+altered the specification of the foreign block to include observables, such as the
+foreign demand (measured as the weighted average imports of the trading partners),
+the competitors' prices, as well as the nominal effective exchange rate.
+The first five rows below are taken from the previous version of the model and
+represent the EA output, EA inflation, EA interest rate, the neutral unit-root
+technological process, and the (suspended in the benchmark model) investment-
+specific unit-root technological process. The sixth and seventh rows reflect the
+competitors' prices and foreign demand, while the last row is the log-difference of the
+nominal effective exchange rate, modelled as an AR(1) process.
+𝑦∗ 𝑦∗
+(cid:3047) (cid:3047)(cid:2879)(cid:2869)
+log(cid:3436) (cid:3440) log(cid:3436) (cid:3440)
+⎛ 𝑦∗ ⎞ 𝑎 (cid:2869)(cid:2869) 𝑎 (cid:2869)(cid:2870) 𝑎 (cid:2869)(cid:2871) 0 0 0 0 0 ⎛ 𝑦∗ ⎞
+𝜋∗−𝜋∗ ⎡ 𝑎 𝛼 ⎤ 𝜋∗ −𝜋∗
+⎜ (cid:3047) ⎟ ⎢𝑎 𝑎 𝑎 𝑎 (cid:2870)(cid:2872) 0 0 0 ⎥⎜ (cid:3047)(cid:2879)(cid:2869) ⎟
+⎜𝑅∗ −𝑅∗ ⎟ (cid:2870)(cid:2869) (cid:2870)(cid:2870) (cid:2870)(cid:2871) (cid:2870)(cid:2872) 1−𝛼 ⎜𝑅∗ −𝑅∗ ⎟
+⎜ lo(cid:3047) g(cid:3436)𝜇 (cid:3053),(cid:3047) (cid:3440) ⎟ ⎢⎢ 𝑎 𝑎 𝑎 𝑎 𝑎 (cid:2871)(cid:2872)𝛼 0 0 0 ⎥⎥ ⎜ lo(cid:3047) g(cid:2879)(cid:2869) (cid:3436)𝜇 (cid:3053),(cid:3047)(cid:2879)(cid:2869) (cid:3440) ⎟
+⎜ 𝜇 ⎟ (cid:2871)(cid:2869) (cid:2871)(cid:2870) (cid:2871)(cid:2871) (cid:2871)(cid:2872) 1−𝛼 ⎜ 𝜇 ⎟
+(cid:3053) ⎢ ⎥ (cid:3053)
+⎜ 𝜇
+(cid:3103),(cid:3047)
+⎟ = ⎢0 0 0 𝜌 (cid:3091)(cid:3301) 0 0 0 0 ⎥⎜ 𝜇
+(cid:3103),(cid:3047)(cid:2879)(cid:2869)
+⎟
+⎜log(cid:4678) (cid:4679)⎟ 0 0 0 0 𝜌 0 0 0 ⎜log(cid:4678) (cid:4679)⎟
+𝜇 ⎢ (cid:3091)(cid:3351) ⎥ 𝜇
+⎜ (cid:3103) ⎟ ⎜ (cid:3103) ⎟
+⎢𝑎 𝑎 0 0 0 𝑎 𝑎 0 ⎥
+⎜𝜋(cid:3033) −𝜋(cid:3033) ⎟ (cid:2874)(cid:2869) (cid:2874)(cid:2870) (cid:2874)(cid:2874) (cid:2874)(cid:2875) ⎜𝜋(cid:3033) −𝜋(cid:3033) ⎟
+(cid:3047) ⎢𝑎 0 0 0 0 𝑎 𝑎 0 ⎥ (cid:3047)(cid:2879)(cid:2869)
+⎜ (cid:3033) ⎟ (cid:2875)(cid:2869) (cid:2875)(cid:2874) (cid:2875)(cid:2875) ⎜ (cid:3033) ⎟
+𝑦 ⎢0 0 0 0 0 0 0 𝜌 ⎥ 𝑦
+⎜log(cid:4678) (cid:3047) (cid:4679) ⎟ (cid:3046) ⎜log(cid:4678) (cid:3047)(cid:2879)(cid:2869)(cid:4679) ⎟
+𝑦(cid:3033) ⎣ ⎦ 𝑦(cid:3033)
+⎝log(𝑠 ) ⎠ ⎝log(𝑠 ) ⎠
+(cid:3047) (cid:3047)(cid:2879)(cid:2869)
+𝜎 0 0 0 0 0 𝑐 0
+⎡ (cid:3052)∗ (cid:2869)(cid:2875) ⎤ 𝜀 (cid:3052)∗,(cid:3047)
+⎢𝑐 (cid:2870)(cid:2869) 𝜎 (cid:3095)∗ 0 𝑐 (cid:2870)(cid:2872) (cid:3030)(cid:3118)(cid:3120)(cid:3080) 0 0 0 ⎥ 𝜀 (cid:3095)∗,(cid:3047)
+(cid:2869)(cid:2879)(cid:3080) ⎛ ⎞
+⎢⎢ 𝑐 (cid:2871)(cid:2869) 𝑐 (cid:2871)(cid:2870) 𝜎 (cid:3019)∗ 𝑐 (cid:2871)(cid:2872) (cid:3030) (cid:2869)(cid:3119) (cid:2879)(cid:3120) (cid:3080)(cid:3080) 0 0 0 ⎥⎥ ⎜⎜𝜀 𝜀 (cid:3091)(cid:3019) (cid:3301)∗ ,, (cid:3047)(cid:3047) ⎟⎟
++⎢0 0 0 𝜎 (cid:3091)(cid:3301) 0 0 0 0 ⎥ ⎜𝜀 (cid:3091)(cid:3351),(cid:3047)⎟ (86).
+⎢0 0 0 0 𝜎 0 0 0 ⎥ 𝜀
+⎢
+(cid:3091)(cid:3351) ⎥⎜ (cid:3095)(cid:3281),(cid:3047)⎟
+⎢0 0 0 0 0 𝜎
+(cid:3095)(cid:3281)
+𝑐
+(cid:2874)(cid:2875)
+0 ⎥⎜𝜀 (cid:3052)(cid:3281),(cid:3047)⎟
+𝜀
+⎢0 0 0 0 0 0 𝜎 (cid:3052)(cid:3281) 0 ⎥ (cid:3046),(cid:3047)
+⎝ ⎠
+⎣0 0 0 0 0 0 0 𝜎 ⎦
+(cid:3046)
+The variables 𝜀 's are mean zero, unit variance, and Gaussian i.i.d. processes
+(cid:3047)
+uncorrelated with each other.
+B.2 Measurement equations
+The measurement equations linking the model variables to the data are shown below
+where 𝜀(cid:3040)(cid:3032) denotes a measurement error for variable 𝑖.
+(cid:3036),(cid:3047)
+Nominal deposit interest rate:
+𝑅(cid:3031)(cid:3028)(cid:3047)(cid:3028) = 400(𝑅 −1) (87).
+(cid:3005),(cid:3047) (cid:3047)
+50
+
+
+--- page 50 ---
+F IS C A L D S G E MOD EL F O R L A TVI A 5 / 2 0 2 0
+Nominal government bond yield:
+𝑅(cid:3031)(cid:3028)(cid:3047)(cid:3028) = 400(𝑅 −1) (88).
+(cid:3013),(cid:3047) (cid:3034),(cid:3047)
+Foreign (EA) nominal interest rate:
+𝑅∗,(cid:3031)(cid:3028)(cid:3047)(cid:3028) = 400(𝑅∗−1) (89).
+(cid:3047) (cid:3047)
+GDP deflator inflation:
+𝜋(cid:3031),(cid:3031)(cid:3028)(cid:3047)(cid:3028) = 400log 𝜋 −400log 𝜋+𝜀(cid:3040)(cid:3032) (90).
+(cid:3047) (cid:3047) (cid:3095),(cid:3047)
+CPI inflation (after consumption tax):
+𝜋(cid:3030),(cid:3031)(cid:3028)(cid:3047)(cid:3028) = 400log 𝜋(cid:3030),(cid:3099)(cid:3278) −400log 𝜋(cid:3030) +𝜀(cid:3040)(cid:3032) (91)
+(cid:3047) (cid:3047) (cid:3095)(cid:3278),(cid:3047)
+where
+𝜋(cid:3030),(cid:3099)(cid:3278) = 𝜋(cid:3030) (cid:2869)(cid:2878)(cid:3099) (cid:3295)(cid:3278) (92).
+(cid:3047) (cid:3047) (cid:2869)(cid:2878)(cid:3099)(cid:3278)
+(cid:3295)(cid:3127)(cid:3117)
+Investment deflator inflation:
+𝜋(cid:3036),(cid:3031)(cid:3028)(cid:3047)(cid:3028) = 400log 𝜋(cid:3036) −400log 𝜋(cid:3036) +𝜀(cid:3040)(cid:3032) (93).
+(cid:3047) (cid:3047) (cid:3095)(cid:3284),(cid:3047)
+Foreign (EA) CPI inflation:
+𝜋∗,(cid:3031)(cid:3028)(cid:3047)(cid:3028) = 400log 𝜋∗ (94).
+(cid:3047) (cid:3047)
+Competitors' export price inflation:
+(cid:3033),(cid:3031)(cid:3028)(cid:3047)(cid:3028) (cid:3033)
+𝜋 = 400log 𝜋 (95).
+(cid:3047) (cid:3047)
+GDP quarter-on-quarter growth:
+Δlog 𝑦(cid:3031)(cid:3028)(cid:3047)(cid:3028) = 100(log 𝜇 +Δlog 𝑦(cid:3034)(cid:3031)(cid:3043) −log 𝜇 )+𝜀(cid:3040)(cid:3032) (96)
+(cid:3047) (cid:3053)(cid:3126),(cid:3047) (cid:3047) (cid:3053)(cid:3126) (cid:3052),(cid:3047)
+where
+𝑦(cid:3034)(cid:3031)(cid:3043) = 𝑦 −𝑝(cid:3036)𝑎(𝑢 ) (cid:3038)(cid:3364) (cid:3295) −(cid:3091)(cid:3008)((cid:3104)(cid:3365)(cid:3295);(cid:3097)(cid:3295)(cid:3127)(cid:3117))(cid:3019) (cid:3295)(cid:3286)(cid:3043)(cid:3286)(cid:4594),(cid:3295)(cid:3127)(cid:3117)(cid:3038)(cid:3364) (cid:3295)
+(cid:3047) (cid:3047) (cid:3047) (cid:3047) (cid:3091)(cid:3351),(cid:3295)(cid:3091) (cid:3301)(cid:3126),(cid:3295) (cid:3095)(cid:3295)(cid:3091) (cid:3301)(cid:3126),(cid:3295)
+−(cid:3435)𝑛 𝜅 𝑄(cid:2879)(cid:2869)+𝑛 𝜅 (cid:3439)𝜒 𝐿 −Γ /𝑧(cid:2878) (97)
+(cid:3089)(cid:3297),(cid:3047) (cid:3049) (cid:3047) (cid:3089)(cid:3283),(cid:3047) (cid:3035) (cid:3047) (cid:3047)(cid:2879)(cid:2869) (cid:3034),(cid:3047) (cid:3047)
+is the measured GDP without capital utilization costs, entrepreneur monitoring costs,
+vacancy posting and recruiting costs, and bond adjustment costs.
+Foreign (EA) GDP quarter-on-quarter growth:
+Δlog 𝑦∗,(cid:3031)(cid:3028)(cid:3047)(cid:3028) = 100(log 𝜇 +Δlog 𝑦∗ −log 𝜇 ) (98).
+(cid:3047) (cid:3053)(cid:3126),(cid:3047) (cid:3047) (cid:3053)(cid:3126)
+Foreign demand (trading partners' imports) quarter-on-quarter growth:
+(cid:3033),(cid:3031)(cid:3028)(cid:3047)(cid:3028) (cid:3033)
+Δlog 𝑦 = 100(log 𝜇 +Δlog 𝑦 −log 𝜇 ) (99).
+(cid:3047) (cid:3053)(cid:3126),(cid:3047) (cid:3047) (cid:3053)(cid:3126)
+Nominal effective exchange rate quarter-on-quarter growth:
+log 𝑠(cid:3031)(cid:3028)(cid:3047)(cid:3028) = 100log 𝑠 +𝜀(cid:3040)(cid:3032) (100).
+(cid:3047) (cid:3047) (cid:3046),(cid:3047)
+51
+
+
+--- page 51 ---
+F IS C A L D S G E MOD EL F O R L A TVI A 5 / 2 0 2 0
+Private consumption quarter-on-quarter growth:
+Δlog𝑐(cid:3031)(cid:3028)(cid:3047)(cid:3028) = 100(log𝜇 +Δlog𝑐 −log𝜇 )+𝜀(cid:3040)(cid:3032) (101).
+(cid:3047) (cid:3053)(cid:3126),(cid:3047) (cid:3047) (cid:3053)(cid:3126) (cid:3030),(cid:3047)
+(Total) investment quarter-on-quarter growth:
+Δlog 𝑖(cid:3031)(cid:3028)(cid:3047)(cid:3028) = 100[log 𝜇 +log 𝜇 +Δlog 𝑖(cid:3047)(cid:3042)(cid:3047)]−100(log 𝜇 +log 𝜇 )+𝜀(cid:3040)(cid:3032)
+(cid:3047) (cid:3053)(cid:3126),(cid:3047) (cid:3103),(cid:3047) (cid:3047) (cid:3053)(cid:3126) (cid:3103) (cid:3036),(cid:3047)
+(102)
+where
+𝑖(cid:3047)(cid:3042)(cid:3047) = 𝑖 +𝑔 (103)
+(cid:3047) (cid:3047) (cid:3036),(cid:3047)
+is total real investment.Exports quarter-on-quarter growth:
+Δlog 𝑥(cid:3031)(cid:3028)(cid:3047)(cid:3028) = 100(log 𝜇 +Δlog 𝑥 −log 𝜇 )+𝜀(cid:3040)(cid:3032) (104).
+(cid:3047) (cid:3053)(cid:3126),(cid:3047) (cid:3047) (cid:3053)(cid:3126) (cid:3051),(cid:3047)
+Imports quarter-on-quarter growth:
+Δlog 𝑖𝑚𝑝(cid:3031)(cid:3028)(cid:3047)(cid:3028) = 100(log 𝜇 +Δlog 𝑖𝑚𝑝 −log 𝜇 )+𝜀(cid:3040)(cid:3032) (105)
+(cid:3047) (cid:3053)(cid:3126),(cid:3047) (cid:3047) (cid:3053)(cid:3126) (cid:3036)(cid:3040)(cid:3043),(cid:3047)
+where
+(cid:3338)(cid:3288),(cid:3278)
+𝑐(cid:3040)(𝑝(cid:4662)(cid:3040),(cid:3030))(cid:3117)(cid:3127)(cid:3338)(cid:3288),(cid:3278)
+(cid:3047) (cid:3047)
+⎛ ⎞
+(cid:3338)(cid:3288),(cid:3284)
+⎜+𝑖(cid:3040)(𝑝(cid:4662)(cid:3040),(cid:3036))(cid:3117)(cid:3127)(cid:3338)(cid:3288),(cid:3284) ⎟
+(cid:3047) (cid:3047)
+⎜ ⎟
+(cid:3338)(cid:3288),(cid:3299)
+𝑖𝑚𝑝
+(cid:3047)
+=
+⎜⎜ +𝑥 (cid:3047)(cid:3040)(𝑝(cid:4662) (cid:3047)(cid:3040),(cid:3051))(cid:3117)(cid:3127)(cid:3338)(cid:3288),(cid:3299) ⎟⎟
+(106)
+⎜
+(cid:3338)(cid:3288),(cid:3282),(cid:3278)
+⎟
++𝑔(cid:3040)(𝑝(cid:4662)(cid:3040),(cid:3034),(cid:3030)
+)(cid:3117)(cid:3127)(cid:3338)(cid:3288),(cid:3282),(cid:3278)
+⎜ (cid:3030),(cid:3047) (cid:3047) ⎟
+⎜ (cid:3338)(cid:3288),(cid:3282),(cid:3284) ⎟
++𝑔(cid:3040)(𝑝(cid:4662)(cid:3040),(cid:3034),(cid:3036) )(cid:3117)(cid:3127)(cid:3338)(cid:3288),(cid:3282),(cid:3284)
+(cid:3036),(cid:3047) (cid:3047)
+⎝ ⎠
+is total imports, and where the last two rows represent imports for government
+consumption and government investment.
+Real labour cost quarter-on-quarter growth deflated by after-tax CPI16:
+Δlog 𝑤(cid:3039)(cid:3030),(cid:3031)(cid:3028)(cid:3047)(cid:3028) = 100(log 𝜇 +Δlog 𝑤(cid:3039)(cid:3030) −log 𝜇 +log 𝜋 −log 𝜋(cid:3030),(cid:3099)(cid:3278))+𝜀(cid:3040)(cid:3032)
+(cid:3047) (cid:3053)(cid:3126),(cid:3047) (cid:3047) (cid:3053)(cid:3126) (cid:3047) (cid:3047) (cid:3039)(cid:3030),(cid:3047)
+(107)
+where
+𝑤(cid:3039)(cid:3030) = (1+𝜏(cid:3050) )𝑤(cid:3365) (108).
+(cid:3047) (cid:3032),(cid:3047) (cid:3047)
+Unemployment rate quarter-on-quarter growth:
+Δlog 𝑈𝑛𝑒𝑚𝑝(cid:3031)(cid:3028)(cid:3047)(cid:3028) = 100Δlog(1−𝐿 )+𝜀(cid:3040)(cid:3032) (109).
+(cid:3047) (cid:3047) (cid:3022)(cid:3041)(cid:3032)(cid:3040)(cid:3043),(cid:3047)
+Net worth as measured by real house price index, quarter-on-quarter growth:
+16 The default model variable is deflated by GDP deflator, but its data counterpart is considerably noisier than
+that deflated by after-tax CPI; thus, here we transform the model variable in the measurement equation such
+that the deflator is after-tax CPI, consistent with the data.
+52
+
+
+--- page 52 ---
+F IS C A L D S G E MOD EL F O R L A TVI A 5 / 2 0 2 0
+Δlog 𝑛(cid:3031)(cid:3028)(cid:3047)(cid:3028) = 100(log 𝜇 +Δlog 𝑛 −log 𝜇 )+𝜀(cid:3040)(cid:3032) (110).
+(cid:3047) (cid:3053)(cid:3126),(cid:3047) (cid:3047) (cid:3053)(cid:3126) (cid:3041),(cid:3047)
+Nominal interest rate spread between lending and risk-free rate:
+𝑆𝑝𝑟𝑒𝑎𝑑(cid:3031)(cid:3028)(cid:3047)(cid:3028) = 400(𝑠𝑝𝑟𝑒𝑎𝑑 −𝑠𝑝𝑟𝑒𝑎𝑑)+𝜀(cid:3040)(cid:3032) (111)
+(cid:3047) (cid:3047) (cid:3020)(cid:3043)(cid:3045)(cid:3032)(cid:3028)(cid:3031),(cid:3047)
+where
+𝑠𝑝𝑟𝑒𝑎𝑑 = 𝑍 −𝑅 =
+(cid:3104)(cid:3365)(cid:3295)(cid:3126)(cid:3117)(cid:3019) (cid:3295)(cid:3286)
+(cid:3126)(cid:3117) −𝑅 (112).
+(cid:3047) (cid:3047)(cid:2878)(cid:2869) (cid:3047)
+(cid:2869)(cid:2879)
+(cid:3289)(cid:3295)(cid:3126)(cid:3117) (cid:3047)
+(cid:3291)(cid:3286)(cid:4594),(cid:3295)(cid:3286)(cid:3365)
+(cid:3295)(cid:3126)(cid:3117)
+Government consumption quarter-on-quarter growth:
+Δlog 𝑔(cid:3031)(cid:3028)(cid:3047)(cid:3028) = 100(log 𝜇 +Δlog 𝑔 −log 𝜇 )+𝜀(cid:3040)(cid:3032) (113).
+(cid:3030),(cid:3047) (cid:3053)(cid:3126),(cid:3047) (cid:3030),(cid:3047) (cid:3053)(cid:3126) (cid:3034),(cid:3030),(cid:3047)
+Government investment quarter-on-quarter growth:
+Δlog 𝑔(cid:3031)(cid:3028)(cid:3047)(cid:3028) = 100[log 𝜇 +log 𝜇 +Δlog 𝑔 ]−100(log 𝜇 +log 𝜇 )+𝜀(cid:3040)(cid:3032)
+(cid:3036),(cid:3047) (cid:3053)(cid:3126),(cid:3047) (cid:3103),(cid:3047) (cid:3036),(cid:3047) (cid:3053)(cid:3126) (cid:3103) (cid:3034),(cid:3036),(cid:3047)
+(114).
+Government debt-to-GDP ratio:
+𝑑𝑒𝑏𝑡2𝐺𝐷𝑃(cid:3031)(cid:3028)(cid:3047)(cid:3028) =
+(cid:3005)(cid:3282),(cid:3295)
+(115).
+(cid:3047)
+(cid:3026)(cid:3295)(cid:2878)(cid:3026)(cid:3295)(cid:3127)(cid:3117)(cid:2878)(cid:3026)(cid:3295)(cid:3127)(cid:3118)(cid:2878)(cid:3026)(cid:3295)(cid:3127)(cid:3119)
+Government transfers quarter-on-quarter growth:
+Δlog 𝑡𝑟(cid:3031)(cid:3028)(cid:3047)(cid:3028) = 100(log 𝜇 +Δlog 𝑡𝑟 −log 𝜇 )+𝜀(cid:3040)(cid:3032) (116).
+(cid:3047) (cid:3053)(cid:3126),(cid:3047) (cid:3047) (cid:3053)(cid:3126) (cid:3047)(cid:3045),(cid:3047)
+Effective consumption tax rate:
+𝜏(cid:3030),(cid:3031)(cid:3028)(cid:3047)(cid:3028) = 𝜏(cid:3030) +𝜀(cid:3040)(cid:3032) (117).
+(cid:3047) (cid:3047) (cid:3099)(cid:3278),(cid:3047)
+Effective labour income tax rate:
+𝜏(cid:3052),(cid:3031)(cid:3028)(cid:3047)(cid:3028) = 𝜏(cid:3052) +𝜀(cid:3040)(cid:3032) (118).
+(cid:3047) (cid:3047) (cid:3099)(cid:3300),(cid:3047)
+Effective employer SSC rate:
+𝜏(cid:3050),(cid:3031)(cid:3028)(cid:3047)(cid:3028) = 𝜏(cid:3050) +𝜀(cid:3040)(cid:3032) (119).
+(cid:3032),(cid:3047) (cid:3032),(cid:3047) (cid:3099)(cid:3280)(cid:3298),(cid:3047)
+Effective employee SSC rate:
+𝜏(cid:3050),(cid:3031)(cid:3028)(cid:3047)(cid:3028) = 𝜏(cid:3050) +𝜀(cid:3040)(cid:3032) (120).
+(cid:3050),(cid:3047) (cid:3050),(cid:3047) (cid:3099)(cid:3298)(cid:3298),(cid:3047)
+53
