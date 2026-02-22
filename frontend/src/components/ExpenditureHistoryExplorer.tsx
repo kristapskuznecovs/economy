@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
-import { AlertCircle, Loader2 } from 'lucide-react';
 
 import { Card } from '@/components/ui/card';
+import { ErrorAlert } from '@/components/ui/ErrorAlert';
+import { LoadingIndicator } from '@/components/ui/LoadingIndicator';
 import { Slider } from '@/components/ui/slider';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
@@ -10,11 +11,11 @@ import {
   type BudgetVoteDivisionHistoryResponse,
 } from '@/lib/api';
 import { useI18n } from '@/lib/i18n';
+import { formatSignedNumber } from '@/lib/utils';
 
 function formatSigned(value: number | null | undefined, naLabel: string, suffix = ''): string {
   if (value === null || value === undefined) return naLabel;
-  const sign = value > 0 ? '+' : '';
-  return `${sign}${value.toFixed(1)}${suffix}`;
+  return formatSignedNumber(value, { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + suffix;
 }
 
 export function ExpenditureHistoryExplorer() {
@@ -88,17 +89,11 @@ export function ExpenditureHistoryExplorer() {
       </div>
 
       {error && (
-        <div className="flex items-start gap-2 text-xs text-amber-700 bg-amber-50 border border-amber-200 rounded p-2 mb-3">
-          <AlertCircle className="h-4 w-4 mt-0.5 shrink-0" />
-          <p>{error}</p>
-        </div>
+        <ErrorAlert message={error} className="mb-3" />
       )}
 
       {isLoading && !history && (
-        <div className="flex items-center gap-2 text-xs text-muted-foreground mb-3">
-          <Loader2 className="h-4 w-4 animate-spin" />
-          {t('history.loading')}
-        </div>
+        <LoadingIndicator message={t('history.loading')} className="mb-3" />
       )}
 
       {history && (

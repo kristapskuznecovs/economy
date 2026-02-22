@@ -3,7 +3,9 @@ import { Card } from '@/components/ui/card';
 import { useI18n } from '@/lib/i18n';
 import { useAppStore } from '@/lib/store';
 import type { LatviaArea } from '@/lib/types';
+import type { LeafletGeoJSONFeature } from '@/lib/types/leaflet';
 import L from 'leaflet';
+import type { Layer, PathOptions } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
 const IMPACT_COLORS: Record<'increase' | 'decrease' | 'neutral', string> = {
@@ -133,11 +135,11 @@ export function InteractiveLatviaMap() {
 
     if (municipalityData?.features && Array.isArray(municipalityData.features)) {
       const municipalities = L.geoJSON(municipalityData, {
-        style: (feature) => {
+        style: (feature): PathOptions => {
           if (!feature) {
             return { color: '#ffffff', weight: 1, fillColor: IMPACT_COLORS.neutral, fillOpacity: 0.75 };
           }
-          const probeLayer = L.geoJSON(feature as any);
+          const probeLayer = L.geoJSON(feature as LeafletGeoJSONFeature);
           const center = probeLayer.getBounds().getCenter();
           const area = nearestArea(center.lat, center.lng);
           const impact = impactByArea[area];
@@ -153,7 +155,8 @@ export function InteractiveLatviaMap() {
           if (!center) return;
           const area = nearestArea(center.lat, center.lng);
           const impact = impactByArea[area];
-          const municipality = String((feature.properties as any)?.shapeName ?? 'Municipality');
+          const leafletFeature = feature as LeafletGeoJSONFeature;
+          const municipality = String(leafletFeature.properties?.shapeName ?? 'Municipality');
           const areaLabel = locale === 'lv' ? AREA_LABELS[area].lv : AREA_LABELS[area].en;
 
           const impactText = impact

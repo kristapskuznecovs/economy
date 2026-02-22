@@ -6,6 +6,9 @@ import { WhyExplanation } from '@/components/WhyExplanation';
 import { SankeyView } from '@/components/SankeyView';
 import { InteractiveSankeyFlow } from '@/components/InteractiveSankeyFlow';
 import { ExpenditureHistoryExplorer } from '@/components/ExpenditureHistoryExplorer';
+import { RevenueHistoryExplorer } from '@/components/RevenueHistoryExplorer';
+import { TradeOverviewCard } from '@/components/TradeOverviewCard';
+import { EconomyStructureCard } from '@/components/EconomyStructureCard';
 import { RegionalMap } from '@/components/RegionalMap';
 import { RegionalImpactPanel } from '@/components/RegionalImpactPanel';
 import { InvestmentPanel } from '@/components/InvestmentPanel';
@@ -42,6 +45,9 @@ function DesktopLayout() {
           <RegionalMap />
 
           <ExpenditureHistoryExplorer />
+          <RevenueHistoryExplorer />
+          <TradeOverviewCard />
+          <EconomyStructureCard />
 
           {/* Row 5: Regional + Investment */}
           <RegionalImpactPanel />
@@ -76,6 +82,9 @@ function TabletLayout() {
           <InteractiveSankeyFlow />
           <SankeyView />
           <ExpenditureHistoryExplorer />
+          <RevenueHistoryExplorer />
+          <TradeOverviewCard />
+          <EconomyStructureCard />
           <RegionalMap />
           <RegionalImpactPanel />
           <InvestmentPanel />
@@ -127,6 +136,9 @@ function MobileLayout() {
             <InteractiveSankeyFlow />
             <SankeyView />
             <ExpenditureHistoryExplorer />
+            <RevenueHistoryExplorer />
+            <TradeOverviewCard />
+            <EconomyStructureCard />
             <InvestmentPanel />
           </TabsContent>
           <TabsContent value="details" className="p-3 space-y-4 mt-0">

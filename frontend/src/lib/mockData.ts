@@ -46,9 +46,6 @@ export const SAEIMA_VOTE_EXPENDITURES: ExpenditureItem[] = [
   { id: 'vote_constitutional', label: 'Saeima, Presidency and Constitutional Bodies', vote_division: 'Constitutional Bodies', amount_eur_m: 140, kind: 'category' },
 ];
 
-// Keep legacy export name for compatibility with existing imports.
-export const DEFAULT_EXPENDITURES: ExpenditureItem[] = SAEIMA_VOTE_EXPENDITURES;
-
 const AREA_WEIGHTS: Record<LatviaArea, number> = {
   Riga: 0.42, Pieriga: 0.18, Kurzeme: 0.12, Zemgale: 0.09, Vidzeme: 0.10, Latgale: 0.09,
 };
@@ -158,18 +155,4 @@ export function generateMockScenario(prompt: string): ScenarioResult {
   };
 }
 
-export const QUICK_PROMPTS = [
-  'Simulate removing the 2nd pension pillar',
-  'What if we increase health spending by €100M?',
-  'Cut defence budget by 20%',
-  'Redirect EU funds to education',
-];
-
 export const MOCK_CHAT_WELCOME = "👋 Ask any fiscal policy question to see budget, economy, regional, and investment impacts across 1, 5, and 15 year horizons.";
-
-export const QUICK_ACTIONS = [
-  { text: "Explain results" },
-  { text: "Suggest alternatives" },
-  { text: "Compare funding sources" },
-  { text: "Regional breakdown" },
-];

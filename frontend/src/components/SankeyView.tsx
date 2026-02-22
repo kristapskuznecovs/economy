@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
-import { AlertCircle, Loader2 } from 'lucide-react';
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { Card } from '@/components/ui/card';
+import { ErrorAlert } from '@/components/ui/ErrorAlert';
+import { LoadingIndicator } from '@/components/ui/LoadingIndicator';
 import { api, type BudgetVoteDivision, type BudgetVoteDivisionsResponse } from '@/lib/api';
 import { useAppStore } from '@/lib/store';
 import { useI18n } from '@/lib/i18n';
@@ -159,21 +160,14 @@ export function SankeyView() {
       </div>
 
       {isLoading && !remoteData && (
-        <div className="flex items-center gap-2 text-xs text-muted-foreground mb-3">
-          <Loader2 className="h-4 w-4 animate-spin" />
-          {t('sankey.loading')}
-        </div>
+        <LoadingIndicator message={t('sankey.loading')} className="mb-3" />
       )}
 
       {loadError && (
-        <div className="flex items-start gap-2 text-xs text-amber-700 bg-amber-50 border border-amber-200 rounded p-2 mb-3">
-          <AlertCircle className="h-4 w-4 mt-0.5 shrink-0" />
-          <p>
-            {t('sankey.loadFail')}
-            <br />
-            <span className="font-mono">{loadError}</span>
-          </p>
-        </div>
+        <ErrorAlert
+          message={`${t('sankey.loadFail')}\n${loadError}`}
+          className="mb-3"
+        />
       )}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3">

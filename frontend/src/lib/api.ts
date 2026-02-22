@@ -2,6 +2,8 @@
  * API client for Economic Simulation Backend
  */
 
+import type { HorizonImpact, RegionalAreaImpact, InvestmentImpact } from './types';
+
 const RAW_API_BASE_URL = import.meta.env.VITE_API_URL || '';
 const API_BASE_URL = RAW_API_BASE_URL.replace(/\/+$/, '');
 
@@ -94,39 +96,89 @@ export interface BudgetVoteDivisionHistoryResponse {
   series: BudgetVoteDivisionHistoryPoint[];
 }
 
+export interface BudgetRevenueSource {
+  details: BudgetRevenueSourceDetail[];
+  id: string;
+  label: string;
+  amount_eur_m: number;
+  share_pct: number;
+  change_yoy_eur_m: number | null;
+  change_yoy_pct: number | null;
+}
+
+export interface BudgetRevenueSourceDetail {
+  label: string;
+  amount_eur_m: number;
+  share_of_category_pct: number;
+}
+
+export interface BudgetRevenueSourcesHistoryResponse {
+  since_year: number;
+  to_year: number;
+  selected_year: number;
+  selected_month: number;
+  selected_month_name: string;
+  total_revenue_eur_m: number;
+  source_dataset_id: string;
+  source_resource_ids: string[];
+  available_years: number[];
+  categories: BudgetRevenueSource[];
+}
+
+export interface TradePartnerValue {
+  country_code: string;
+  country_name_lv: string;
+  country_name_en: string;
+  exports_eur_m: number;
+  imports_eur_m: number;
+  balance_eur_m: number;
+  total_trade_eur_m: number;
+  share_of_total_trade_pct: number;
+}
+
+export interface TradeOverviewResponse {
+  since_year: number;
+  to_year: number;
+  selected_year: number;
+  total_exports_eur_m: number;
+  total_imports_eur_m: number;
+  trade_balance_eur_m: number;
+  source_dataset_id: string;
+  source_resource_id: string;
+  country_map_resource_id: string;
+  available_years: number[];
+  partners: TradePartnerValue[];
+}
+
+export interface EconomyExportGroup {
+  id: string;
+  amount_eur_m: number;
+  share_pct: number;
+}
+
+export interface EconomyStructureResponse {
+  since_year: number;
+  to_year: number;
+  selected_year: number;
+  available_years: number[];
+  production_share_pct: number | null;
+  services_share_pct: number | null;
+  agriculture_share_pct: number | null;
+  industry_share_pct: number | null;
+  manufacturing_exports_share_pct: number | null;
+  ict_services_exports_share_pct: number | null;
+  remittances_usd_m: number | null;
+  remittances_share_gdp_pct: number | null;
+  total_exports_eur_m: number;
+  export_groups: EconomyExportGroup[];
+  source_trade_dataset_id: string;
+  source_trade_resource_id: string;
+  source_world_bank_country: string;
+}
+
 export interface SimulateResponse {
   run_id: string;
   status: string;
-}
-
-export interface HorizonImpact {
-  year: number;
-  budget_balance_eur_m: number;
-  revenues_eur_m: number;
-  expenditures_eur_m: number;
-  gdp_real_pct: number;
-  employment_jobs: number;
-  inflation_pp: number;
-}
-
-export interface RegionalImpact {
-  area: string;
-  year: number;
-  gdp_real_pct: number;
-  employment_jobs: number;
-  income_tax_eur_m: number;
-  social_spending_eur_m: number;
-  direction: 'increase' | 'decrease' | 'neutral';
-}
-
-export interface InvestmentImpact {
-  year: number;
-  public_investment_eur_m: number;
-  private_investment_eur_m: number;
-  fdi_investment_eur_m: number;
-  total_investment_eur_m: number;
-  direction: 'increase' | 'decrease';
-  explanation: string;
 }
 
 export interface SimulationResults {
@@ -134,7 +186,7 @@ export interface SimulationResults {
   title: string;
   policy_changes: string[];
   horizon_impacts: HorizonImpact[];
-  regional_impacts: RegionalImpact[];
+  regional_impacts: RegionalAreaImpact[];
   investment_impacts: InvestmentImpact[];
   model_name: string;
   model_version: string;
@@ -225,6 +277,50 @@ export const api = {
     if (params?.top_groups !== undefined) search.set('top_groups', String(params.top_groups));
     const suffix = search.toString() ? `?${search.toString()}` : '';
     return fetchApi<BudgetVoteDivisionHistoryResponse>(`/api/budget/vote-divisions/history${suffix}`);
+  },
+
+  /**
+   * Get revenue source distribution + YoY deltas for selected year.
+   */
+  async getBudgetRevenueSourcesHistory(params?: {
+    since_year?: number;
+    year?: number;
+  }): Promise<BudgetRevenueSourcesHistoryResponse> {
+    const search = new URLSearchParams();
+    if (params?.since_year !== undefined) search.set('since_year', String(params.since_year));
+    if (params?.year !== undefined) search.set('year', String(params.year));
+    const suffix = search.toString() ? `?${search.toString()}` : '';
+    return fetchApi<BudgetRevenueSourcesHistoryResponse>(`/api/budget/revenue-sources/history${suffix}`);
+  },
+
+  /**
+   * Get trade overview (exports, imports, deficit/surplus) by partner countries.
+   */
+  async getTradeOverview(params?: {
+    since_year?: number;
+    year?: number;
+    top_partners?: number;
+  }): Promise<TradeOverviewResponse> {
+    const search = new URLSearchParams();
+    if (params?.since_year !== undefined) search.set('since_year', String(params.since_year));
+    if (params?.year !== undefined) search.set('year', String(params.year));
+    if (params?.top_partners !== undefined) search.set('top_partners', String(params.top_partners));
+    const suffix = search.toString() ? `?${search.toString()}` : '';
+    return fetchApi<TradeOverviewResponse>(`/api/budget/trade/overview${suffix}`);
+  },
+
+  /**
+   * Get economy split and export composition with remittance metrics.
+   */
+  async getEconomyStructure(params?: {
+    since_year?: number;
+    year?: number;
+  }): Promise<EconomyStructureResponse> {
+    const search = new URLSearchParams();
+    if (params?.since_year !== undefined) search.set('since_year', String(params.since_year));
+    if (params?.year !== undefined) search.set('year', String(params.year));
+    const suffix = search.toString() ? `?${search.toString()}` : '';
+    return fetchApi<EconomyStructureResponse>(`/api/budget/economy-structure${suffix}`);
   },
 
   /**

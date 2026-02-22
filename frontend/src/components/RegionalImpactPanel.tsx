@@ -5,6 +5,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { useAppStore } from '@/lib/store';
 import { LATVIA_AREAS } from '@/lib/types';
 import { useI18n } from '@/lib/i18n';
+import { formatSignedNumber, getSignColor } from '@/lib/utils';
 
 export function RegionalImpactPanel() {
   const { activeScenario } = useAppStore();
@@ -55,12 +56,12 @@ export function RegionalImpactPanel() {
                     }
                     return (
                       <Fragment key={y}>
-                        <TableCell className={`py-1.5 text-right font-mono text-xs ${imp.gdp_real_pct >= 0 ? 'text-positive' : 'text-negative'}`}>
-                          {imp.gdp_real_pct > 0 ? '+' : ''}{imp.gdp_real_pct}%
+                        <TableCell className={`py-1.5 text-right font-mono text-xs ${getSignColor(imp.gdp_real_pct)}`}>
+                          {formatSignedNumber(imp.gdp_real_pct)}%
                         </TableCell>
-                        <TableCell className={`py-1.5 text-right font-mono text-xs ${imp.employment_jobs >= 0 ? 'text-positive' : 'text-negative'}`}>
+                        <TableCell className={`py-1.5 text-right font-mono text-xs ${getSignColor(imp.employment_jobs)}`}>
                           <div className="flex items-center justify-end gap-1">
-                            {imp.employment_jobs > 0 ? '+' : ''}{imp.employment_jobs.toLocaleString()}
+                            {formatSignedNumber(imp.employment_jobs)}
                             <Badge
                               variant="outline"
                               className={`text-[8px] h-4 px-1 ${

@@ -4,11 +4,11 @@ import { TrendingUp, TrendingDown, BarChart3 } from 'lucide-react';
 import { useAppStore } from '@/lib/store';
 import type { HorizonImpact } from '@/lib/types';
 import { useI18n } from '@/lib/i18n';
+import { formatSignedNumber, getSignColor } from '@/lib/utils';
 
 function HorizonCard({ impact, label }: { impact: HorizonImpact; label: string }) {
   const { t } = useI18n();
   const gdpPos = impact.gdp_real_pct >= 0;
-  const jobsPos = impact.employment_jobs >= 0;
 
   return (
     <Card className="p-4 flex flex-col gap-2">
@@ -24,27 +24,27 @@ function HorizonCard({ impact, label }: { impact: HorizonImpact; label: string }
       <div className="space-y-1.5">
         <div>
           <p className="text-[10px] text-muted-foreground uppercase tracking-wide">{t('horizon.gdp')}</p>
-          <p className={`text-lg font-bold font-mono ${gdpPos ? 'text-positive' : 'text-negative'}`}>
-            {gdpPos ? '+' : ''}{impact.gdp_real_pct}%
+          <p className={`text-lg font-bold font-mono ${getSignColor(impact.gdp_real_pct)}`}>
+            {formatSignedNumber(impact.gdp_real_pct)}%
           </p>
         </div>
         <div className="flex gap-4">
           <div>
             <p className="text-[10px] text-muted-foreground">{t('horizon.jobs')}</p>
-            <p className={`text-sm font-semibold font-mono ${jobsPos ? 'text-positive' : 'text-negative'}`}>
-              {jobsPos ? '+' : ''}{impact.employment_jobs.toLocaleString()}
+            <p className={`text-sm font-semibold font-mono ${getSignColor(impact.employment_jobs)}`}>
+              {formatSignedNumber(impact.employment_jobs)}
             </p>
           </div>
           <div>
             <p className="text-[10px] text-muted-foreground">{t('horizon.budget')}</p>
-            <p className={`text-sm font-semibold font-mono ${impact.budget_balance_eur_m >= 0 ? 'text-positive' : 'text-negative'}`}>
-              {impact.budget_balance_eur_m > 0 ? '+' : ''}€{impact.budget_balance_eur_m}M
+            <p className={`text-sm font-semibold font-mono ${getSignColor(impact.budget_balance_eur_m)}`}>
+              {formatSignedNumber(impact.budget_balance_eur_m)}M€
             </p>
           </div>
           <div>
             <p className="text-[10px] text-muted-foreground">{t('horizon.inflation')}</p>
             <p className="text-sm font-semibold font-mono">
-              {impact.inflation_pp > 0 ? '+' : ''}{impact.inflation_pp}pp
+              {formatSignedNumber(impact.inflation_pp)}pp
             </p>
           </div>
         </div>

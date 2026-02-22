@@ -100,15 +100,7 @@ export const useAppStore = create<AppState>((set, get) => ({
             employment_jobs: h.employment_jobs,
             inflation_pp: h.inflation_pp,
           })),
-          regional_area_impacts: results.regional_impacts.map(r => ({
-            area: r.area as any,
-            year: r.year,
-            gdp_real_pct: r.gdp_real_pct,
-            employment_jobs: r.employment_jobs,
-            income_tax_eur_m: r.income_tax_eur_m,
-            social_spending_eur_m: r.social_spending_eur_m,
-            direction: r.direction,
-          })),
+          regional_area_impacts: results.regional_impacts,
           investment_impacts: results.investment_impacts.map(i => ({
             year: i.year,
             public_investment_eur_m: i.public_investment_eur_m,

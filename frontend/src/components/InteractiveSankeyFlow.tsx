@@ -1,10 +1,12 @@
 import { useState, useMemo, useEffect } from 'react';
 import { Card } from '@/components/ui/card';
+import { ErrorAlert } from '@/components/ui/ErrorAlert';
+import { LoadingIndicator } from '@/components/ui/LoadingIndicator';
 import { useAppStore } from '@/lib/store';
 import { api, type BudgetVoteDivisionsResponse } from '@/lib/api';
-import { AlertCircle, Loader2 } from 'lucide-react';
 import { ResponsiveContainer, Sankey, Tooltip } from 'recharts';
 import { useI18n } from '@/lib/i18n';
+import type { SankeyNodeProps, SankeyLinkProps, SankeyTooltipProps } from '@/lib/types/recharts';
 
 const REVENUE_COLORS: Record<string, string> = {
   iin: '#10b981',
@@ -107,8 +109,7 @@ export function InteractiveSankeyFlow() {
     [expenditures]
   );
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const CustomNode = (props: any) => {
+  const CustomNode = (props: SankeyNodeProps) => {
     const { x, y, width, height, index, payload, containerWidth } = props;
     const isRevenue = index < revenueSources.filter(r => r.enabled).length;
     const fillColor = isRevenue
@@ -141,8 +142,7 @@ export function InteractiveSankeyFlow() {
     );
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const CustomLink = (props: any) => {
+  const CustomLink = (props: SankeyLinkProps) => {
     const { sourceX, targetX, sourceY, targetY, sourceControlX, targetControlX, linkWidth, index } = props;
     const enabledRevenues = revenueSources.filter(r => r.enabled);
     const sourceIndex = sankeyData.links[index]?.source || 0;
@@ -164,8 +164,7 @@ export function InteractiveSankeyFlow() {
     );
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const CustomTooltip = (props: any) => {
+  const CustomTooltip = (props: SankeyTooltipProps) => {
     const { active, payload } = props;
     if (active && payload && payload.length) {
       const data = payload[0].payload;
@@ -203,34 +202,27 @@ export function InteractiveSankeyFlow() {
       </div>
 
       {isLoading && !remoteData && (
-        <div className="flex items-center gap-2 text-xs text-muted-foreground mb-3">
-          <Loader2 className="h-4 w-4 animate-spin" />
-          {t('interactive.loading')}
-        </div>
+        <LoadingIndicator message={t('interactive.loading')} className="mb-3" />
       )}
 
       {loadError && (
-        <div className="flex items-start gap-2 text-xs text-amber-700 bg-amber-50 border border-amber-200 rounded p-2 mb-3">
-          <AlertCircle className="h-4 w-4 mt-0.5 shrink-0" />
-          <p>
-            {t('interactive.loadFail')}
-            <br />
-            <span className="font-mono">{loadError}</span>
-          </p>
-        </div>
+        <ErrorAlert
+          message={`${t('interactive.loadFail')}\n${loadError}`}
+          className="mb-3"
+        />
       )}
 
       <div className="border rounded-lg bg-white overflow-hidden">
         <ResponsiveContainer width="100%" height={450}>
           <Sankey
             data={sankeyData}
-            node={<CustomNode />}
-            link={<CustomLink />}
+            node={CustomNode as never}
+            link={CustomLink as never}
             nodePadding={4}
             nodeWidth={8}
             margin={{ top: 10, right: 150, bottom: 10, left: 150 }}
           >
-            <Tooltip content={<CustomTooltip />} />
+            <Tooltip content={CustomTooltip as never} />
           </Sankey>
         </ResponsiveContainer>
       </div>
