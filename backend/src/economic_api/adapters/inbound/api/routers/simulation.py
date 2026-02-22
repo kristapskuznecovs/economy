@@ -3,10 +3,11 @@
 from typing import Annotated
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Path
 
 from .....application.commands import RunSimulationCommand
 from .....application.dto import (
+    ErrorResponseDTO,
     SimulationDetailsDTO,
     SimulationResponseDTO,
     SimulationResultsDTO,
@@ -22,10 +23,26 @@ from ..dependencies import get_command_handler, get_query_handler
 router = APIRouter(prefix="/api", tags=["simulation"])
 
 
-@router.post("/simulate", response_model=SimulationResponseDTO)
+SIMULATION_COMMON_RESPONSES = {
+    422: {"model": ErrorResponseDTO, "description": "Request validation failed."},
+    503: {"model": ErrorResponseDTO, "description": "Simulation service unavailable."},
+}
+
+
+@router.post(
+    "/simulate",
+    response_model=SimulationResponseDTO,
+    summary="Start Simulation",
+    description=(
+        "Create and execute a simulation run from natural-language policy input. "
+        "MVP implementation is synchronous and usually returns status=completed."
+    ),
+    responses=SIMULATION_COMMON_RESPONSES,
+)
 async def simulate(
-    request: SimulateRequest,
+    payload: SimulateRequest,
     handler: Annotated[SimulationCommandHandler, Depends(get_command_handler)],
+    query_handler: Annotated[SimulationQueryHandler, Depends(get_query_handler)],
 ) -> SimulationResponseDTO:
     """
     Start a new simulation.
@@ -34,20 +51,31 @@ async def simulate(
     The simulation runs asynchronously (in MVP, it completes quickly but in v1 it may take longer).
     """
     command = RunSimulationCommand(
-        policy_text=request.policy,
-        country=request.country,
-        horizon_quarters=request.horizon_quarters,
+        policy_text=payload.policy,
+        country=payload.country,
+        horizon_quarters=payload.horizon_quarters,
     )
 
     run_id = await handler.handle_run_simulation(command)
+    simulation = await query_handler.get_simulation(run_id)
+    status_value = simulation.status.value if simulation is not None else "completed"
 
-    return SimulationResponseDTO(run_id=run_id, status="completed")
+    return SimulationResponseDTO(run_id=run_id, status=status_value)
 
 
-@router.get("/status/{run_id}", response_model=SimulationStatusDTO)
+@router.get(
+    "/status/{run_id}",
+    response_model=SimulationStatusDTO,
+    summary="Get Simulation Status",
+    description="Return lifecycle state for a simulation run by ID.",
+    responses={
+        **SIMULATION_COMMON_RESPONSES,
+        404: {"model": ErrorResponseDTO, "description": "Simulation run not found."},
+    },
+)
 async def get_status(
-    run_id: UUID,
     handler: Annotated[SimulationQueryHandler, Depends(get_query_handler)],
+    run_id: UUID = Path(..., description="Simulation run UUID"),
 ) -> SimulationStatusDTO:
     """Get the status of a simulation run."""
     simulation = await handler.get_simulation(run_id)
@@ -64,10 +92,19 @@ async def get_status(
     )
 
 
-@router.get("/results/{run_id}", response_model=SimulationDetailsDTO)
+@router.get(
+    "/results/{run_id}",
+    response_model=SimulationDetailsDTO,
+    summary="Get Simulation Results",
+    description="Return full simulation payload (status, metadata, and results when available).",
+    responses={
+        **SIMULATION_COMMON_RESPONSES,
+        404: {"model": ErrorResponseDTO, "description": "Simulation run not found."},
+    },
+)
 async def get_results(
-    run_id: UUID,
     handler: Annotated[SimulationQueryHandler, Depends(get_query_handler)],
+    run_id: UUID = Path(..., description="Simulation run UUID"),
 ) -> SimulationDetailsDTO:
     """Get the full results of a completed simulation."""
     simulation = await handler.get_simulation(run_id)
@@ -141,7 +178,12 @@ async def get_results(
     )
 
 
-@router.get("/health")
+@router.get(
+    "/health",
+    summary="Health Check",
+    description="Liveness check for API process.",
+    responses={422: {"model": ErrorResponseDTO, "description": "Request validation failed."}},
+)
 async def health() -> dict[str, str]:
     """Health check endpoint."""
     return {"status": "ok"}

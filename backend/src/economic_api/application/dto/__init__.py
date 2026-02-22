@@ -39,6 +39,25 @@ class PolicyParseRequestDTO(BaseModel):
 
 
 # Response DTOs
+class ErrorDetailDTO(BaseModel):
+    """Standard error detail block for all non-2xx API responses."""
+
+    code: str = Field(..., description="Stable machine-readable error code")
+    message: str = Field(..., description="Human-readable error message")
+    details: Optional[Any] = Field(default=None, description="Optional structured error details")
+    request_id: str = Field(..., description="Request correlation ID (X-Request-ID)")
+
+
+class ErrorResponseDTO(BaseModel):
+    """Standard API error envelope."""
+
+    error: ErrorDetailDTO
+    detail: Optional[Any] = Field(
+        default=None,
+        description="Backward-compatible error detail field for existing clients",
+    )
+
+
 class HorizonImpactDTO(BaseModel):
     """Economic impact at a specific time horizon."""
 
@@ -307,3 +326,127 @@ class EconomyStructureResponseDTO(BaseModel):
     source_trade_dataset_id: str
     source_trade_resource_id: str
     source_world_bank_country: str
+
+
+class BudgetExpenditurePositionDTO(BaseModel):
+    """One expenditure position row for EKK/program/institution view."""
+
+    id: str
+    label: str
+    amount_eur_m: float
+    share_pct: float
+
+
+class BudgetExpenditurePositionsResponseDTO(BaseModel):
+    """Top expenditure positions for selected period and grouping."""
+
+    year: int
+    month: int
+    month_name: str
+    available_years: list[int]
+    group_by: Literal["ekk", "program", "institution", "ministry"]
+    group_label: str
+    total_expenditure_eur_m: float
+    source_dataset_id: str
+    source_resource_id: str
+    source_last_modified: Optional[str] = None
+    source_url: Optional[str] = None
+    positions: list[BudgetExpenditurePositionDTO]
+
+
+class BudgetProcurementEntityDTO(BaseModel):
+    """One top purchaser/supplier row for procurement KPI card."""
+
+    id: str
+    label: str
+    amount_eur_m: float
+    share_pct: float
+
+
+class BudgetProcurementKpiResponseDTO(BaseModel):
+    """Procurement KPI payload with available and missing indicators."""
+
+    year: int
+    month: int
+    month_name: str
+    available_years: list[int]
+    total_expenditure_eur_m: float
+    procurement_like_expenditure_eur_m: float
+    procurement_like_share_pct: float
+    single_bid_share_pct: Optional[float] = None
+    avg_bidder_count: Optional[float] = None
+    initial_vs_actual_contract_delta_pct: Optional[float] = None
+    top_purchasers: list[BudgetProcurementEntityDTO]
+    top_suppliers: list[BudgetProcurementEntityDTO]
+    source_dataset_id: str
+    source_resource_id: str
+    source_last_modified: Optional[str] = None
+    source_url: Optional[str] = None
+    notes: list[str] = Field(default_factory=list)
+
+
+class ExternalDebtOverviewPointDTO(BaseModel):
+    """One yearly point for external debt trends."""
+
+    year: int
+    external_debt_usd_m: Optional[float] = None
+    debt_service_usd_m: Optional[float] = None
+    external_debt_pct_gdp: Optional[float] = None
+
+
+class ExternalDebtOverviewResponseDTO(BaseModel):
+    """External debt summary + servicing costs for selected year."""
+
+    since_year: int
+    to_year: int
+    selected_year: int
+    available_years: list[int]
+    external_debt_usd_m: Optional[float] = None
+    external_debt_eur_m: Optional[float] = None
+    external_debt_per_capita_usd: Optional[float] = None
+    external_debt_per_capita_eur: Optional[float] = None
+    external_debt_pct_gdp: Optional[float] = None
+    debt_service_usd_m: Optional[float] = None
+    debt_service_eur_m: Optional[float] = None
+    debt_service_pct_exports: Optional[float] = None
+    interest_payments_usd_m: Optional[float] = None
+    interest_payments_eur_m: Optional[float] = None
+    population_m: Optional[float] = None
+    debt_basis: str
+    source_world_bank_country: str
+    source_indicators: list[str]
+    notes: list[str] = Field(default_factory=list)
+    series: list[ExternalDebtOverviewPointDTO]
+
+
+class ConstructionOverviewPointDTO(BaseModel):
+    """One yearly point for construction and investment split."""
+
+    year: int
+    construction_value_added_eur_m: Optional[float] = None
+    construction_share_gdp_pct: Optional[float] = None
+    total_fixed_investment_eur_m: Optional[float] = None
+    private_fixed_investment_eur_m: Optional[float] = None
+    public_soe_proxy_investment_eur_m: Optional[float] = None
+    private_share_pct: Optional[float] = None
+    public_soe_proxy_share_pct: Optional[float] = None
+
+
+class ConstructionOverviewResponseDTO(BaseModel):
+    """Construction activity and private/public investment split for selected year."""
+
+    since_year: int
+    to_year: int
+    selected_year: int
+    available_years: list[int]
+    construction_value_added_eur_m: Optional[float] = None
+    construction_share_gdp_pct: Optional[float] = None
+    total_fixed_investment_eur_m: Optional[float] = None
+    private_fixed_investment_eur_m: Optional[float] = None
+    public_soe_proxy_investment_eur_m: Optional[float] = None
+    private_share_pct: Optional[float] = None
+    public_soe_proxy_share_pct: Optional[float] = None
+    source_world_bank_country: str
+    source_indicators: list[str]
+    notes: list[str] = Field(default_factory=list)
+    series: list[ConstructionOverviewPointDTO]
