@@ -3,8 +3,8 @@ import { AlertCircle, Loader2 } from 'lucide-react';
 import { Bar, BarChart, CartesianGrid, Cell, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
 import { Card } from '@/components/ui/card';
-import { Slider } from '@/components/ui/slider';
-import { api, type TradeOverviewResponse } from '@/lib/api';
+import { YearRangeSelector, YearSelector } from '@/components/PeriodSelector';
+import { api, type TradeOverviewResponse, type TradePartnerValue } from '@/lib/api';
 import { useI18n } from '@/lib/i18n';
 
 function shortLabel(label: string): string {
@@ -14,18 +14,98 @@ function shortLabel(label: string): string {
 export function TradeOverviewCard() {
   const { t, locale } = useI18n();
   const [overview, setOverview] = useState<TradeOverviewResponse | null>(null);
+  const [overviewByYear, setOverviewByYear] = useState<Record<number, TradeOverviewResponse>>({});
+  const [availableYears, setAvailableYears] = useState<number[]>([]);
+  const [selectedYear, setSelectedYear] = useState<number | null>(null);
+  const [yearRange, setYearRange] = useState<[number, number]>([2010, 2010]);
+  const [mode, setMode] = useState<'year' | 'range'>('year');
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const loadOverview = async (year?: number) => {
+  const mergeYearSnapshot = (payload: TradeOverviewResponse) => {
+    setOverviewByYear(prev => ({ ...prev, [payload.selected_year]: payload }));
+  };
+
+  const fetchYearOverview = async (year: number): Promise<TradeOverviewResponse> => {
+    const cached = overviewByYear[year];
+    if (cached) return cached;
+    const payload = await api.getTradeOverview({
+      since_year: 2010,
+      year,
+      top_partners: 50,
+    });
+    mergeYearSnapshot(payload);
+    return payload;
+  };
+
+  const aggregateRange = (records: TradeOverviewResponse[]): TradeOverviewResponse => {
+    const years = records
+      .map(item => item.selected_year)
+      .sort((a, b) => a - b);
+    const partnerMap = new Map<string, TradePartnerValue>();
+    let exportsTotal = 0;
+    let importsTotal = 0;
+
+    records.forEach((record) => {
+      exportsTotal += record.total_exports_eur_m;
+      importsTotal += record.total_imports_eur_m;
+      record.partners.forEach((partner) => {
+        const existing = partnerMap.get(partner.country_code);
+        if (existing) {
+          existing.exports_eur_m += partner.exports_eur_m;
+          existing.imports_eur_m += partner.imports_eur_m;
+          existing.balance_eur_m += partner.balance_eur_m;
+          existing.total_trade_eur_m += partner.total_trade_eur_m;
+          return;
+        }
+        partnerMap.set(partner.country_code, { ...partner });
+      });
+    });
+
+    const totalTrade = exportsTotal + importsTotal;
+    const partners = Array.from(partnerMap.values())
+      .map((partner) => ({
+        ...partner,
+        exports_eur_m: Number(partner.exports_eur_m.toFixed(2)),
+        imports_eur_m: Number(partner.imports_eur_m.toFixed(2)),
+        balance_eur_m: Number(partner.balance_eur_m.toFixed(2)),
+        total_trade_eur_m: Number(partner.total_trade_eur_m.toFixed(2)),
+        share_of_total_trade_pct:
+          totalTrade > 0 ? Number(((partner.total_trade_eur_m / totalTrade) * 100).toFixed(2)) : 0,
+      }))
+      .sort((a, b) => b.total_trade_eur_m - a.total_trade_eur_m)
+      .slice(0, 15);
+
+    const first = records[0];
+    return {
+      since_year: years[0],
+      to_year: years[years.length - 1],
+      selected_year: years[years.length - 1],
+      total_exports_eur_m: Number(exportsTotal.toFixed(2)),
+      total_imports_eur_m: Number(importsTotal.toFixed(2)),
+      trade_balance_eur_m: Number((exportsTotal - importsTotal).toFixed(2)),
+      source_dataset_id: first.source_dataset_id,
+      source_resource_id: first.source_resource_id,
+      country_map_resource_id: first.country_map_resource_id,
+      available_years: first.available_years,
+      partners,
+    };
+  };
+
+  const loadInitial = async () => {
     setIsLoading(true);
     setError(null);
     try {
       const payload = await api.getTradeOverview({
         since_year: 2010,
-        year,
-        top_partners: 15,
+        top_partners: 50,
       });
+      mergeYearSnapshot(payload);
+      setAvailableYears(payload.available_years);
+      setSelectedYear(payload.selected_year);
+      if (payload.available_years.length > 0) {
+        setYearRange([payload.available_years[0], payload.selected_year]);
+      }
       setOverview(payload);
     } catch (err) {
       const message = err instanceof Error ? err.message : t('trade.failed');
@@ -36,15 +116,41 @@ export function TradeOverviewCard() {
   };
 
   useEffect(() => {
-    void loadOverview();
+    void loadInitial();
   }, []);
 
-  const availableYears = overview?.available_years ?? [];
-  const selectedYearIndex = useMemo(() => {
-    if (!overview || availableYears.length === 0) return 0;
-    const index = availableYears.indexOf(overview.selected_year);
-    return index >= 0 ? index : availableYears.length - 1;
-  }, [overview, availableYears]);
+  const applyYear = async (year: number) => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const payload = await fetchYearOverview(year);
+      setOverview(payload);
+      setSelectedYear(year);
+    } catch (err) {
+      const message = err instanceof Error ? err.message : t('trade.failed');
+      setError(message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const applyRange = async (fromYear: number, toYear: number) => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const from = Math.min(fromYear, toYear);
+      const to = Math.max(fromYear, toYear);
+      const years = availableYears.filter((year) => year >= from && year <= to);
+      if (years.length === 0) return;
+      const records = await Promise.all(years.map((year) => fetchYearOverview(year)));
+      setOverview(aggregateRange(records));
+    } catch (err) {
+      const message = err instanceof Error ? err.message : t('trade.failed');
+      setError(message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const chartData = useMemo(
     () =>
@@ -59,11 +165,18 @@ export function TradeOverviewCard() {
     [overview, locale]
   );
 
-  const handleYearChange = (index: number) => {
-    if (!overview) return;
-    const year = overview.available_years[index];
-    if (!year || year === overview.selected_year) return;
-    void loadOverview(year);
+  const handleYearChange = (year: number) => {
+    if (selectedYear === year) return;
+    setMode('year');
+    void applyYear(year);
+  };
+
+  const handleRangeChange = (fromYear: number, toYear: number) => {
+    setYearRange([fromYear, toYear]);
+    if (mode !== 'range') {
+      setMode('range');
+    }
+    void applyRange(fromYear, toYear);
   };
 
   const balance = overview?.trade_balance_eur_m ?? 0;
@@ -100,18 +213,55 @@ export function TradeOverviewCard() {
       {overview && (
         <>
           <div className="rounded border p-3 mb-3">
-            <div className="flex items-center justify-between mb-2">
-              <p className="text-xs font-medium">{t('trade.year')}</p>
-              <p className="text-xs font-mono text-muted-foreground">{overview.selected_year}</p>
+            <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+              <p className="text-xs font-medium">{t('trade.selectorMode')}</p>
+              <div className="inline-flex rounded border bg-card p-0.5">
+                <button
+                  type="button"
+                  className={`px-2 py-1 text-[11px] rounded ${mode === 'year' ? 'bg-muted font-medium' : 'text-muted-foreground'}`}
+                  onClick={() => {
+                    setMode('year');
+                    if (selectedYear !== null) void applyYear(selectedYear);
+                  }}
+                >
+                  {t('period.modeYear')}
+                </button>
+                <button
+                  type="button"
+                  className={`px-2 py-1 text-[11px] rounded ${mode === 'range' ? 'bg-muted font-medium' : 'text-muted-foreground'}`}
+                  onClick={() => {
+                    setMode('range');
+                    void applyRange(yearRange[0], yearRange[1]);
+                  }}
+                >
+                  {t('period.modeRange')}
+                </button>
+              </div>
             </div>
-            <Slider
-              value={[selectedYearIndex]}
-              min={0}
-              max={Math.max(0, availableYears.length - 1)}
-              step={1}
-              onValueChange={(value) => handleYearChange(value[0] ?? 0)}
-              disabled={availableYears.length <= 1 || isLoading}
-            />
+
+            {mode === 'year' ? (
+              <YearSelector
+                label={t('trade.year')}
+                years={availableYears}
+                value={selectedYear ?? overview.selected_year}
+                onChange={handleYearChange}
+                disabled={availableYears.length <= 1 || isLoading}
+              />
+            ) : (
+              <>
+                <YearRangeSelector
+                  label={t('revenueHistory.range')}
+                  fromLabel={t('period.from')}
+                  toLabel={t('period.to')}
+                  years={availableYears}
+                  fromYear={yearRange[0]}
+                  toYear={yearRange[1]}
+                  onChange={handleRangeChange}
+                  disabled={availableYears.length <= 1 || isLoading}
+                />
+                <p className="mt-2 text-[11px] text-muted-foreground">{t('trade.rangeNote')}</p>
+              </>
+            )}
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-2 mb-3">

@@ -9,6 +9,11 @@ import { ExpenditureHistoryExplorer } from '@/components/ExpenditureHistoryExplo
 import { RevenueHistoryExplorer } from '@/components/RevenueHistoryExplorer';
 import { TradeOverviewCard } from '@/components/TradeOverviewCard';
 import { EconomyStructureCard } from '@/components/EconomyStructureCard';
+import { ExpenditurePositionsCard } from '@/components/ExpenditurePositionsCard';
+import { ProcurementKpiCard } from '@/components/ProcurementKpiCard';
+import { ExternalDebtCard } from '@/components/ExternalDebtCard';
+import { DebtServiceInterestFlowCard } from '@/components/DebtServiceInterestFlowCard';
+import { ConstructionInvestmentCard } from '@/components/ConstructionInvestmentCard';
 import { RegionalMap } from '@/components/RegionalMap';
 import { RegionalImpactPanel } from '@/components/RegionalImpactPanel';
 import { InvestmentPanel } from '@/components/InvestmentPanel';
@@ -46,8 +51,17 @@ function DesktopLayout() {
 
           <ExpenditureHistoryExplorer />
           <RevenueHistoryExplorer />
+          <div className="grid grid-cols-2 gap-4">
+            <ExpenditurePositionsCard />
+            <ProcurementKpiCard />
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <ExternalDebtCard />
+            <DebtServiceInterestFlowCard />
+          </div>
           <TradeOverviewCard />
           <EconomyStructureCard />
+          <ConstructionInvestmentCard />
 
           {/* Row 5: Regional + Investment */}
           <RegionalImpactPanel />
@@ -83,8 +97,13 @@ function TabletLayout() {
           <SankeyView />
           <ExpenditureHistoryExplorer />
           <RevenueHistoryExplorer />
+          <ExpenditurePositionsCard />
+          <ProcurementKpiCard />
+          <ExternalDebtCard />
+          <DebtServiceInterestFlowCard />
           <TradeOverviewCard />
           <EconomyStructureCard />
+          <ConstructionInvestmentCard />
           <RegionalMap />
           <RegionalImpactPanel />
           <InvestmentPanel />
@@ -137,8 +156,13 @@ function MobileLayout() {
             <SankeyView />
             <ExpenditureHistoryExplorer />
             <RevenueHistoryExplorer />
+            <ExpenditurePositionsCard />
+            <ProcurementKpiCard />
+            <ExternalDebtCard />
+            <DebtServiceInterestFlowCard />
             <TradeOverviewCard />
             <EconomyStructureCard />
+            <ConstructionInvestmentCard />
             <InvestmentPanel />
           </TabsContent>
           <TabsContent value="details" className="p-3 space-y-4 mt-0">

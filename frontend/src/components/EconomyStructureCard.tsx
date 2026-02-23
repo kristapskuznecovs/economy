@@ -2,8 +2,8 @@ import { useEffect, useMemo, useState } from 'react';
 import { AlertCircle, Loader2 } from 'lucide-react';
 import { Bar, BarChart, CartesianGrid, Cell, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
+import { YearRangeSelector, YearSelector } from '@/components/PeriodSelector';
 import { Card } from '@/components/ui/card';
-import { Slider } from '@/components/ui/slider';
 import { api, type EconomyStructureResponse } from '@/lib/api';
 import { useI18n } from '@/lib/i18n';
 
@@ -26,18 +26,108 @@ function formatMoney(value: number | null | undefined, currency: string, suffix:
 export function EconomyStructureCard() {
   const { t } = useI18n();
   const [snapshot, setSnapshot] = useState<EconomyStructureResponse | null>(null);
+  const [snapshotByYear, setSnapshotByYear] = useState<Record<number, EconomyStructureResponse>>({});
+  const [availableYears, setAvailableYears] = useState<number[]>([]);
+  const [selectedYear, setSelectedYear] = useState<number | null>(null);
+  const [yearRange, setYearRange] = useState<[number, number]>([2010, 2010]);
+  const [mode, setMode] = useState<'year' | 'range'>('year');
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [viewMode, setViewMode] = useState<'table' | 'chart'>('table');
 
-  const loadSnapshot = async (year?: number) => {
+  const mergeYearSnapshot = (payload: EconomyStructureResponse) => {
+    setSnapshotByYear(prev => ({ ...prev, [payload.selected_year]: payload }));
+  };
+
+  const fetchYearSnapshot = async (year: number): Promise<EconomyStructureResponse> => {
+    const cached = snapshotByYear[year];
+    if (cached) return cached;
+    const payload = await api.getEconomyStructure({
+      since_year: 2010,
+      year,
+    });
+    mergeYearSnapshot(payload);
+    return payload;
+  };
+
+  const averageNullable = (values: Array<number | null>): number | null => {
+    const filtered = values.filter((value): value is number => value !== null);
+    if (filtered.length === 0) return null;
+    const avg = filtered.reduce((sum, value) => sum + value, 0) / filtered.length;
+    return Number(avg.toFixed(2));
+  };
+
+  const aggregateRange = (records: EconomyStructureResponse[]): EconomyStructureResponse => {
+    const years = records
+      .map(item => item.selected_year)
+      .sort((a, b) => a - b);
+    const exportAmountByGroup = new Map<string, number>();
+    let totalExports = 0;
+    let remittancesSum = 0;
+    let hasRemittances = false;
+
+    records.forEach((record) => {
+      totalExports += record.total_exports_eur_m;
+      record.export_groups.forEach((group) => {
+        exportAmountByGroup.set(group.id, (exportAmountByGroup.get(group.id) ?? 0) + group.amount_eur_m);
+      });
+      if (record.remittances_usd_m !== null) {
+        remittancesSum += record.remittances_usd_m;
+        hasRemittances = true;
+      }
+    });
+
+    const exportGroups = (records[0]?.export_groups ?? [])
+      .map((group) => {
+        const amount = Number((exportAmountByGroup.get(group.id) ?? 0).toFixed(2));
+        const share = totalExports > 0 ? Number(((amount / totalExports) * 100).toFixed(2)) : 0;
+        return {
+          id: group.id,
+          amount_eur_m: amount,
+          share_pct: share,
+        };
+      });
+
+    const manufacturingAmount =
+      (exportAmountByGroup.get('manufacturing_other') ?? 0) +
+      (exportAmountByGroup.get('lumber_wood') ?? 0);
+    const manufacturingShare = totalExports > 0 ? Number(((manufacturingAmount / totalExports) * 100).toFixed(2)) : null;
+
+    const first = records[0];
+    return {
+      since_year: years[0],
+      to_year: years[years.length - 1],
+      selected_year: years[years.length - 1],
+      available_years: first.available_years,
+      production_share_pct: averageNullable(records.map(item => item.production_share_pct)),
+      services_share_pct: averageNullable(records.map(item => item.services_share_pct)),
+      agriculture_share_pct: averageNullable(records.map(item => item.agriculture_share_pct)),
+      industry_share_pct: averageNullable(records.map(item => item.industry_share_pct)),
+      manufacturing_exports_share_pct: manufacturingShare,
+      ict_services_exports_share_pct: averageNullable(records.map(item => item.ict_services_exports_share_pct)),
+      remittances_usd_m: hasRemittances ? Number(remittancesSum.toFixed(2)) : null,
+      remittances_share_gdp_pct: averageNullable(records.map(item => item.remittances_share_gdp_pct)),
+      total_exports_eur_m: Number(totalExports.toFixed(2)),
+      export_groups: exportGroups,
+      source_trade_dataset_id: first.source_trade_dataset_id,
+      source_trade_resource_id: first.source_trade_resource_id,
+      source_world_bank_country: first.source_world_bank_country,
+    };
+  };
+
+  const loadInitial = async () => {
     setIsLoading(true);
     setError(null);
     try {
       const payload = await api.getEconomyStructure({
         since_year: 2010,
-        year,
       });
+      mergeYearSnapshot(payload);
+      setAvailableYears(payload.available_years);
+      setSelectedYear(payload.selected_year);
+      if (payload.available_years.length > 0) {
+        setYearRange([payload.available_years[0], payload.selected_year]);
+      }
       setSnapshot(payload);
     } catch (err) {
       const message = err instanceof Error ? err.message : t('economyStructure.failed');
@@ -48,15 +138,41 @@ export function EconomyStructureCard() {
   };
 
   useEffect(() => {
-    void loadSnapshot();
+    void loadInitial();
   }, []);
 
-  const availableYears = snapshot?.available_years ?? [];
-  const selectedYearIndex = useMemo(() => {
-    if (!snapshot || availableYears.length === 0) return 0;
-    const index = availableYears.indexOf(snapshot.selected_year);
-    return index >= 0 ? index : availableYears.length - 1;
-  }, [snapshot, availableYears]);
+  const applyYear = async (year: number) => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const payload = await fetchYearSnapshot(year);
+      setSnapshot(payload);
+      setSelectedYear(year);
+    } catch (err) {
+      const message = err instanceof Error ? err.message : t('economyStructure.failed');
+      setError(message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const applyRange = async (fromYear: number, toYear: number) => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const from = Math.min(fromYear, toYear);
+      const to = Math.max(fromYear, toYear);
+      const years = availableYears.filter((year) => year >= from && year <= to);
+      if (years.length === 0) return;
+      const records = await Promise.all(years.map((year) => fetchYearSnapshot(year)));
+      setSnapshot(aggregateRange(records));
+    } catch (err) {
+      const message = err instanceof Error ? err.message : t('economyStructure.failed');
+      setError(message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const exportGroups = useMemo(
     () =>
@@ -68,11 +184,18 @@ export function EconomyStructureCard() {
     [snapshot, t]
   );
 
-  const handleYearChange = (index: number) => {
-    if (!snapshot) return;
-    const year = snapshot.available_years[index];
-    if (!year || year === snapshot.selected_year) return;
-    void loadSnapshot(year);
+  const handleYearChange = (year: number) => {
+    if (selectedYear === year) return;
+    setMode('year');
+    void applyYear(year);
+  };
+
+  const handleRangeChange = (fromYear: number, toYear: number) => {
+    setYearRange([fromYear, toYear]);
+    if (mode !== 'range') {
+      setMode('range');
+    }
+    void applyRange(fromYear, toYear);
   };
 
   const productionPct = snapshot?.production_share_pct ?? null;
@@ -114,18 +237,54 @@ export function EconomyStructureCard() {
       {snapshot && (
         <>
           <div className="rounded border p-3 mb-3">
-            <div className="flex items-center justify-between mb-2">
-              <p className="text-xs font-medium">{t('economyStructure.year')}</p>
-              <p className="text-xs font-mono text-muted-foreground">{snapshot.selected_year}</p>
+            <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+              <p className="text-xs font-medium">{t('economyStructure.selectorMode')}</p>
+              <div className="inline-flex rounded border bg-card p-0.5">
+                <button
+                  type="button"
+                  className={`px-2 py-1 text-[11px] rounded ${mode === 'year' ? 'bg-muted font-medium' : 'text-muted-foreground'}`}
+                  onClick={() => {
+                    setMode('year');
+                    if (selectedYear !== null) void applyYear(selectedYear);
+                  }}
+                >
+                  {t('period.modeYear')}
+                </button>
+                <button
+                  type="button"
+                  className={`px-2 py-1 text-[11px] rounded ${mode === 'range' ? 'bg-muted font-medium' : 'text-muted-foreground'}`}
+                  onClick={() => {
+                    setMode('range');
+                    void applyRange(yearRange[0], yearRange[1]);
+                  }}
+                >
+                  {t('period.modeRange')}
+                </button>
+              </div>
             </div>
-            <Slider
-              value={[selectedYearIndex]}
-              min={0}
-              max={Math.max(0, availableYears.length - 1)}
-              step={1}
-              onValueChange={(value) => handleYearChange(value[0] ?? 0)}
-              disabled={availableYears.length <= 1 || isLoading}
-            />
+            {mode === 'year' ? (
+              <YearSelector
+                label={t('economyStructure.year')}
+                years={availableYears}
+                value={selectedYear ?? snapshot.selected_year}
+                onChange={handleYearChange}
+                disabled={availableYears.length <= 1 || isLoading}
+              />
+            ) : (
+              <>
+                <YearRangeSelector
+                  label={t('revenueHistory.range')}
+                  fromLabel={t('period.from')}
+                  toLabel={t('period.to')}
+                  years={availableYears}
+                  fromYear={yearRange[0]}
+                  toYear={yearRange[1]}
+                  onChange={handleRangeChange}
+                  disabled={availableYears.length <= 1 || isLoading}
+                />
+                <p className="mt-2 text-[11px] text-muted-foreground">{t('economyStructure.rangeNote')}</p>
+              </>
+            )}
           </div>
 
           <div className="grid grid-cols-1 xl:grid-cols-2 gap-3">

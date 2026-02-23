@@ -1,0 +1,9 @@
+{
+  "stable_roots": 19,
+  "unstable_roots": 97,
+  "eu": {
+    "exist": 0,
+    "unique": 0
+  },
+  "solve_error": "ValueError: Reordering of (A, B) failed because the transformed matrix pair (A, B) would be too far from generalized Schur form; the problem is very ill-conditioned. (A, B) may have been partially reordered."
+}

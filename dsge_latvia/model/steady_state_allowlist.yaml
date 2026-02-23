@@ -1,0 +1,11 @@
+# Steady-state residual allowlist
+# Residuals listed here are allowed to exceed the strict tolerance.
+# Reason: they are accounted for by explicit wedges or omitted blocks.
+
+tolerance: 1.0e-10
+
+exempt_residuals:
+  - resource_wedge
+
+notes:
+  resource_wedge: "Resource constraint wedge (D_t + Z_t); Appendix C Eq. (C.94)."

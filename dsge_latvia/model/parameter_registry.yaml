@@ -1,0 +1,118 @@
+# Parameter registry with provenance and status
+# status: calibrated | estimated | literature | temporary | missing
+
+# Temporary defaults / placeholders (must be reviewed)
+phi_r:
+  status: temporary
+  source: "Not reported in RBEC/WP; set to 0.0"
+  notes: "Risk premium sensitivity to interest rate gap."
+
+sigma_a:
+  status: temporary
+  source: "Appendix C.2 functional form; not reported"
+  notes: "Capital utilization cost parameter."
+
+sigma_b:
+  status: temporary
+  source: "Appendix C.2 functional form; not reported"
+  notes: "Capital utilization cost parameter."
+
+S_dd:
+  status: temporary
+  source: "WP Table 5 reports 0.1*S''; placeholder"
+  notes: "Investment adjustment cost curvature."
+
+rho_tau_k:
+  status: temporary
+  source: "Eq. (30) exists; parameter not reported"
+  notes: "Capital income tax persistence."
+
+tau_ls:
+  status: temporary
+  source: "Lump-sum tax steady state not reported"
+  notes: "Set to 0.0 for now."
+
+tau_b:
+  status: temporary
+  source: "Tax on bond returns not reported"
+  notes: "Set to 0.0 for now."
+
+delta_g:
+  status: temporary
+  source: "Public capital depreciation not reported"
+  notes: "Set to private delta as default."
+
+gamma_g:
+  status: temporary
+  source: "Bond adjustment cost parameter not reported"
+  notes: "Set to 0.0 for now."
+
+kappa_v:
+  status: temporary
+  source: "Vacancy posting cost parameter not reported"
+  notes: "Set to 0.0 (vshare = 0)."
+
+kappa_h:
+  status: temporary
+  source: "Hiring cost parameter not reported"
+  notes: "Implied by steady-state free-entry condition with kappa_v=0."
+
+rho_rho:
+  status: temporary
+  source: "Appendix B text below Eq. (B.65); persistence not reported"
+  notes: "Set to 0.0 (constant match survival rate) until estimated."
+
+sigma_rho:
+  status: temporary
+  source: "Appendix B text below Eq. (B.65); shock std not reported"
+  notes: "Set to 0.0 until estimated."
+
+eta:
+  status: temporary
+  source: "Bargaining power not reported in RBEC appendix tables"
+  notes: "Implied by steady-state bargaining condition."
+
+net_worth_to_capital:
+  status: temporary
+  source: "Implied from C.100 using sigma_u, F_omega_bar, and gross returns"
+  notes: "Steady-state net worth share solved to satisfy bank zero-profit."
+
+W_over_y_times100:
+  status: temporary
+  source: "Implied from C.99 given net worth share"
+  notes: "Transfers to entrepreneurs adjusted to close net worth law."
+
+tau_t_d:
+  status: temporary
+  source: "Markup shock steady state"
+  notes: "Set to 1.0 (no steady-state distortion)."
+
+tau_t_x:
+  status: temporary
+  source: "Markup shock steady state"
+  notes: "Set to 1.0 (no steady-state distortion)."
+
+tau_t_m_c:
+  status: temporary
+  source: "Markup shock steady state"
+  notes: "Set to 1.0 (no steady-state distortion)."
+
+tau_t_m_i:
+  status: temporary
+  source: "Markup shock steady state"
+  notes: "Set to 1.0 (no steady-state distortion)."
+
+tau_t_m_x:
+  status: temporary
+  source: "Markup shock steady state"
+  notes: "Set to 1.0 (no steady-state distortion)."
+
+tau_t_g_m_c:
+  status: temporary
+  source: "Markup shock steady state"
+  notes: "Set to 1.0 (no steady-state distortion)."
+
+tau_t_g_m_i:
+  status: temporary
+  source: "Markup shock steady state"
+  notes: "Set to 1.0 (no steady-state distortion)."

@@ -3,156 +3,161 @@
 
 alpha:
   meaning: Capital share in intermediate goods production
-  source: Table 3 (WP 5/2020)
+  source: RBEC Appendix Table A.1, p.2
   status: verified
 
 alpha_k:
   meaning: Share of private capital in aggregate capital bundle
-  source: Table 1 (fiscal block)
+  source: Journal Table 1, p.17
   status: verified
 
 nu_k:
   meaning: Elasticity of substitution between private and public capital
-  source: Table 2 (fiscal block, estimated)
+  source: Journal Table 2, p.21
   status: verified
 
 mu_z:
   meaning: Steady-state quarterly growth rate of neutral technology
-  source: Table 3 (core block)
+  source: RBEC Appendix Table A.1, p.2
   status: verified
 
 mu_psi:
   meaning: Steady-state growth rate of investment technology
-  source: Table 3 (core block)
+  source: RBEC Appendix Table A.1, p.2
   status: verified
 
 pi_bar:
   meaning: Steady-state gross inflation target
-  source: Table 3 (core block)
+  source: RBEC Appendix Table A.1, p.2
   status: verified
 
 omega_c:
   meaning: Import share in consumption goods
-  source: Table 3 (core block)
+  source: RBEC Appendix Table A.1, p.2
   status: verified
 
 omega_i:
   meaning: Import share in investment goods
-  source: Table 3 (core block)
+  source: RBEC Appendix Table A.1, p.2
   status: verified
 
 omega_x:
   meaning: Import share in export goods
-  source: Table 3 (core block)
+  source: RBEC Appendix Table A.1, p.2
   status: verified
 
 lambda_r:
   meaning: Share of restricted households
-  source: Table 3 (core block)
+  source: RBEC Appendix Table A.1, p.2
   status: verified
 
 # Variables from Appendix A FOCs
 TC_t:
   meaning: Total costs of intermediate goods firms
-  source: Appendix A (Eq. 52/62/75)
+  source: RBEC Appendix E Eq. (E.1), p.48
   status: verified
 
 Y_t:
   meaning: Intermediate goods output
-  source: Appendix A (Eq. 53/63/76)
+  source: RBEC Appendix E Eq. (E.2), p.48
   status: verified
 
 z_t:
   meaning: Stationary neutral technology level (technology shock in production)
-  source: WP 5/2020, production function text (Eq. 4) + Appendix A (Eq. 53/63/76)
+  source: RBEC Appendix B Eq. (B.17), p.9
   status: verified
 
 z_t_plus:
-  meaning: Technology term scaling the fixed cost in production; redefined in Eq. 81
-  source: WP 5/2020, production function text (Eq. 4) + Appendix A (Eq. 53/63/76/81)
+  meaning: Technology term scaling the fixed cost in production; redefined via Eq. (B.17)
+  source: RBEC Appendix B Eq. (B.17), p.9
   status: verified
 
 psi_t:
   meaning: Investment-specific technology level used in z_t_plus redefinition
-  source: Appendix A (Eq. 81)
-  status: needs_review
+  source: RBEC Appendix B Eq. (B.17), p.9; Appendix C Eq. (C.1), p.29
+  status: verified
 
 eps_t:
   meaning: Stationary technology shock in production
-  source: WP 5/2020, production function text (Eq. 4) + Appendix A (Eq. 53/63/76)
+  source: RBEC Appendix B Eq. (B.17), p.9
   status: verified
 
 phi:
   meaning: Fixed production cost
-  source: WP 5/2020, production function text (Eq. 4) + Appendix A (Eq. 52/53)
+  source: RBEC Appendix B Eq. (B.17), p.9
   status: verified
 
 K_t:
   meaning: Private capital stock
-  source: Appendix A (Eq. 52/53)
+  source: RBEC Appendix E Eq. (E.1–E.2), p.48
   status: verified
 
 K_g_t:
   meaning: Public capital stock (CES bundle)
-  source: Appendix A (Eq. 64)
+  source: RBEC Appendix B Eq. (B.18), p.9
   status: verified
 
 K_G_t:
   meaning: Public capital stock (additional production factor)
-  source: Appendix A (Eq. 76)
+  source: RBEC Appendix E Eq. (E.24–E.27), p.49
   status: verified
 
 K_tilde_t:
   meaning: CES aggregate of private and public capital
-  source: Appendix A (Eq. 64)
+  source: RBEC Appendix B Eq. (B.18), p.9
   status: verified
 
 L_t:
   meaning: Labor input
-  source: Appendix A (Eq. 52/53)
+  source: RBEC Appendix E Eq. (E.1–E.2), p.48 (H_t in appendix)
   status: verified
 
 mc_t:
   meaning: Real marginal cost (Lagrange multiplier)
-  source: Appendix A (Eq. 54+)
+  source: RBEC Appendix E Eq. (E.3–E.4), p.48 (MC_t)
   status: verified
 
 r_t_k:
-  meaning: Rental rate of private capital (real, gross)
-  source: Appendix A (Eq. 52/54); inferred from standard notation
-  status: needs_review
+  meaning: Rental rate of capital services rented to firms (nominal, scaled by P_t)
+  source: RBEC Appendix B Eq. (B.6) text, p.7; Eq. (B.20) note, p.10
+  status: verified
 
 r_bar_t_k:
-  meaning: Normalized (stationary) rental rate of capital
-  source: Appendix A (Eq. 56/67/79); inferred from stationarization
-  status: needs_review
+  meaning: Normalized (stationary) rental rate of capital, r_bar_t_k = Psi_t * r_t_k
+  source: RBEC Appendix C Eq. (C.1), p.29
+  status: verified
 
 R_t_f:
-  meaning: Gross nominal risk-free rate used in working-capital financing
-  source: Appendix A (Eq. 52/55); inferred from working-capital setup
-  status: needs_review
+  meaning: Gross nominal interest rate for working-capital financing of the wage bill
+  source: RBEC Appendix B Eq. (B.19), p.10
+  status: verified
 
 omega_t:
-  meaning: Real gross wage (appears in wage bill with working-capital rate)
-  source: Appendix A (Eq. 52/55); inferred from wage bill notation
-  status: needs_review
+  meaning: Real gross wage per unit of labor services (W_t / P_t) in the firm’s wage bill
+  source: RBEC Appendix B Eq. (B.4) and text, p.6
+  status: verified
 
 omega_bar_t:
-  meaning: Normalized (stationary) real wage
-  source: Appendix A (Eq. 56/57); inferred from stationarization
-  status: needs_review
+  meaning: Entrepreneur idiosyncratic productivity cutoff (default threshold) in financial frictions; dimensionless
+  source: RBEC Appendix C Eq. (C.99–C.100), p.44
+  status: verified
+
+w_bar_t:
+  meaning: Normalized (stationary) real wage, w_bar_t = W_t / (P_t * z_t_plus)
+  source: RBEC Appendix C Eq. (C.1), p.29
+  status: verified
 
 tau_t_d:
-  meaning: Domestic price mark-up (cost-push) shock for intermediate goods
-  source: WP 5/2020, Section 3.2 (mark-up shocks list) + Appendix A (Eq. 52)
+  meaning: Tax-like shock affecting marginal cost (does not enter production function)
+  source: RBEC Appendix B Eq. (B.20) note, p.10
   status: verified
 
 k_t:
-  meaning: Normalized (stationarized) private capital stock
-  source: Appendix A (Eq. 56+); inferred from stationarization by μ_{z+,t} μ_{ψ,t}
-  status: needs_review
+  meaning: Normalized (stationarized) private capital stock, k_t = K_t / (z_t_plus * Psi_t)
+  source: RBEC Appendix C Eq. (C.1), p.29; Eq. (C.2), p.30
+  status: verified
 
 k_G_t:
-  meaning: Normalized (stationarized) public capital stock
-  source: Appendix A (Eq. 79+); inferred from stationarization by μ_{z+,t} μ_{ψ,t}
-  status: needs_review
+  meaning: Normalized (stationarized) public capital stock, k_G_t = K_G,t / z_t_plus
+  source: RBEC Appendix C Eq. (C.1), p.29
+  status: verified

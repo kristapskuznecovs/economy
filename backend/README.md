@@ -52,6 +52,40 @@ curl -X POST http://localhost:8000/api/simulate \
 curl http://localhost:8000/api/results/{run_id}
 ```
 
+### Parser Production Controls
+
+Set these environment variables for `POST /api/policy/parse` hardening:
+
+```bash
+# OpenAI parser behavior
+OPENAI_API_KEY=...
+OPENAI_MODEL=gpt-4o-mini
+OPENAI_MAX_TOKENS=500
+OPENAI_MAX_RETRIES=2
+OPENAI_REQUEST_TIMEOUT_SEC=30
+OPENAI_CONNECT_TIMEOUT_SEC=5
+
+# Input and parser limits
+POLICY_MAX_CHARS=2000
+OPENAI_PARSE_CACHE_SIZE=1000
+OPENAI_PARSE_CACHE_TTL_SEC=1800
+
+# Cost and abuse controls
+OPENAI_COST_ALERT_USD=0.02
+POLICY_PARSE_RATE_LIMIT_PER_MINUTE=30
+POLICY_PARSE_RATE_LIMIT_MAX_KEYS=10000
+TRUST_PROXY_HEADERS=false
+
+# Open data budget source (used by GET /api/budget/vote-divisions)
+BUDGET_CKAN_API_BASE=https://data.gov.lv/dati/api/3/action
+BUDGET_DATASET_ID=ec81699b-3f04-4d9e-a305-8f9030c495cb
+# Optional: pin a specific yearly resource
+# BUDGET_RESOURCE_ID=c6a5b359-b328-41de-971f-9241e41c9039
+BUDGET_DIVISIONS_DEFAULT_LIMIT=12
+BUDGET_CACHE_TTL_SEC=21600
+BUDGET_REQUEST_TIMEOUT_SEC=20
+```
+
 ## Project Structure
 
 ```
@@ -90,6 +124,9 @@ backend/
 - `POST /api/simulate` - Start a new simulation
 - `GET /api/status/{run_id}` - Get simulation status
 - `GET /api/results/{run_id}` - Get simulation results
+- `POST /api/policy/parse` - Parse policy text with confidence/clarification gating
+- `GET /api/budget/vote-divisions` - Live ministry/resor expenditure shares from data.gov.lv
+- `GET /api/budget/vote-divisions/history` - Yearly changes for one expenditure group (since base year)
 
 ### Health
 

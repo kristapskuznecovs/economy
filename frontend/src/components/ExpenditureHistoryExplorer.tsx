@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useState } from 'react';
 
+import { YearRangeSelector, YearSelector } from '@/components/PeriodSelector';
 import { Card } from '@/components/ui/card';
 import { ErrorAlert } from '@/components/ui/ErrorAlert';
 import { LoadingIndicator } from '@/components/ui/LoadingIndicator';
-import { Slider } from '@/components/ui/slider';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
   api,
@@ -25,7 +25,7 @@ export function ExpenditureHistoryExplorer() {
   const [error, setError] = useState<string | null>(null);
   const [selectedGroupId, setSelectedGroupId] = useState<string>('');
   const [singleYearIndex, setSingleYearIndex] = useState<number>(0);
-  const [yearsShown, setYearsShown] = useState<number>(1);
+  const [allRange, setAllRange] = useState<[number, number]>([2010, 2010]);
 
   const loadHistory = async (groupId?: string) => {
     setIsLoading(true);
@@ -40,7 +40,7 @@ export function ExpenditureHistoryExplorer() {
       setSelectedGroupId(payload.selected_group_id);
       if (payload.series.length > 0) {
         setSingleYearIndex(payload.series.length - 1);
-        setYearsShown(payload.series.length);
+        setAllRange([payload.series[0].year, payload.series[payload.series.length - 1].year]);
       }
     } catch (err) {
       const message = err instanceof Error ? err.message : t('history.failed');
@@ -59,8 +59,10 @@ export function ExpenditureHistoryExplorer() {
 
   const displayedSeries = useMemo(() => {
     if (series.length === 0) return [];
-    return series.slice(Math.max(0, series.length - yearsShown));
-  }, [series, yearsShown]);
+    const from = Math.min(allRange[0], allRange[1]);
+    const to = Math.max(allRange[0], allRange[1]);
+    return series.filter((point) => point.year >= from && point.year <= to);
+  }, [series, allRange]);
 
   const maxDisplayedAmount = useMemo(() => {
     if (displayedSeries.length === 0) return 1;
@@ -70,6 +72,13 @@ export function ExpenditureHistoryExplorer() {
   const handleGroupChange = (groupId: string) => {
     setSelectedGroupId(groupId);
     void loadHistory(groupId);
+  };
+
+  const handleSingleYearChange = (year: number) => {
+    const nextIndex = series.findIndex((point) => point.year === year);
+    if (nextIndex >= 0) {
+      setSingleYearIndex(nextIndex);
+    }
   };
 
   return (
@@ -126,18 +135,11 @@ export function ExpenditureHistoryExplorer() {
 
             <TabsContent value="single" className="space-y-3 mt-0">
               <div className="rounded border p-3">
-                <div className="flex items-center justify-between mb-2">
-                  <p className="text-xs font-medium">{t('history.selectedYear')}</p>
-                  <p className="text-xs font-mono text-muted-foreground">
-                    {selectedPoint ? `${selectedPoint.year}` : t('history.na')}
-                  </p>
-                </div>
-                <Slider
-                  value={[singleYearIndex]}
-                  min={0}
-                  max={Math.max(0, series.length - 1)}
-                  step={1}
-                  onValueChange={(value) => setSingleYearIndex(value[0] ?? 0)}
+                <YearSelector
+                  label={t('history.selectedYear')}
+                  years={series.map((point) => point.year)}
+                  value={selectedPoint?.year ?? series[series.length - 1]?.year ?? 2010}
+                  onChange={handleSingleYearChange}
                   disabled={series.length <= 1}
                 />
                 {selectedPoint && (
@@ -162,18 +164,15 @@ export function ExpenditureHistoryExplorer() {
 
             <TabsContent value="all" className="space-y-3 mt-0">
               <div className="rounded border p-3 space-y-3">
-                <div className="flex items-center justify-between">
-                  <p className="text-xs font-medium">{t('history.yearsShown')}</p>
-                  <p className="text-xs font-mono text-muted-foreground">
-                    {yearsShown} / {series.length}
-                  </p>
-                </div>
-                <Slider
-                  value={[yearsShown]}
-                  min={1}
-                  max={Math.max(1, series.length)}
-                  step={1}
-                  onValueChange={(value) => setYearsShown(value[0] ?? 1)}
+                <YearRangeSelector
+                  label={t('history.yearRange')}
+                  fromLabel={t('period.from')}
+                  toLabel={t('period.to')}
+                  years={series.map((point) => point.year)}
+                  fromYear={allRange[0]}
+                  toYear={allRange[1]}
+                  onChange={(fromYear, toYear) => setAllRange([fromYear, toYear])}
+                  disabled={series.length <= 1}
                 />
                 <div className="space-y-1.5">
                   {displayedSeries.map((point) => (

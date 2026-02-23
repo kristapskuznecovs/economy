@@ -355,6 +355,20 @@ class BudgetOpenDataClient:
         )
         self.trade_resource_id_override = os.getenv("TRADE_RESOURCE_ID")
         self.trade_country_map_resource_id_override = os.getenv("TRADE_COUNTRY_MAP_RESOURCE_ID")
+        self.construction_state_budget_dataset_id = os.getenv(
+            "CONSTRUCTION_STATE_BUDGET_DATASET_ID",
+            self.dataset_id,
+        )
+        self.construction_state_budget_resource_id_override = os.getenv(
+            "CONSTRUCTION_STATE_BUDGET_RESOURCE_ID",
+        )
+        self.construction_municipal_budget_dataset_id = os.getenv(
+            "CONSTRUCTION_MUNICIPAL_BUDGET_DATASET_ID",
+            "e2b111fe-c594-4704-a9f2-4e6148071771",
+        )
+        self.construction_municipal_budget_resource_id_override = os.getenv(
+            "CONSTRUCTION_MUNICIPAL_BUDGET_RESOURCE_ID",
+        )
         self.world_bank_country_code = os.getenv("WORLD_BANK_COUNTRY_CODE", "LVA")
         self.world_bank_base_url = os.getenv("WORLD_BANK_API_BASE", "https://api.worldbank.org/v2")
         self.request_timeout_sec = max(
@@ -1177,138 +1191,50 @@ class BudgetOpenDataClient:
         since_year: int = 2010,
         year: Optional[int] = None,
     ) -> ConstructionOverviewSnapshot:
-        """Return construction activity and investment split (private vs public/SOE proxy)."""
+        """Return construction investment view using Latvia-first public budget sources."""
         safe_since = max(2000, min(since_year, 2100))
         cache_key = (safe_since, year)
         cached = self._construction_overview_cache_get(cache_key)
         if cached is not None:
             return cached
 
-        indicator_construction_share_gdp = "NV.IND.CNST.ZS"
-        indicator_total_investment_share_gdp = "NE.GDI.FTOT.ZS"
-        indicator_private_investment_share_gdp = "NE.GDI.FPRV.ZS"
-        indicator_gdp_usd = "NY.GDP.MKTP.CD"
-        indicator_fx = "PA.NUS.FCRF"  # LCU per USD (for Latvia, mostly EUR in current years)
-
-        end_year = 2100
-        construction_share_series = self._fetch_world_bank_series(indicator_construction_share_gdp, safe_since, end_year)
-        total_investment_share_series = self._fetch_world_bank_series(
-            indicator_total_investment_share_gdp, safe_since, end_year
-        )
-        private_investment_share_series = self._fetch_world_bank_series(
-            indicator_private_investment_share_gdp, safe_since, end_year
-        )
-        gdp_usd_series = self._fetch_world_bank_series(indicator_gdp_usd, safe_since, end_year)
-        fx_series = self._fetch_world_bank_series(indicator_fx, safe_since, end_year)
-
         notes: list[str] = []
-        if not construction_share_series:
-            notes.append(
-                "World Bank construction value-added series is unavailable for Latvia in this endpoint; only investment split is shown."
-            )
-
-        # Budget-based public investment proxy (latest month in each yearly dataset, capital EKK rows).
-        public_soe_proxy_by_year: dict[int, float] = {}
+        state_capex_by_year: dict[int, float] = {}
+        municipal_capex_by_year: dict[int, float] = {}
         try:
-            resources_by_year = self._resolve_resources_by_year_from_urls(min_year=safe_since)
-            for data_year, resource in sorted(resources_by_year.items()):
-                available_fields = self._resolve_resource_fields(resource["id"])
-                year_field = self._first_available_field(available_fields, ["Gads"])
-                month_field = self._first_available_field(available_fields, ["Menesis_Atslega"])
-                consolidation_field = self._first_available_field(available_fields, ["Konsolidacija"])
-                amount_field = self._first_available_field(available_fields, ["Summa"])
-                classification_field = self._first_available_field(available_fields, ["Klasifikacija"])
-                ekk7_field = self._first_available_field(
-                    available_fields,
-                    ["Vienotais_EKK_Atslega_7_limenis", "Vienotais_EKK_Atslega_8_limenis", "Likuma_griezuma_EKK"],
-                )
-                ekk_name_field = self._first_available_field(
-                    available_fields,
-                    ["Vienotais_EKK_Nosaukums_8_limenis", "Likuma_griezuma_EKK"],
-                )
-                if not year_field or not month_field or not consolidation_field or not amount_field:
-                    continue
-
-                filters: Optional[dict[str, str]] = None
-                if classification_field:
-                    filters = {classification_field: "Izdevumi"}
-                query_fields = [year_field, month_field, consolidation_field, amount_field]
-                if ekk7_field:
-                    query_fields.append(ekk7_field)
-                if ekk_name_field:
-                    query_fields.append(ekk_name_field)
-                records = self._fetch_records(
-                    resource_id=resource["id"],
-                    filters=filters,
-                    fields=query_fields,
-                    page_size=5000,
-                    max_records=300000,
-                )
-                latest_month = 0
-                for row in records:
-                    raw_year = str(row.get(year_field, "")).strip()
-                    if raw_year != str(data_year):
-                        continue
-                    raw_month = str(row.get(month_field, "")).strip()
-                    if not raw_month.isdigit():
-                        continue
-                    consolidation = str(row.get(consolidation_field, "")).strip().lower()
-                    if "neto" not in consolidation or "transfert" not in consolidation:
-                        continue
-                    latest_month = max(latest_month, int(raw_month))
-
-                if latest_month == 0:
-                    continue
-
-                capital_sum = 0.0
-                for row in records:
-                    raw_year = str(row.get(year_field, "")).strip()
-                    raw_month = str(row.get(month_field, "")).strip()
-                    if raw_year != str(data_year) or not raw_month.isdigit() or int(raw_month) != latest_month:
-                        continue
-                    consolidation = str(row.get(consolidation_field, "")).strip().lower()
-                    if "neto" not in consolidation or "transfert" not in consolidation:
-                        continue
-
-                    ekk7 = str(row.get(ekk7_field, "")).strip() if ekk7_field else ""
-                    classification_text = " ".join(
-                        [
-                            ekk7,
-                            str(row.get(ekk_name_field, "")).strip() if ekk_name_field else "",
-                        ]
-                    )
-                    normalized = self._normalize_text(classification_text)
-                    is_capital = ekk7.startswith("5") or "kapital" in normalized
-                    if not is_capital:
-                        continue
-                    try:
-                        amount_raw = float(row.get(amount_field, 0.0) or 0.0)
-                    except (TypeError, ValueError):
-                        continue
-                    if amount_raw > 0:
-                        capital_sum += amount_raw
-
-                if capital_sum > 0:
-                    public_soe_proxy_by_year[data_year] = round(capital_sum / 1_000_000, 2)
-        except Exception:
-            notes.append(
-                "Could not derive budget-based public/SOE proxy from capital expenditure rows."
+            state_capex_by_year = self._aggregate_capex_proxy_by_year(
+                dataset_id=self.construction_state_budget_dataset_id,
+                min_year=safe_since,
+                resource_id_override=self.construction_state_budget_resource_id_override,
             )
+        except Exception as exc:
+            notes.append(
+                f"State budget capex proxy unavailable ({type(exc).__name__}); check dataset/resource configuration."
+            )
+
+        try:
+            municipal_capex_by_year = self._aggregate_capex_proxy_by_year(
+                dataset_id=self.construction_municipal_budget_dataset_id,
+                min_year=safe_since,
+                resource_id_override=self.construction_municipal_budget_resource_id_override,
+            )
+        except Exception as exc:
+            notes.append(
+                f"Municipal budget capex proxy unavailable ({type(exc).__name__}); check dataset/resource configuration."
+            )
+
+        public_soe_proxy_by_year: dict[int, float] = {}
+        for point_year in sorted(set(state_capex_by_year.keys()) | set(municipal_capex_by_year.keys())):
+            total_public_capex = state_capex_by_year.get(point_year, 0.0) + municipal_capex_by_year.get(point_year, 0.0)
+            if total_public_capex > 0:
+                public_soe_proxy_by_year[point_year] = round(total_public_capex, 2)
 
         available_years = sorted(
-            y
-            for y in (
-                set(construction_share_series.keys())
-                | set(total_investment_share_series.keys())
-                | set(private_investment_share_series.keys())
-                | set(gdp_usd_series.keys())
-                | set(public_soe_proxy_by_year.keys())
-            )
-            if y >= safe_since
+            year_item for year_item in public_soe_proxy_by_year.keys() if year_item >= safe_since
         )
         if not available_years:
             raise RuntimeError(
-                "No World Bank construction/investment time-series returned for selected period."
+                "No Latvia Treasury capital expenditure proxy data was returned for selected period."
             )
 
         if year is None:
@@ -1328,99 +1254,39 @@ class BudgetOpenDataClient:
                     f"Requested year {year} is unavailable; showing earliest available year {selected_year}."
                 )
 
-        warned_fx_proxy = False
-        warned_private_clamp = False
-        used_budget_public_proxy = False
-
-        def usd_to_eur(value_usd: Optional[float], year_for_fx: int) -> Optional[float]:
-            nonlocal warned_fx_proxy
-            if value_usd is None:
-                return None
-            fx = self._select_series_value_at_or_before(fx_series, year_for_fx)
-            if fx is None or fx <= 0:
-                if not warned_fx_proxy:
-                    notes.append(
-                        "FX series missing for some years; investment amounts may use USD-as-EUR proxy."
-                    )
-                    warned_fx_proxy = True
-                return value_usd
-            return value_usd * fx
-
-        def pct_of_gdp_to_eur_m(pct_of_gdp: Optional[float], target_year: int) -> Optional[float]:
-            if pct_of_gdp is None:
-                return None
-            gdp_usd = self._select_series_value_at_or_before(gdp_usd_series, target_year)
-            if gdp_usd is None:
-                return None
-            amount_usd = gdp_usd * (pct_of_gdp / 100.0)
-            amount_eur = usd_to_eur(amount_usd, target_year)
-            return round(amount_eur / 1_000_000, 2) if amount_eur is not None else None
-
-        def split_shares(target_year: int) -> tuple[Optional[float], Optional[float], Optional[float]]:
-            nonlocal warned_private_clamp
-            total_pct = self._select_series_value_at_or_before(total_investment_share_series, target_year)
-            private_pct = self._select_series_value_at_or_before(private_investment_share_series, target_year)
-            if total_pct is None or private_pct is None:
-                return total_pct, private_pct, None
-            if private_pct > total_pct:
-                if not warned_private_clamp:
-                    notes.append(
-                        "Private investment exceeded total in some years; private share was capped at total."
-                    )
-                    warned_private_clamp = True
-                private_pct = total_pct
-            public_pct = max(total_pct - private_pct, 0.0)
-            return total_pct, private_pct, public_pct
-
         def build_point(target_year: int) -> ConstructionOverviewPoint:
-            nonlocal used_budget_public_proxy
-            total_pct, private_pct, public_pct = split_shares(target_year)
-            total_eur_m = pct_of_gdp_to_eur_m(total_pct, target_year)
-            private_eur_m = pct_of_gdp_to_eur_m(private_pct, target_year)
-            public_eur_m = pct_of_gdp_to_eur_m(public_pct, target_year)
-
-            # Fallback: if private/public split missing, estimate public from budget capex proxy.
-            budget_public_proxy = public_soe_proxy_by_year.get(target_year)
-            if private_eur_m is None and total_eur_m is not None and budget_public_proxy is not None:
-                used_budget_public_proxy = True
-                public_eur_m = min(total_eur_m, budget_public_proxy)
-                private_eur_m = max(total_eur_m - public_eur_m, 0.0)
-
-            private_share_pct = None
-            public_share_pct = None
-            if total_eur_m is not None and total_eur_m > 0 and private_eur_m is not None:
-                private_share_pct = (private_eur_m / total_eur_m) * 100.0
-                if public_eur_m is not None:
-                    public_share_pct = (public_eur_m / total_eur_m) * 100.0
-
-            construction_share = self._select_series_value_at_or_before(construction_share_series, target_year)
-            construction_eur_m = pct_of_gdp_to_eur_m(construction_share, target_year)
+            public_eur_m = public_soe_proxy_by_year.get(target_year)
+            public_share_pct = 100.0 if public_eur_m is not None and public_eur_m > 0 else None
 
             return ConstructionOverviewPoint(
                 year=target_year,
-                construction_value_added_eur_m=construction_eur_m,
-                construction_share_gdp_pct=round(construction_share, 2) if construction_share is not None else None,
-                total_fixed_investment_eur_m=total_eur_m,
-                private_fixed_investment_eur_m=round(private_eur_m, 2) if private_eur_m is not None else None,
+                construction_value_added_eur_m=None,
+                construction_share_gdp_pct=None,
+                total_fixed_investment_eur_m=round(public_eur_m, 2) if public_eur_m is not None else None,
+                private_fixed_investment_eur_m=None,
                 public_soe_proxy_investment_eur_m=round(public_eur_m, 2) if public_eur_m is not None else None,
-                private_share_pct=round(private_share_pct, 2) if private_share_pct is not None else None,
+                private_share_pct=None,
                 public_soe_proxy_share_pct=round(public_share_pct, 2) if public_share_pct is not None else None,
             )
 
         selected_point = build_point(selected_year)
-        selected_construction_share = self._select_series_value_at_or_before(construction_share_series, selected_year)
 
         series: list[ConstructionOverviewPoint] = []
         for point_year in available_years:
             series.append(build_point(point_year))
 
         notes.append(
-            "SOE split is not published as a standalone official series; public fixed investment is used as SOE/public proxy."
+            "Latvia-first mode: this card uses Latvia Treasury budget execution datasets (data.gov.lv), not World Bank series."
         )
-        if used_budget_public_proxy:
-            notes.append(
-                "Where private/public split is missing in World Bank, public/SOE proxy is estimated from budget capital expenditure (EKK 5*) and private is derived as residual."
-            )
+        notes.append(
+            "Public/SOE proxy equals net capital expenditure (EKK 5*) in the latest available month of each year, summed for state and municipal budgets."
+        )
+        notes.append(
+            "SOE off-budget investment is not available as one official monthly API series; this proxy may understate full SOE investment."
+        )
+        notes.append(
+            "Private investment and construction value-added should be added from CSP PxWeb series for complete economy-wide split."
+        )
 
         snapshot = ConstructionOverviewSnapshot(
             since_year=available_years[0],
@@ -1428,22 +1294,17 @@ class BudgetOpenDataClient:
             selected_year=selected_year,
             available_years=available_years,
             construction_value_added_eur_m=selected_point.construction_value_added_eur_m,
-            construction_share_gdp_pct=(
-                round(selected_construction_share, 2) if selected_construction_share is not None else None
-            ),
+            construction_share_gdp_pct=selected_point.construction_share_gdp_pct,
             total_fixed_investment_eur_m=selected_point.total_fixed_investment_eur_m,
             private_fixed_investment_eur_m=selected_point.private_fixed_investment_eur_m,
             public_soe_proxy_investment_eur_m=selected_point.public_soe_proxy_investment_eur_m,
             private_share_pct=selected_point.private_share_pct,
             public_soe_proxy_share_pct=selected_point.public_soe_proxy_share_pct,
-            source_world_bank_country=self.world_bank_country_code,
+            source_world_bank_country="LV Treasury (data.gov.lv)",
             source_indicators=[
-                indicator_construction_share_gdp,
-                indicator_total_investment_share_gdp,
-                indicator_private_investment_share_gdp,
-                indicator_gdp_usd,
-                indicator_fx,
-                "budget_capex_proxy_ekk5",
+                f"state_dataset:{self.construction_state_budget_dataset_id}",
+                f"municipal_dataset:{self.construction_municipal_budget_dataset_id}",
+                "capital_expenditure_proxy_ekk5",
             ],
             notes=notes,
             series=series,
@@ -2429,6 +2290,166 @@ class BudgetOpenDataClient:
                 )
             )
         return out
+
+    def _aggregate_capex_proxy_by_year(
+        self,
+        dataset_id: str,
+        min_year: int,
+        resource_id_override: Optional[str] = None,
+    ) -> dict[int, float]:
+        resources_by_year = self._resolve_resources_by_year_from_urls_for_dataset(
+            dataset_id=dataset_id,
+            min_year=min_year,
+            resource_id_override=resource_id_override,
+        )
+
+        aggregated: dict[int, float] = {}
+        if resources_by_year:
+            for _, resource in sorted(resources_by_year.items()):
+                records, fields = self._fetch_capex_records_for_resource(resource["id"])
+                if records is None or fields is None:
+                    continue
+                yearly_values = self._capex_latest_month_by_year(
+                    records=records,
+                    min_year=min_year,
+                    year_field=fields["year_field"],
+                    month_field=fields["month_field"],
+                    consolidation_field=fields["consolidation_field"],
+                    amount_field=fields["amount_field"],
+                    ekk_code_field=fields["ekk_code_field"],
+                    ekk_name_field=fields["ekk_name_field"],
+                )
+                for value_year, value in yearly_values.items():
+                    aggregated[value_year] = round(value, 2)
+            if aggregated:
+                return aggregated
+
+        source = self._resolve_source_resource_for_dataset(
+            dataset_id=dataset_id,
+            resource_id_override=resource_id_override,
+        )
+        records, fields = self._fetch_capex_records_for_resource(source["id"])
+        if records is None or fields is None:
+            return {}
+
+        return self._capex_latest_month_by_year(
+            records=records,
+            min_year=min_year,
+            year_field=fields["year_field"],
+            month_field=fields["month_field"],
+            consolidation_field=fields["consolidation_field"],
+            amount_field=fields["amount_field"],
+            ekk_code_field=fields["ekk_code_field"],
+            ekk_name_field=fields["ekk_name_field"],
+        )
+
+    def _fetch_capex_records_for_resource(
+        self,
+        resource_id: str,
+    ) -> tuple[Optional[list[dict[str, Any]]], Optional[dict[str, Optional[str]]]]:
+        available_fields = self._resolve_resource_fields(resource_id)
+        year_field = self._first_available_field(available_fields, ["Gads"])
+        month_field = self._first_available_field(available_fields, ["Menesis_Atslega"])
+        consolidation_field = self._first_available_field(available_fields, ["Konsolidacija"])
+        amount_field = self._first_available_field(available_fields, ["Summa"])
+        classification_field = self._first_available_field(available_fields, ["Klasifikacija"])
+        ekk_code_field = self._first_available_field(
+            available_fields,
+            ["Vienotais_EKK_Atslega_7_limenis", "Vienotais_EKK_Atslega_8_limenis", "Likuma_griezuma_EKK"],
+        )
+        ekk_name_field = self._first_available_field(
+            available_fields,
+            ["Vienotais_EKK_Nosaukums_8_limenis", "Likuma_griezuma_EKK"],
+        )
+        if not year_field or not month_field or not consolidation_field or not amount_field:
+            return None, None
+
+        filters: Optional[dict[str, str]] = None
+        if classification_field:
+            filters = {classification_field: "Izdevumi"}
+        query_fields = [year_field, month_field, consolidation_field, amount_field]
+        if ekk_code_field:
+            query_fields.append(ekk_code_field)
+        if ekk_name_field:
+            query_fields.append(ekk_name_field)
+
+        records = self._fetch_records(
+            resource_id=resource_id,
+            filters=filters,
+            fields=query_fields,
+            page_size=5000,
+            max_records=350000,
+        )
+        return records, {
+            "year_field": year_field,
+            "month_field": month_field,
+            "consolidation_field": consolidation_field,
+            "amount_field": amount_field,
+            "ekk_code_field": ekk_code_field,
+            "ekk_name_field": ekk_name_field,
+        }
+
+    def _capex_latest_month_by_year(
+        self,
+        records: list[dict[str, Any]],
+        min_year: int,
+        year_field: str,
+        month_field: str,
+        consolidation_field: str,
+        amount_field: str,
+        ekk_code_field: Optional[str],
+        ekk_name_field: Optional[str],
+    ) -> dict[int, float]:
+        latest_month_by_year: dict[int, int] = {}
+        for row in records:
+            raw_year = str(row.get(year_field, "")).strip()
+            raw_month = str(row.get(month_field, "")).strip()
+            if not raw_year.isdigit() or not raw_month.isdigit():
+                continue
+            parsed_year = int(raw_year)
+            parsed_month = int(raw_month)
+            if parsed_year < min_year or parsed_month < 1 or parsed_month > 12:
+                continue
+            consolidation = self._normalize_text(str(row.get(consolidation_field, "")).strip())
+            if "neto" not in consolidation:
+                continue
+            latest_month_by_year[parsed_year] = max(latest_month_by_year.get(parsed_year, 0), parsed_month)
+
+        totals_by_year: dict[int, float] = {}
+        for row in records:
+            raw_year = str(row.get(year_field, "")).strip()
+            raw_month = str(row.get(month_field, "")).strip()
+            if not raw_year.isdigit() or not raw_month.isdigit():
+                continue
+            parsed_year = int(raw_year)
+            parsed_month = int(raw_month)
+            if latest_month_by_year.get(parsed_year) != parsed_month:
+                continue
+
+            consolidation = self._normalize_text(str(row.get(consolidation_field, "")).strip())
+            if "neto" not in consolidation:
+                continue
+
+            ekk_code = str(row.get(ekk_code_field, "")).strip() if ekk_code_field else ""
+            ekk_name = str(row.get(ekk_name_field, "")).strip() if ekk_name_field else ""
+            normalized = self._normalize_text(f"{ekk_code} {ekk_name}")
+            is_capital = ekk_code.startswith("5") or "kapital" in normalized
+            if not is_capital:
+                continue
+
+            try:
+                amount_raw = float(row.get(amount_field, 0.0) or 0.0)
+            except (TypeError, ValueError):
+                continue
+            if amount_raw <= 0:
+                continue
+            totals_by_year[parsed_year] = totals_by_year.get(parsed_year, 0.0) + amount_raw
+
+        return {
+            year_item: round(value / 1_000_000, 2)
+            for year_item, value in totals_by_year.items()
+            if value > 0
+        }
 
     def _fetch_records(
         self,

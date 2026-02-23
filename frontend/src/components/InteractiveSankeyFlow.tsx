@@ -1,5 +1,6 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Card } from '@/components/ui/card';
+import { YearSelector } from '@/components/PeriodSelector';
 import { ErrorAlert } from '@/components/ui/ErrorAlert';
 import { LoadingIndicator } from '@/components/ui/LoadingIndicator';
 import { useAppStore } from '@/lib/store';
@@ -22,6 +23,13 @@ const REVENUE_COLORS: Record<string, string> = {
   other_rev: '#64748b',
 };
 
+function buildYearOptions(fromYear: number, toYear: number): number[] {
+  if (!Number.isFinite(fromYear) || !Number.isFinite(toYear)) return [];
+  const start = Math.min(fromYear, toYear);
+  const end = Math.max(fromYear, toYear);
+  return Array.from({ length: end - start + 1 }, (_, index) => start + index);
+}
+
 export function InteractiveSankeyFlow() {
   const { t } = useI18n();
   const revenueSources = useAppStore(state => state.revenueSources);
@@ -29,45 +37,103 @@ export function InteractiveSankeyFlow() {
   const setExpenditures = useAppStore(state => state.setExpenditures);
 
   const [remoteData, setRemoteData] = useState<BudgetVoteDivisionsResponse | null>(null);
+  const [availableYears, setAvailableYears] = useState<number[]>([]);
+  const [selectedYear, setSelectedYear] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [loadError, setLoadError] = useState<string | null>(null);
+  const requestIdRef = useRef(0);
 
-  // Load budget data from API
-  useEffect(() => {
-    let cancelled = false;
+  const applySnapshot = useCallback(
+    (snapshot: BudgetVoteDivisionsResponse) => {
+      setRemoteData(snapshot);
+      setExpenditures(
+        snapshot.divisions.map(item => ({
+          id: item.id,
+          label: item.label,
+          vote_division: item.vote_division,
+          amount_eur_m: item.amount_eur_m,
+          kind: 'category',
+        }))
+      );
+    },
+    [setExpenditures]
+  );
 
-    const load = async () => {
+  const loadSnapshot = useCallback(
+    async (options?: { year?: number; includeYearOptions?: boolean }) => {
+      const requestId = ++requestIdRef.current;
+      const year = options?.year;
+      const includeYearOptions = options?.includeYearOptions ?? false;
+
       setIsLoading(true);
       setLoadError(null);
+
       try {
-        const snapshot = await api.getBudgetVoteDivisions({ limit: 200 });
-        if (cancelled) return;
-        setRemoteData(snapshot);
-        setExpenditures(
-          snapshot.divisions.map(item => ({
-            id: item.id,
-            label: item.label,
-            vote_division: item.vote_division,
-            amount_eur_m: item.amount_eur_m,
-            kind: 'category',
-          }))
-        );
+        if (includeYearOptions) {
+          const [snapshotResult, historyResult] = await Promise.allSettled([
+            api.getBudgetVoteDivisions({ year, limit: 200 }),
+            api.getBudgetVoteDivisionHistory({ since_year: 2010, top_groups: 1 }),
+          ]);
+          if (requestId !== requestIdRef.current) return;
+          if (snapshotResult.status === 'rejected') {
+            throw snapshotResult.reason;
+          }
+
+          const snapshot = snapshotResult.value;
+          applySnapshot(snapshot);
+
+          let years = [snapshot.year];
+          if (historyResult.status === 'fulfilled') {
+            const historyYears = buildYearOptions(historyResult.value.since_year, historyResult.value.to_year);
+            if (historyYears.length > 0) {
+              years = historyYears;
+            }
+          }
+
+          setAvailableYears(years);
+          setSelectedYear(current => {
+            if (year !== undefined) return year;
+            if (current !== null && years.includes(current)) return current;
+            if (years.includes(snapshot.year)) return snapshot.year;
+            return years[years.length - 1];
+          });
+          return;
+        }
+
+        const snapshot = await api.getBudgetVoteDivisions({ year, limit: 200 });
+        if (requestId !== requestIdRef.current) return;
+
+        applySnapshot(snapshot);
+        setSelectedYear(snapshot.year);
+        setAvailableYears(current => {
+          if (current.length === 0) return [snapshot.year];
+          if (current.includes(snapshot.year)) return current;
+          return [...current, snapshot.year].sort((a, b) => a - b);
+        });
       } catch (error) {
-        if (cancelled) return;
+        if (requestId !== requestIdRef.current) return;
         const message = error instanceof Error ? error.message : t('interactive.loadFail');
         setLoadError(message);
       } finally {
-        if (!cancelled) {
+        if (requestId === requestIdRef.current) {
           setIsLoading(false);
         }
       }
-    };
+    },
+    [applySnapshot, t]
+  );
 
-    void load();
+  useEffect(() => {
+    void loadSnapshot({ includeYearOptions: true });
     return () => {
-      cancelled = true;
+      requestIdRef.current += 1;
     };
-  }, [setExpenditures]);
+  }, [loadSnapshot]);
+
+  const handleYearChange = (year: number) => {
+    setSelectedYear(year);
+    void loadSnapshot({ year });
+  };
 
   // Prepare Sankey data in Recharts format
   const sankeyData = useMemo(() => {
@@ -108,6 +174,11 @@ export function InteractiveSankeyFlow() {
     () => expenditures.reduce((sum, e) => sum + e.amount_eur_m, 0),
     [expenditures]
   );
+  const selectedYearValue =
+    selectedYear ??
+    remoteData?.year ??
+    availableYears[availableYears.length - 1] ??
+    new Date().getFullYear();
 
   const CustomNode = (props: SankeyNodeProps) => {
     const { x, y, width, height, index, payload, containerWidth } = props;
@@ -198,6 +269,14 @@ export function InteractiveSankeyFlow() {
               {t('interactive.period')}: {remoteData.year}-{String(remoteData.month).padStart(2, '0')} ({remoteData.month_name})
             </p>
           )}
+          <YearSelector
+            label={t('interactive.year')}
+            years={availableYears}
+            value={selectedYearValue}
+            onChange={handleYearChange}
+            disabled={isLoading || availableYears.length <= 1}
+            className="justify-end mt-2"
+          />
         </div>
       </div>
 

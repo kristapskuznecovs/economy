@@ -176,6 +176,116 @@ export interface EconomyStructureResponse {
   source_world_bank_country: string;
 }
 
+export type ExpenditurePositionsGroupBy = 'ekk' | 'program' | 'institution' | 'ministry';
+
+export interface BudgetExpenditurePosition {
+  id: string;
+  label: string;
+  amount_eur_m: number;
+  share_pct: number;
+}
+
+export interface BudgetExpenditurePositionsResponse {
+  year: number;
+  month: number;
+  month_name: string;
+  available_years: number[];
+  group_by: ExpenditurePositionsGroupBy;
+  group_label: string;
+  total_expenditure_eur_m: number;
+  source_dataset_id: string;
+  source_resource_id: string;
+  source_last_modified: string | null;
+  source_url: string | null;
+  positions: BudgetExpenditurePosition[];
+}
+
+export interface BudgetProcurementEntity {
+  id: string;
+  label: string;
+  amount_eur_m: number;
+  share_pct: number;
+}
+
+export interface BudgetProcurementKpiResponse {
+  year: number;
+  month: number;
+  month_name: string;
+  available_years: number[];
+  total_expenditure_eur_m: number;
+  procurement_like_expenditure_eur_m: number;
+  procurement_like_share_pct: number;
+  single_bid_share_pct: number | null;
+  avg_bidder_count: number | null;
+  initial_vs_actual_contract_delta_pct: number | null;
+  top_purchasers: BudgetProcurementEntity[];
+  top_suppliers: BudgetProcurementEntity[];
+  source_dataset_id: string;
+  source_resource_id: string;
+  source_last_modified: string | null;
+  source_url: string | null;
+  notes: string[];
+}
+
+export interface ExternalDebtOverviewPoint {
+  year: number;
+  external_debt_usd_m: number | null;
+  debt_service_usd_m: number | null;
+  external_debt_pct_gdp: number | null;
+}
+
+export interface ExternalDebtOverviewResponse {
+  since_year: number;
+  to_year: number;
+  selected_year: number;
+  available_years: number[];
+  external_debt_usd_m: number | null;
+  external_debt_eur_m: number | null;
+  external_debt_per_capita_usd: number | null;
+  external_debt_per_capita_eur: number | null;
+  external_debt_pct_gdp: number | null;
+  debt_service_usd_m: number | null;
+  debt_service_eur_m: number | null;
+  debt_service_pct_exports: number | null;
+  interest_payments_usd_m: number | null;
+  interest_payments_eur_m: number | null;
+  population_m: number | null;
+  debt_basis: string;
+  source_world_bank_country: string;
+  source_indicators: string[];
+  notes: string[];
+  series: ExternalDebtOverviewPoint[];
+}
+
+export interface ConstructionOverviewPoint {
+  year: number;
+  construction_value_added_eur_m: number | null;
+  construction_share_gdp_pct: number | null;
+  total_fixed_investment_eur_m: number | null;
+  private_fixed_investment_eur_m: number | null;
+  public_soe_proxy_investment_eur_m: number | null;
+  private_share_pct: number | null;
+  public_soe_proxy_share_pct: number | null;
+}
+
+export interface ConstructionOverviewResponse {
+  since_year: number;
+  to_year: number;
+  selected_year: number;
+  available_years: number[];
+  construction_value_added_eur_m: number | null;
+  construction_share_gdp_pct: number | null;
+  total_fixed_investment_eur_m: number | null;
+  private_fixed_investment_eur_m: number | null;
+  public_soe_proxy_investment_eur_m: number | null;
+  private_share_pct: number | null;
+  public_soe_proxy_share_pct: number | null;
+  source_world_bank_country: string;
+  source_indicators: string[];
+  notes: string[];
+  series: ConstructionOverviewPoint[];
+}
+
 export interface SimulateResponse {
   run_id: string;
   status: string;
@@ -239,8 +349,29 @@ async function fetchApi<T>(endpoint: string, options?: RequestInit): Promise<T> 
   }
 
   if (!response.ok) {
-    const errorText = await response.text();
-    throw new ApiError(response.status, errorText || response.statusText);
+    const raw = await response.text();
+    let message = raw || response.statusText;
+    try {
+      const parsed = JSON.parse(raw) as
+        | {
+            error?: { message?: string };
+            detail?: string | Array<{ msg?: string }>;
+          }
+        | undefined;
+      if (parsed?.error?.message) {
+        message = parsed.error.message;
+      } else if (typeof parsed?.detail === 'string') {
+        message = parsed.detail;
+      } else if (Array.isArray(parsed?.detail) && parsed.detail.length > 0) {
+        const first = parsed.detail[0];
+        if (typeof first?.msg === 'string' && first.msg) {
+          message = first.msg;
+        }
+      }
+    } catch {
+      // Non-JSON error body, keep raw text.
+    }
+    throw new ApiError(response.status, message);
   }
 
   return response.json();
@@ -321,6 +452,68 @@ export const api = {
     if (params?.year !== undefined) search.set('year', String(params.year));
     const suffix = search.toString() ? `?${search.toString()}` : '';
     return fetchApi<EconomyStructureResponse>(`/api/budget/economy-structure${suffix}`);
+  },
+
+  /**
+   * Get top expenditure positions by selected grouping (EKK/program/institution/ministry).
+   */
+  async getBudgetExpenditurePositions(params?: {
+    year?: number;
+    month?: number;
+    group_by?: ExpenditurePositionsGroupBy;
+    limit?: number;
+  }): Promise<BudgetExpenditurePositionsResponse> {
+    const search = new URLSearchParams();
+    if (params?.year !== undefined) search.set('year', String(params.year));
+    if (params?.month !== undefined) search.set('month', String(params.month));
+    if (params?.group_by) search.set('group_by', params.group_by);
+    if (params?.limit !== undefined) search.set('limit', String(params.limit));
+    const suffix = search.toString() ? `?${search.toString()}` : '';
+    return fetchApi<BudgetExpenditurePositionsResponse>(`/api/budget/expenditure-positions${suffix}`);
+  },
+
+  /**
+   * Get procurement optimization KPI payload.
+   */
+  async getBudgetProcurementKpi(params?: {
+    year?: number;
+    month?: number;
+    top_n?: number;
+  }): Promise<BudgetProcurementKpiResponse> {
+    const search = new URLSearchParams();
+    if (params?.year !== undefined) search.set('year', String(params.year));
+    if (params?.month !== undefined) search.set('month', String(params.month));
+    if (params?.top_n !== undefined) search.set('top_n', String(params.top_n));
+    const suffix = search.toString() ? `?${search.toString()}` : '';
+    return fetchApi<BudgetProcurementKpiResponse>(`/api/budget/procurement-kpi${suffix}`);
+  },
+
+  /**
+   * Get external debt burden and servicing costs.
+   */
+  async getDebtOverview(params?: {
+    since_year?: number;
+    year?: number;
+  }): Promise<ExternalDebtOverviewResponse> {
+    const search = new URLSearchParams();
+    if (params?.since_year !== undefined) search.set('since_year', String(params.since_year));
+    if (params?.year !== undefined) search.set('year', String(params.year));
+    const suffix = search.toString() ? `?${search.toString()}` : '';
+    return fetchApi<ExternalDebtOverviewResponse>(`/api/budget/debt-overview${suffix}`);
+  },
+
+  /**
+   * Get construction economy overview with private/public investment split.
+   */
+  async getConstructionOverview(params?: {
+    since_year?: number;
+    year?: number;
+  }): Promise<ConstructionOverviewResponse> {
+    const search = new URLSearchParams();
+    if (params?.since_year !== undefined) search.set('since_year', String(params.since_year));
+    if (params?.year !== undefined) search.set('year', String(params.year));
+    const suffix = search.toString() ? `?${search.toString()}` : '';
+    return fetchApi<ConstructionOverviewResponse>(`/api/budget/construction-overview${suffix}`);
   },
 
   /**

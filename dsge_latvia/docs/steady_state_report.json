@@ -1,0 +1,142 @@
+{
+  "max_residual": 2.220446049250313e-16,
+  "max_residual_key": "wage_bargaining",
+  "tolerance": 1e-10,
+  "top_residuals": [
+    {
+      "name": "wage_bargaining",
+      "value": -2.220446049250313e-16
+    },
+    {
+      "name": "matching_vacancy_fill",
+      "value": -1.1102230246251565e-16
+    },
+    {
+      "name": "govt_investment_share",
+      "value": 1.3877787807814457e-17
+    },
+    {
+      "name": "transfer_split_rule",
+      "value": -6.938893903907228e-18
+    },
+    {
+      "name": "wage_share",
+      "value": 0.0
+    },
+    {
+      "name": "capital_share",
+      "value": 0.0
+    },
+    {
+      "name": "markup",
+      "value": 0.0
+    },
+    {
+      "name": "public_debt_target",
+      "value": 0.0
+    },
+    {
+      "name": "govt_consumption_share",
+      "value": 0.0
+    },
+    {
+      "name": "govt_transfer_share",
+      "value": 0.0
+    },
+    {
+      "name": "transfer_aggregation",
+      "value": 0.0
+    },
+    {
+      "name": "public_capital_law",
+      "value": 0.0
+    },
+    {
+      "name": "import_share",
+      "value": 0.0
+    },
+    {
+      "name": "matching_job_finding",
+      "value": 0.0
+    },
+    {
+      "name": "free_entry",
+      "value": 0.0
+    },
+    {
+      "name": "net_worth_law",
+      "value": 0.0
+    },
+    {
+      "name": "bank_zero_profit",
+      "value": 0.0
+    }
+  ],
+  "exemptions": {
+    "resource_wedge": -0.019455800000000245
+  },
+  "wedge_magnitude": 0.019455800000000245,
+  "financial_frictions_metrics": {
+    "mu": 0.474,
+    "sigma_omega": 0.291,
+    "F_omega_bar": 0.02,
+    "omega_bar": 0.5273022143756114,
+    "G": 0.009519948472983165,
+    "Gamma": 0.5262761185610824,
+    "share_to_banks": 0.5217636629848883,
+    "net_worth": 3.2553789412302097,
+    "net_worth_ratio": 0.4782363370151117,
+    "net_worth_ratio_target": 0.7,
+    "net_worth_ratio_gap": -0.22176366298488825,
+    "gross_rate": 1.0079172886443222,
+    "gross_return_capital": 1.0079172886443222,
+    "gross_return_ratio": 1.0,
+    "transfer_entrepreneurs": 0.17686679652563786,
+    "transfer_entrepreneurs_target": 0.001,
+    "transfer_entrepreneurs_gap": 0.17586679652563786
+  },
+  "invariants": {
+    "omega_bar_positive": {
+      "value": 0.5273022143756114,
+      "ok": true,
+      "bounds": "(0, inf)"
+    },
+    "default_prob_unit_interval": {
+      "value": 0.02,
+      "ok": true,
+      "bounds": "[0, 1]"
+    },
+    "G_unit_interval": {
+      "value": 0.009519948472983165,
+      "ok": true,
+      "bounds": "[0, 1]"
+    },
+    "share_to_banks_unit_interval": {
+      "value": 0.5217636629848883,
+      "ok": true,
+      "bounds": "(0, 1)"
+    },
+    "net_worth_positive": {
+      "value": 3.2553789412302097,
+      "ok": true,
+      "bounds": "(0, inf)"
+    },
+    "net_worth_ratio_unit_interval": {
+      "value": 0.4782363370151117,
+      "ok": true,
+      "bounds": "(0, 1)"
+    },
+    "transfer_entrepreneurs_positive": {
+      "value": 0.17686679652563786,
+      "ok": true,
+      "bounds": "(0, inf)"
+    },
+    "external_finance_premium_nonnegative": {
+      "value": 1.0,
+      "ok": true,
+      "bounds": "[1, inf)"
+    }
+  },
+  "invariant_failures": {},
+  "passed": true
+}

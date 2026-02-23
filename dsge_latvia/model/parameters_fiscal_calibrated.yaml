@@ -11,11 +11,17 @@ tau_w_e: 0.1550        # SSC employer rate
 tau_w_w: 0.0610        # SSC employee rate
 tau_c: 0.2100          # Consumption tax rate
 tau_y: 0.1640          # Labour income tax rate
+tau_ls: 0.000001       # Lump-sum tax (steady state; small >0 to allow log in fiscal rule)
+tau_b: 0.0000          # Tax on bond returns (steady state; not reported)
+
+rho_tau_k: 0.0000      # Capital income tax persistence (Eq. 30; not reported)
 
 lambda_m_g_c: 1.0500   # Price mark-up for imported public consumption good
 lambda_m_g_i: 1.0500   # Price mark-up for imported public investment good
 omega_g_c: 0.1300      # Import share in public consumption goods
 omega_g_i: 0.4500      # Import share in public investment goods
+tau_t_g_m_c: 1.0000    # Markup shock, imports for public consumption (steady state)
+tau_t_g_m_i: 1.0000    # Markup shock, imports for public investment (steady state)
 
 tau_r_tr: 0.7000       # Transfer share going to restricted households
 
@@ -26,6 +32,8 @@ tau_tr_g: 0.3000       # Transfers share in total government spending
 alpha_k: 0.8500        # Share of private capital in aggregate capital bundle
 b0: 1.0000             # Time-to-build parameter (period t)
 b1: 0.0000             # Time-to-build parameter (period t-1)
+delta_g: 0.0412        # Public capital depreciation (temporary default = private delta)
+gamma_g: 0.0001        # Bond adjustment cost parameter (steady state); small >0 to avoid singularity in C.13
 
 phi_tilde_g_r: 0.0050  # Risk premium sensitivity; table reports 10*phi_tilde_g_r = 0.0500
 

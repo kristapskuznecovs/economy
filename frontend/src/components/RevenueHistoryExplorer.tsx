@@ -2,8 +2,8 @@ import { Fragment, useEffect, useMemo, useState } from 'react';
 import { AlertCircle, Loader2 } from 'lucide-react';
 import { Bar, BarChart, CartesianGrid, Cell, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
+import { YearRangeSelector } from '@/components/PeriodSelector';
 import { Card } from '@/components/ui/card';
-import { Slider } from '@/components/ui/slider';
 import { api, type BudgetRevenueSource, type BudgetRevenueSourcesHistoryResponse } from '@/lib/api';
 import { useI18n } from '@/lib/i18n';
 
@@ -35,7 +35,7 @@ export function RevenueHistoryExplorer() {
   const { t } = useI18n();
   const [history, setHistory] = useState<BudgetRevenueSourcesHistoryResponse | null>(null);
   const [historyByYear, setHistoryByYear] = useState<Record<number, BudgetRevenueSourcesHistoryResponse>>({});
-  const [yearRangeIndex, setYearRangeIndex] = useState<[number, number]>([0, 0]);
+  const [yearRange, setYearRange] = useState<[number, number]>([2010, 2010]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -63,7 +63,9 @@ export function RevenueHistoryExplorer() {
 
       setHistory(latestPayload);
       setHistoryByYear(byYear);
-      setYearRangeIndex([0, Math.max(0, years.length - 1)]);
+      if (years.length > 0) {
+        setYearRange([years[0], years[years.length - 1]]);
+      }
     } catch (err) {
       const message = err instanceof Error ? err.message : t('revenueHistory.failed');
       setError(message);
@@ -79,13 +81,14 @@ export function RevenueHistoryExplorer() {
   const availableYears = history?.available_years ?? [];
   const safeRange = useMemo<[number, number]>(() => {
     if (availableYears.length === 0) return [0, 0];
-    const rawStart = Math.min(yearRangeIndex[0], yearRangeIndex[1]);
-    const rawEnd = Math.max(yearRangeIndex[0], yearRangeIndex[1]);
-    const maxIndex = availableYears.length - 1;
-    return [Math.max(0, Math.min(rawStart, maxIndex)), Math.max(0, Math.min(rawEnd, maxIndex))];
-  }, [yearRangeIndex, availableYears]);
+    const minYear = availableYears[0];
+    const maxYear = availableYears[availableYears.length - 1];
+    const rawStart = Math.min(yearRange[0], yearRange[1]);
+    const rawEnd = Math.max(yearRange[0], yearRange[1]);
+    return [Math.max(minYear, Math.min(rawStart, maxYear)), Math.max(minYear, Math.min(rawEnd, maxYear))];
+  }, [yearRange, availableYears]);
   const yearsInRange = useMemo(
-    () => availableYears.slice(safeRange[0], safeRange[1] + 1),
+    () => availableYears.filter((year) => year >= safeRange[0] && year <= safeRange[1]),
     [availableYears, safeRange]
   );
   const endYearInRange = yearsInRange[yearsInRange.length - 1] ?? null;
@@ -198,22 +201,14 @@ export function RevenueHistoryExplorer() {
       {history && (
         <>
           <div className="rounded border p-3 mb-3">
-            <div className="flex items-center justify-between mb-2">
-              <p className="text-xs font-medium">{t('revenueHistory.range')}</p>
-              <p className="text-xs font-mono text-muted-foreground">
-                {rangeStartYear ?? t('history.na')} - {rangeEndYear ?? t('history.na')}
-              </p>
-            </div>
-            <Slider
-              value={safeRange}
-              min={0}
-              max={Math.max(0, availableYears.length - 1)}
-              step={1}
-              onValueChange={(value) => {
-                const start = value[0] ?? 0;
-                const end = value[1] ?? start;
-                setYearRangeIndex([start, end]);
-              }}
+            <YearRangeSelector
+              label={t('revenueHistory.range')}
+              fromLabel={t('period.from')}
+              toLabel={t('period.to')}
+              years={availableYears}
+              fromYear={safeRange[0]}
+              toYear={safeRange[1]}
+              onChange={(fromYear, toYear) => setYearRange([fromYear, toYear])}
               disabled={availableYears.length <= 1 || isLoading}
             />
             <p className="mt-2 text-[11px] text-muted-foreground">

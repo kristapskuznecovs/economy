@@ -1,4 +1,4 @@
-import { Flag, Settings } from 'lucide-react';
+import { CircleHelp, Flag, Settings } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
@@ -55,6 +55,38 @@ export function Header() {
                 <p className="text-xs">{t('header.dataFreshness.stateBudget')}</p>
                 <p className="text-xs">{t('header.dataFreshness.csb')}</p>
                 <p className="text-xs">{t('header.dataFreshness.ioTables')}</p>
+              </div>
+            </TooltipContent>
+          </Tooltip>
+
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button variant="ghost" size="icon" className="h-8 w-8" aria-label={t('transparency.modelHelp.aria')}>
+                <CircleHelp className="h-4 w-4" />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent className="max-w-sm">
+              <div className="space-y-2 text-xs">
+                <p className="font-semibold">{t('transparency.modelHelp.title')}</p>
+                <p className="text-muted-foreground">{t('transparency.modelHelp.subtitle')}</p>
+                <div>
+                  <p className="font-medium">{t('transparency.modelHelp.goodFor')}</p>
+                  <ul className="mt-1 space-y-0.5 text-muted-foreground">
+                    <li>• {t('transparency.modelHelp.goodFor.1')}</li>
+                    <li>• {t('transparency.modelHelp.goodFor.2')}</li>
+                    <li>• {t('transparency.modelHelp.goodFor.3')}</li>
+                    <li>• {t('transparency.modelHelp.goodFor.4')}</li>
+                  </ul>
+                </div>
+                <div>
+                  <p className="font-medium">{t('transparency.modelHelp.badFor')}</p>
+                  <ul className="mt-1 space-y-0.5 text-muted-foreground">
+                    <li>• {t('transparency.modelHelp.badFor.1')}</li>
+                    <li>• {t('transparency.modelHelp.badFor.2')}</li>
+                    <li>• {t('transparency.modelHelp.badFor.3')}</li>
+                    <li>• {t('transparency.modelHelp.badFor.4')}</li>
+                  </ul>
+                </div>
               </div>
             </TooltipContent>
           </Tooltip>
