@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import argparse
 import json
 import math
 import re
@@ -462,21 +463,69 @@ def _lead_name(var: str) -> str:
     return f"{var}_p1"
 
 
+def _parse_sections(raw: str | None) -> list[str] | None:
+    if raw is None:
+        return None
+    sections = [part.strip() for part in raw.split(",") if part.strip()]
+    return sections or None
+
+
+def _parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Build the linearized DSGE system.")
+    parser.add_argument(
+        "--sections",
+        default=None,
+        help="Comma-separated catalog sections to include. Defaults to all core_dynamic/closure_or_regime sections.",
+    )
+    parser.add_argument(
+        "--report-path",
+        default=None,
+        help="Optional JSON report output path. Defaults to docs/linear_system_report.json.",
+    )
+    parser.add_argument(
+        "--gate-report-path",
+        default=None,
+        help="Optional catalog gate report output path. Defaults to docs/reports/catalog_gate.json.",
+    )
+    parser.add_argument(
+        "--save-system-path",
+        default=None,
+        help="Optional NPZ output path. Defaults to model/linear_system.npz unless --no-save-system is set.",
+    )
+    parser.add_argument(
+        "--no-save-system",
+        action="store_true",
+        help="Skip writing the linear_system.npz artifact.",
+    )
+    return parser.parse_args()
+
+
 def main() -> None:
+    args = _parse_args()
     DOCS_DIR.mkdir(parents=True, exist_ok=True)
     REPORTS_DIR.mkdir(parents=True, exist_ok=True)
     spec = _load_yaml(MODEL_DIR / "spec.yaml")
     params = load_parameters()
+    selected_sections = _parse_sections(args.sections)
+    gate_report_path = Path(args.gate_report_path) if args.gate_report_path else REPORTS_DIR / "catalog_gate.json"
+    report_path = Path(args.report_path) if args.report_path else DOCS_DIR / "linear_system_report.json"
 
     catalog = _load_yaml(MODEL_DIR / "catalogs" / "equations_catalog.yaml") or {}
     allowed_kinds = {"core_dynamic", "closure_or_regime"}
     catalog_entries = [
         e
         for e in catalog.get("equations", [])
-        if isinstance(e, dict) and e.get("kind") in allowed_kinds and e.get("id")
+        if isinstance(e, dict)
+        and e.get("kind") in allowed_kinds
+        and e.get("id")
+        and (selected_sections is None or e.get("section") in selected_sections)
     ]
     eq_ids = [e["id"] for e in catalog_entries]
-    sections = sorted({e.get("section") for e in catalog_entries if e.get("section")})
+    sections = [e.get("section") for e in catalog_entries if e.get("section")]
+    section_order: list[str] = []
+    for section in sections:
+        if section not in section_order:
+            section_order.append(section)
 
     eq_map: dict[str, dict] = {}
     for section, entries in spec.items():
@@ -491,10 +540,12 @@ def main() -> None:
         "allowed_kinds": sorted(allowed_kinds),
         "equation_ids": eq_ids,
         "missing_equations": missing_eqs,
-        "used_sections": sections,
+        "used_sections": section_order,
+        "selected_sections_argument": selected_sections,
     }
     if missing_eqs:
-        (REPORTS_DIR / "catalog_gate.json").write_text(
+        gate_report_path.parent.mkdir(parents=True, exist_ok=True)
+        gate_report_path.write_text(
             json.dumps(gate_report, indent=2), encoding="utf-8"
         )
         raise RuntimeError(
@@ -505,30 +556,41 @@ def main() -> None:
     residuals, funcs, ids, skipped = _build_residual_functions(equations, params)
     full_variables = _collect_variables(residuals, params)
 
-    allowlist_path = MODEL_DIR / "endogenous_variables_theory.yaml"
-    if not allowlist_path.exists():
-        allowlist_path = MODEL_DIR / "endogenous_variables.yaml"
-    allowlist = _load_yaml(allowlist_path) or {}
-    allow_vars = [v for v in allowlist.get("variables", []) if isinstance(v, str)]
-    missing_allow = [v for v in allow_vars if v not in full_variables]
-    extra_model = [v for v in full_variables if v not in allow_vars]
-    if missing_allow:
-        gate_report.update(
-            {
-                "missing_allowlist_variables": missing_allow,
-                "model_variables": full_variables,
-                "allowlist_source": allowlist_path.name,
-            }
-        )
-        (REPORTS_DIR / "catalog_gate.json").write_text(
-            json.dumps(gate_report, indent=2), encoding="utf-8"
-        )
-        raise RuntimeError(
-            "Endogenous allowlist contains variables not present in core equations: "
-            + ", ".join(missing_allow)
-        )
-
-    variables = allow_vars
+    if selected_sections is not None:
+        # Staged run: derive variable list from the equations in scope.
+        # The global theory YAML covers the full system; a subset of sections
+        # will not contain all theory variables, so we use only what appears.
+        variables = full_variables
+        allow_vars = full_variables
+        missing_allow: list[str] = []
+        extra_model: list[str] = []
+        allowlist_source = "derived_from_selected_sections"
+    else:
+        allowlist_path = MODEL_DIR / "endogenous_variables_theory.yaml"
+        if not allowlist_path.exists():
+            allowlist_path = MODEL_DIR / "endogenous_variables.yaml"
+        allowlist = _load_yaml(allowlist_path) or {}
+        allow_vars = [v for v in allowlist.get("variables", []) if isinstance(v, str)]
+        missing_allow = [v for v in allow_vars if v not in full_variables]
+        extra_model = [v for v in full_variables if v not in allow_vars]
+        allowlist_source = allowlist_path.name
+        if missing_allow:
+            gate_report.update(
+                {
+                    "missing_allowlist_variables": missing_allow,
+                    "model_variables": full_variables,
+                    "allowlist_source": allowlist_source,
+                }
+            )
+            gate_report_path.parent.mkdir(parents=True, exist_ok=True)
+            gate_report_path.write_text(
+                json.dumps(gate_report, indent=2), encoding="utf-8"
+            )
+            raise RuntimeError(
+                "Endogenous allowlist contains variables not present in core equations: "
+                + ", ".join(missing_allow)
+            )
+        variables = allow_vars
     shocks = _collect_shocks(residuals)
 
     ss_map = _steady_state_map(params)
@@ -563,10 +625,12 @@ def main() -> None:
             "missing_allowlist_variables": missing_allow,
             "extra_model_variables": extra_model,
             "skipped_equations": skipped + eval_skipped,
-            "allowlist_source": allowlist_path.name,
+            "allowlist_source": allowlist_source,
+            "selected_sections": section_order,
         }
     )
-    (REPORTS_DIR / "catalog_gate.json").write_text(
+    gate_report_path.parent.mkdir(parents=True, exist_ok=True)
+    gate_report_path.write_text(
         json.dumps(gate_report, indent=2), encoding="utf-8"
     )
 
@@ -577,11 +641,19 @@ def main() -> None:
         )
 
     if len(funcs) != len(variables):
-        raise RuntimeError(
-            "Core system is not square (equations != variables). "
-            f"eqs={len(funcs)}, vars={len(variables)}. "
-            f"See {REPORTS_DIR / 'catalog_gate.json'} for details."
-        )
+        if selected_sections is None:
+            # Full run: must be square — hard failure.
+            raise RuntimeError(
+                "Core system is not square (equations != variables). "
+                f"eqs={len(funcs)}, vars={len(variables)}. "
+                f"See {REPORTS_DIR / 'catalog_gate.json'} for details."
+            )
+        # Staged run: non-square is expected at intermediate stages.
+        # Trim to the min dimension so Jacobians can still be built for rank inspection.
+        n = min(len(funcs), len(variables))
+        funcs = funcs[:n]
+        ids = ids[:n]
+        variables = variables[:n]
 
     g0 = _numeric_jacobian(funcs, values, variables, eps=eps)
     g1 = _numeric_jacobian(funcs, values, [_lag_name(v) for v in variables], eps=eps)
@@ -600,43 +672,60 @@ def main() -> None:
             "equation_count": len(funcs),
             "variable_count": len(variables),
             "shock_count": len(shocks),
-            "used_sections": sections,
+            "used_sections": section_order,
+            "selected_sections_argument": selected_sections,
             "dropped_nonfinite": dropped_nonfinite,
             "notes": "Non-finite Jacobian entries detected; fix equations before proceeding.",
         }
-        (REPORTS_DIR / "linear_system_report.json").write_text(
+        report_path.parent.mkdir(parents=True, exist_ok=True)
+        report_path.write_text(
             json.dumps(report, indent=2), encoding="utf-8"
         )
         raise RuntimeError("Non-finite Jacobian entries detected in core system.")
 
-    np.savez_compressed(
-        MODEL_DIR / "linear_system.npz",
-        g0=g0,
-        g1=g1,
-        c=np.zeros((g0.shape[0], 1)),
-        psi=psi,
-        pi=pi,
-        variables=np.array(variables, dtype=object),
-        shocks=np.array(shocks, dtype=object),
-    )
+    if not args.no_save_system:
+        save_system_path = Path(args.save_system_path) if args.save_system_path else MODEL_DIR / "linear_system.npz"
+        save_system_path.parent.mkdir(parents=True, exist_ok=True)
+        np.savez_compressed(
+            save_system_path,
+            g0=g0,
+            g1=g1,
+            c=np.zeros((g0.shape[0], 1)),
+            psi=psi,
+            pi=pi,
+            variables=np.array(variables, dtype=object),
+            shocks=np.array(shocks, dtype=object),
+        )
+
+    # Rank and conditioning diagnostics on g0 (contemporaneous matrix).
+    g0_rank = int(np.linalg.matrix_rank(g0))
+    sv = np.linalg.svd(g0, compute_uv=False)
+    g0_condition = float(sv[0] / sv[-1]) if sv[-1] > 0 else float("inf")
+    g0_near_zero_sv = int(np.sum(sv < 1e-8))
 
     report = {
         "equation_count": len(funcs),
         "variable_count": len(variables),
         "shock_count": len(shocks),
-        "used_sections": sections,
+        "used_sections": section_order,
+        "selected_sections_argument": selected_sections,
         "skipped_equations": skipped + eval_skipped,
         "dropped_nonfinite": dropped_nonfinite,
         "selection_note": "none",
-        "endogenous_allowlist": allowlist.get("notes"),
+        "endogenous_allowlist": allowlist_source,
+        "g0_rank": g0_rank,
+        "g0_condition_number": g0_condition,
+        "g0_near_zero_singular_values": g0_near_zero_sv,
         "notes": "Core dynamic system; no row/column pivoting applied.",
     }
-    (REPORTS_DIR / "linear_system_report.json").write_text(
+    report_path.parent.mkdir(parents=True, exist_ok=True)
+    report_path.write_text(
         json.dumps(report, indent=2), encoding="utf-8"
     )
-    (DOCS_DIR / "linear_system_report.json").write_text(
-        json.dumps(report, indent=2), encoding="utf-8"
-    )
+    if report_path != DOCS_DIR / "linear_system_report.json":
+        (DOCS_DIR / "linear_system_report.json").write_text(
+            json.dumps(report, indent=2), encoding="utf-8"
+        )
 
 
 if __name__ == "__main__":

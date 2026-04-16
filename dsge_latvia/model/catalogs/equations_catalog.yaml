@@ -427,7 +427,7 @@ equations:
   kind: definitional
 - id: eq21
   section: equations
-  kind: definitional
+  kind: core_dynamic
 - id: eq22
   section: equations
   kind: definitional

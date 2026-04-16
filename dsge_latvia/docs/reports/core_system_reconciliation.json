@@ -1,0 +1,307 @@
+{
+  "generated_at_utc": "2026-04-16T19:36:15.414694+00:00",
+  "authoritative_catalog": {
+    "path": "model/catalogs/equations_catalog.yaml",
+    "status": "canonical",
+    "entry_count": 235,
+    "section_counts": {
+      "appendix_c_functional_forms": 3,
+      "appendix_c_normalized_model": 122,
+      "closure_equations": 8,
+      "equations": 27,
+      "fiscal_rule_equations": 13,
+      "foreign_block_equations": 1,
+      "foreign_freeze_equations": 4,
+      "measurement_equations": 34,
+      "shock_processes": 23
+    },
+    "kind_counts": {
+      "closure_or_regime": 12,
+      "core_dynamic": 151,
+      "definitional": 34,
+      "measurement": 35,
+      "resolved_by_recursion": 3
+    },
+    "reason": "This catalog is already consumed by build_linear_system.py and tools/lead_term_coverage_report.py and contains the current closure, freeze, and measurement section structure."
+  },
+  "legacy_catalog": {
+    "path": "model/catalogs/equations_catalog_kk.yaml",
+    "status": "legacy_reference_only",
+    "entry_count": 111,
+    "section_counts": {
+      "appendix_a_equations": 9,
+      "appendix_c_normalized_model": 6,
+      "equations": 32,
+      "fiscal_rule_equations": 8,
+      "foreign_block_equations": 1,
+      "measurement_equations": 34,
+      "shock_processes": 21
+    },
+    "kind_counts": {
+      "closure_or_regime": 1,
+      "core_dynamic": 74,
+      "measurement": 34,
+      "resolved_by_recursion": 2
+    },
+    "reason": "This catalog is a narrower scratch/reference catalog using an older schema and should not compete with the canonical catalog during recovery work."
+  },
+  "system_size_reconciliation": {
+    "historical_linear_system_report": {
+      "path": "docs/linear_system_report.json",
+      "equation_count": 152,
+      "variable_count": 116,
+      "selection_note": "allowlist_row_pivot",
+      "allowlist_note": "Auto-seeded from QR column pivot to get square system; review and replace with theory-driven list.",
+      "used_section": [
+        "appendix_c_normalized_model",
+        "fiscal_rule_equations",
+        "shock_processes"
+      ]
+    },
+    "legacy_variable_list": {
+      "path": "model/endogenous_variables.yaml",
+      "count": 116,
+      "source_note": "legacy QR-pivot snapshot; not theory-authoritative"
+    },
+    "theory_variable_list": {
+      "path": "model/endogenous_variables_theory.yaml",
+      "count": 34,
+      "source_note": "current theory-driven allowlist preferred by build_linear_system.py"
+    },
+    "delta": {
+      "only_in_legacy_variable_list": [
+        "S_t",
+        "b_t_u",
+        "c_d_t",
+        "c_m_t",
+        "c_o_t",
+        "c_r_t",
+        "c_t",
+        "c_tilde_o_t",
+        "c_tilde_r_t",
+        "chi_t",
+        "d_b_t",
+        "d_g_t",
+        "deficit_t",
+        "f_t",
+        "g_c_d_t",
+        "g_c_m_t",
+        "g_i_d_t",
+        "g_i_m_t",
+        "g_i_t",
+        "g_t",
+        "gamma_t",
+        "i_d_t",
+        "i_m_t",
+        "j_t",
+        "k_G_t",
+        "k_bar_t",
+        "k_t",
+        "k_v_t",
+        "mc_t",
+        "mc_t_g_m_c",
+        "mc_t_g_m_i",
+        "mc_t_m_c",
+        "mc_t_m_x",
+        "mu_psi_t",
+        "mu_zplus_t",
+        "p_bar_t",
+        "p_c_t",
+        "p_f_t",
+        "p_g_c_t",
+        "p_g_i_t",
+        "p_g_m_c_t",
+        "p_g_m_i_t",
+        "p_i_t",
+        "p_m_c_t",
+        "p_m_i_t",
+        "p_m_x_t",
+        "p_tilde_m_c_t",
+        "p_tilde_t",
+        "p_tilde_t_g_m_c",
+        "p_tilde_t_g_m_i",
+        "p_tilde_t_m_c",
+        "p_tilde_t_m_i",
+        "p_tilde_t_m_x",
+        "p_tilde_t_star",
+        "p_tilde_t_x",
+        "p_x_t",
+        "phi_a_shock_t",
+        "phi_t",
+        "pi_t",
+        "pi_t_c",
+        "pi_t_d",
+        "pi_t_f",
+        "pi_t_g_c",
+        "pi_t_g_i",
+        "pi_t_g_m_c",
+        "pi_t_g_m_i",
+        "pi_t_i",
+        "pi_t_m_c",
+        "pi_t_m_i",
+        "pi_t_m_x",
+        "pi_t_star",
+        "pi_t_star_g_m_c",
+        "pi_t_star_g_m_i",
+        "pi_t_star_m_i",
+        "pi_t_star_m_x",
+        "pi_t_star_x",
+        "pi_t_x",
+        "psi_zplus_t",
+        "psi_zrplus_t",
+        "r_t_k",
+        "rho_t",
+        "sigma_t",
+        "t_t",
+        "tau_tr_r",
+        "tau_w_w_t",
+        "tr_r_t",
+        "tr_t",
+        "u_bar_t",
+        "u_tilde_t",
+        "v_bar_t",
+        "v_t",
+        "vartheta_p_t",
+        "vartheta_t",
+        "w_bar_t",
+        "w_p_t",
+        "w_t_p",
+        "x_d_t",
+        "x_m_t",
+        "x_t",
+        "z_t"
+      ],
+      "only_in_theory_variable_list": [
+        "F_t_g_m_c",
+        "F_t_g_m_i",
+        "F_t_m_c",
+        "F_t_m_i",
+        "F_t_x",
+        "K_bar_t_N",
+        "K_t_g_m_c",
+        "K_t_g_m_i",
+        "K_t_m_c",
+        "K_t_m_i",
+        "K_t_m_x",
+        "K_t_x",
+        "Phi_t",
+        "R_g_t",
+        "R_t_k",
+        "Upsilon_t",
+        "a_w_t",
+        "b_g_bar_t"
+      ]
+    },
+    "explanation": "The 116-variable historical core comes from the older QR-pivot allowlist and a reduced Phase 1 linearization report. The 167-variable theory list is the newer theory-driven allowlist consumed by build_linear_system.py. These represent different system definitions, not a single consistent core."
+  },
+  "staging_sections": {
+    "recommended_order": [
+      "appendix_c_normalized_model",
+      "fiscal_rule_equations",
+      "closure_equations",
+      "foreign_freeze_equations",
+      "shock_processes"
+    ],
+    "authoritative_section_counts": {
+      "appendix_c_normalized_model": 122,
+      "fiscal_rule_equations": 13,
+      "closure_equations": 8,
+      "foreign_freeze_equations": 4,
+      "shock_processes": 23
+    }
+  },
+  "closure_inventory": {
+    "freeze_equations": [
+      {
+        "id": "freeze_R_star",
+        "name": "Foreign nominal rate (frozen)",
+        "raw": "R_t_star = R_star",
+        "source": "Temporary closure",
+        "notes": "Freeze foreign rate at steady state until SVAR block is wired."
+      },
+      {
+        "id": "freeze_pi_star",
+        "name": "Foreign inflation (frozen)",
+        "raw": "pi_t_star = pi_star",
+        "source": "Temporary closure",
+        "notes": "Freeze foreign inflation at steady state until SVAR block is wired."
+      },
+      {
+        "id": "freeze_yf",
+        "name": "Foreign demand/output (frozen)",
+        "raw": "y_t_f = y_f",
+        "source": "Temporary closure",
+        "notes": "Freeze foreign demand at steady state until SVAR block is wired."
+      },
+      {
+        "id": "freeze_s",
+        "name": "Nominal exchange rate growth (frozen)",
+        "raw": "s_t = 1",
+        "source": "Temporary closure",
+        "notes": "Freeze nominal exchange rate growth at steady state until SVAR block is wired."
+      }
+    ],
+    "close_equations": [
+      {
+        "id": "close_gamma_g",
+        "name": "Wasteful spending (closure)",
+        "raw": "gamma_g_t = gamma_g",
+        "source": "Temporary closure",
+        "notes": "Hold wasteful spending at steady-state share."
+      },
+      {
+        "id": "close_d_f",
+        "name": "Dividends (closure)",
+        "raw": "d_f_t = 0",
+        "source": "Temporary closure",
+        "notes": "Dividend flow held at zero pending firm profit accounting."
+      },
+      {
+        "id": "close_xi_A",
+        "name": "Lump-sum transfer residual A (closure)",
+        "raw": "xi_t_A = 0",
+        "source": "Temporary closure"
+      },
+      {
+        "id": "close_xi_B",
+        "name": "Lump-sum transfer residual B (closure)",
+        "raw": "xi_t_B = 0",
+        "source": "Temporary closure"
+      },
+      {
+        "id": "close_mu_zplus",
+        "name": "Trend growth of z+ (closure)",
+        "raw": "mu_zplus_t = mu_zplus",
+        "source": "Temporary closure"
+      },
+      {
+        "id": "close_mu_psi",
+        "name": "Trend growth of Psi (closure)",
+        "raw": "mu_psi_t = mu_psi",
+        "source": "Temporary closure"
+      },
+      {
+        "id": "close_Psi",
+        "name": "Investment-specific technology level (closure)",
+        "raw": "Psi_t = mu_psi_t * Psi_t-1",
+        "source": "Appendix C, Eq. (C.1)"
+      },
+      {
+        "id": "close_phi_a_shock",
+        "name": "Risk premium shock (closure)",
+        "raw": "phi_a_shock_t = 0",
+        "source": "Temporary closure"
+      }
+    ],
+    "note": "These equations should be treated as the primary over-determination suspects in staged Phase 3 solving because they pin foreign or residual processes by construction."
+  },
+  "resource_wedge_status": {
+    "allowlist_path": "model/steady_state_allowlist.yaml",
+    "exempted": true,
+    "note": "Resource constraint wedge (D_t + Z_t); Appendix C Eq. (C.94).",
+    "required_resolution": [
+      "eliminate via corrected goods-market or aggregation accounting",
+      "or document as a deliberate aggregation residual"
+    ]
+  }
+}

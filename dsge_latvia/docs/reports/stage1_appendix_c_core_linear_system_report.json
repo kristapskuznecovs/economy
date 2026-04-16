@@ -1,0 +1,19 @@
+{
+  "equation_count": 122,
+  "variable_count": 122,
+  "shock_count": 1,
+  "used_sections": [
+    "appendix_c_normalized_model"
+  ],
+  "selected_sections_argument": [
+    "appendix_c_normalized_model"
+  ],
+  "skipped_equations": [],
+  "dropped_nonfinite": [],
+  "selection_note": "none",
+  "endogenous_allowlist": "derived_from_selected_sections",
+  "g0_rank": 104,
+  "g0_condition_number": 4.575959674782204e+35,
+  "g0_near_zero_singular_values": 18,
+  "notes": "Core dynamic system; no row/column pivoting applied."
+}

@@ -33,7 +33,7 @@ variables:
 - a_w_t
 - b_g_bar_t
 - b_g_t
-- b_g_t_star
+# B_g_t_star removed: foreign government debt, exogenous in SOE closure (eq35 is definitional, A_t_star frozen).
 - b_t_u
 - b_u_t
 - c_d_t

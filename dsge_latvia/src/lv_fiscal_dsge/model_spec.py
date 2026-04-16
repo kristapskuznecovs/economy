@@ -179,13 +179,13 @@ def build_spec() -> ModelSpec:
     )
 
 def load_catalog() -> dict:
-    """Load the equation categorization catalog with proper type safety."""
+    """Load the canonical equation categorization catalog."""
     if yaml is None:
         raise RuntimeError(
             "pyyaml is required to load model YAML files.\n"
             "Install with: pip install pyyaml"
         )
-    path = MODEL_DIR / "catalogs/equations_catalog_kk.yaml"
+    path = MODEL_DIR / "catalogs/equations_catalog.yaml"
     if not path.exists():
         raise FileNotFoundError(f"Catalog file not found: {path}")
 
@@ -193,14 +193,17 @@ def load_catalog() -> dict:
         data = yaml.safe_load(f)   # PyLance warning suppressed by the guard above
 
     if not isinstance(data, dict):
-        raise ValueError("equations_catalog_kk.yaml must be a mapping")
+        raise ValueError("equations_catalog.yaml must be a mapping")
     return data
 
 
 def catalog_build_gate(spec: ModelSpec, catalog: dict) -> dict:
     """Check that every core_dynamic equation from the catalog is present in spec."""
-    core_ids = {e["id"] for e in catalog.get("equations", []) 
-                if e.get("category") == "core_dynamic"}
+    core_ids = {
+        e["id"]
+        for e in catalog.get("equations", [])
+        if e.get("category") == "core_dynamic" or e.get("kind") == "core_dynamic"
+    }
     used = {eq.eq_id for eq in spec.equations}
     skipped = sorted(core_ids - used)
     return {

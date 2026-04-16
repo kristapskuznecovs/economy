@@ -1,0 +1,28 @@
+[build-system]
+requires = ["hatchling>=1.26.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "lv-fiscal-dsge"
+version = "0.1.0"
+description = "Latvia fiscal DSGE rebuild and diagnostics tooling."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "numpy>=1.26",
+    "scipy>=1.11",
+    "pandas>=2.1",
+    "pyyaml>=6.0",
+    "sympy>=1.12",
+]
+
+[project.scripts]
+lv-dsge-steady-state = "lv_fiscal_dsge.steady_state_contract:main"
+lv-dsge-parameter-audit = "lv_fiscal_dsge.parameter_audit:main"
+lv-dsge-core-reconcile = "lv_fiscal_dsge.core_reconciliation:main"
+lv-dsge-stage-isolation = "lv_fiscal_dsge.stage_isolation:main"
+lv-dsge-stage4-freezes = "lv_fiscal_dsge.stage4_foreign_freeze_analysis:main"
+lv-dsge-diagnostics = "lv_fiscal_dsge.diagnostics:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/lv_fiscal_dsge"]

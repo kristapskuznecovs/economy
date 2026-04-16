@@ -177,16 +177,21 @@
     "closure_equations",
     "shock_processes"
   ],
-  "selected_sections_argument": null,
+  "selected_sections_argument": [
+    "appendix_c_normalized_model",
+    "equations",
+    "fiscal_rule_equations",
+    "closure_equations",
+    "foreign_freeze_equations",
+    "shock_processes"
+  ],
   "equation_count": 166,
-  "variable_count": 166,
+  "variable_count": 167,
   "shock_count": 25,
   "missing_allowlist_variables": [],
-  "extra_model_variables": [
-    "b_g_t_star"
-  ],
+  "extra_model_variables": [],
   "skipped_equations": [],
-  "allowlist_source": "endogenous_variables_theory.yaml",
+  "allowlist_source": "derived_from_selected_sections",
   "selected_sections": [
     "appendix_c_normalized_model",
     "equations",

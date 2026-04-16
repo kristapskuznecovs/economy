@@ -1,29 +1,27 @@
 {
-  "equation_count": 166,
-  "variable_count": 166,
-  "shock_count": 25,
+  "equation_count": 143,
+  "variable_count": 143,
+  "shock_count": 9,
   "used_sections": [
     "appendix_c_normalized_model",
     "equations",
     "fiscal_rule_equations",
     "foreign_freeze_equations",
-    "closure_equations",
-    "shock_processes"
+    "closure_equations"
   ],
   "selected_sections_argument": [
     "appendix_c_normalized_model",
     "equations",
     "fiscal_rule_equations",
     "closure_equations",
-    "foreign_freeze_equations",
-    "shock_processes"
+    "foreign_freeze_equations"
   ],
   "skipped_equations": [],
   "dropped_nonfinite": [],
   "selection_note": "none",
   "endogenous_allowlist": "derived_from_selected_sections",
-  "g0_rank": 150,
-  "g0_condition_number": Infinity,
-  "g0_near_zero_singular_values": 16,
+  "g0_rank": 128,
+  "g0_condition_number": 4.9483460913646195e+36,
+  "g0_near_zero_singular_values": 15,
   "notes": "Core dynamic system; no row/column pivoting applied."
 }

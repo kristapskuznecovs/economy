@@ -39,8 +39,12 @@ __pycache__/
 *.so
 .Python
 venv/
+.venv/
 env/
 ENV/
+
+# Claude Code
+.claude/
 
 # Temporary files
 *.tmp

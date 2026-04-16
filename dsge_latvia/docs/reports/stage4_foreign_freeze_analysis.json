@@ -1,0 +1,72 @@
+{
+  "generated_at_utc": "2026-04-16T19:36:15.883178+00:00",
+  "stage3": {
+    "slug": "stage3_add_closures",
+    "title": "Stage 3: Add Closure Equations",
+    "sections": [
+      "appendix_c_normalized_model",
+      "fiscal_rule_equations",
+      "closure_equations"
+    ],
+    "ok": false,
+    "catalog_equation_count": 135
+  },
+  "stage4": {
+    "slug": "stage4_add_foreign_freezes",
+    "title": "Stage 4: Add Foreign Freezes",
+    "sections": [
+      "appendix_c_normalized_model",
+      "fiscal_rule_equations",
+      "closure_equations",
+      "foreign_freeze_equations"
+    ],
+    "ok": false,
+    "catalog_equation_count": 139
+  },
+  "added_equation_ids": [
+    "freeze_R_star",
+    "freeze_pi_star",
+    "freeze_s",
+    "freeze_yf"
+  ],
+  "freeze_equations": [
+    {
+      "id": "freeze_R_star",
+      "name": "Foreign nominal rate (frozen)",
+      "raw": "R_t_star = R_star",
+      "lhs_symbol": "R_t_star",
+      "source": "Temporary closure",
+      "notes": "Freeze foreign rate at steady state until SVAR block is wired."
+    },
+    {
+      "id": "freeze_pi_star",
+      "name": "Foreign inflation (frozen)",
+      "raw": "pi_t_star = pi_star",
+      "lhs_symbol": "pi_t_star",
+      "source": "Temporary closure",
+      "notes": "Freeze foreign inflation at steady state until SVAR block is wired."
+    },
+    {
+      "id": "freeze_yf",
+      "name": "Foreign demand/output (frozen)",
+      "raw": "y_t_f = y_f",
+      "lhs_symbol": "y_t_f",
+      "source": "Temporary closure",
+      "notes": "Freeze foreign demand at steady state until SVAR block is wired."
+    },
+    {
+      "id": "freeze_s",
+      "name": "Nominal exchange rate growth (frozen)",
+      "raw": "s_t = 1",
+      "lhs_symbol": "s_t",
+      "source": "Temporary closure",
+      "notes": "Freeze nominal exchange rate growth at steady state until SVAR block is wired."
+    }
+  ],
+  "interpretation": {
+    "stage3_catalog_equation_count": 135,
+    "stage4_catalog_equation_count": 139,
+    "delta_equation_count": 4,
+    "meaning": "Stage 4 differs from Stage 3 only by the foreign freeze equations. If a configured environment reaches Stage 3 successfully and fails first at Stage 4, the freeze set is the immediate suspect set before broader foreign-block debugging."
+  }
+}

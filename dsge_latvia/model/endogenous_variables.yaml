@@ -1,6 +1,6 @@
 source: auto_seeded_qr_pivot
-notes: Auto-seeded from QR column pivot to get square system; review and replace with
-  theory-driven list.
+notes: Legacy QR-pivot snapshot from an earlier square-system attempt; retained for
+  historical comparison only and not authoritative for current recovery work.
 variables:
 - F_t
 - F_t_m_x

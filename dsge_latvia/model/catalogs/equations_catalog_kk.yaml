@@ -1,3 +1,6 @@
+# Legacy scratch/reference catalog.
+# Not authoritative for current recovery work.
+# The canonical catalog is `equations_catalog.yaml`.
 version: 1
 rules:
   - core_dynamic: must be included in g0/g1/π/ψ (no skipping allowed)
