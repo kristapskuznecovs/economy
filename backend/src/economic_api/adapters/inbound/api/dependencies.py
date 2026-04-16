@@ -2,6 +2,7 @@
 
 from ....adapters.outbound.external import PolicyParser
 from ....adapters.outbound.external.budget_open_data import BudgetOpenDataClient
+from ....adapters.outbound.external.migration_open_data import MigrationOpenDataClient
 from ....adapters.outbound.persistence import InMemorySimulationRepository
 from ....application.handlers import SimulationCommandHandler, SimulationQueryHandler
 from ....domain.services.dsge_simulation_engine import DSGESimulationEngine
@@ -13,6 +14,7 @@ _command_handler = SimulationCommandHandler(_simulation_repository, _simulation_
 _query_handler = SimulationQueryHandler(_simulation_repository)
 _policy_parser = PolicyParser()
 _budget_open_data_client = BudgetOpenDataClient()
+_migration_open_data_client = MigrationOpenDataClient()
 
 
 def get_command_handler() -> SimulationCommandHandler:
@@ -33,3 +35,8 @@ def get_policy_parser() -> PolicyParser:
 def get_budget_open_data_client() -> BudgetOpenDataClient:
     """Get open data budget client instance."""
     return _budget_open_data_client
+
+
+def get_migration_open_data_client() -> MigrationOpenDataClient:
+    """Get migration open data client instance."""
+    return _migration_open_data_client

@@ -11,7 +11,7 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
-from .adapters.inbound.api.routers import budget, policy, simulation
+from .adapters.inbound.api.routers import budget, migration, policy, simulation
 
 logger = logging.getLogger(__name__)
 
@@ -187,6 +187,7 @@ async def unhandled_exception_handler(request: Request, exc: Exception) -> JSONR
 app.include_router(simulation.router)
 app.include_router(policy.router)
 app.include_router(budget.router)
+app.include_router(migration.router)
 
 
 @app.get("/", summary="API Info", description="Return API metadata and docs URL.")

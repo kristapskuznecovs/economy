@@ -450,3 +450,44 @@ class ConstructionOverviewResponseDTO(BaseModel):
     source_indicators: list[str]
     notes: list[str] = Field(default_factory=list)
     series: list[ConstructionOverviewPointDTO]
+
+
+# --- Migration DTOs ---
+
+class CitizenshipEntryDTO(BaseModel):
+    """One citizenship row: nationality + resident count."""
+
+    citizenship: str
+    count: int
+
+
+class CitizenshipSnapshotDTO(BaseModel):
+    """PMLP registered residents snapshot for one date."""
+
+    snapshot_date: str
+    year: int
+    month: int
+    total_residents: int
+    latvian_citizens: int
+    non_citizens_latvian: int
+    temp_protection: int
+    foreign_nationals: int
+    top_foreign: list[CitizenshipEntryDTO]
+
+
+class MigrationTimeSeriesPointDTO(BaseModel):
+    """World Bank net migration and stock for one year."""
+
+    year: int
+    net_migration: Optional[float] = None
+    migrant_stock: Optional[float] = None
+
+
+class MigrationOverviewResponseDTO(BaseModel):
+    """Migration overview: PMLP citizenship snapshots + World Bank time-series."""
+
+    latest_snapshot: CitizenshipSnapshotDTO
+    citizenship_series: list[CitizenshipSnapshotDTO]
+    wb_series: list[MigrationTimeSeriesPointDTO]
+    source_pmlp_dataset_id: str
+    source_wb_country: str

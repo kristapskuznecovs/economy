@@ -8,7 +8,6 @@ from typing import Callable
 
 import numpy as np
 import yaml
-from scipy.linalg import qr
 from scipy.stats import norm
 
 from lv_fiscal_dsge.steady_state import (
@@ -22,6 +21,7 @@ from lv_fiscal_dsge.steady_state import (
 ROOT = Path(__file__).resolve().parents[1]
 MODEL_DIR = ROOT / "model"
 DOCS_DIR = ROOT / "docs"
+REPORTS_DIR = DOCS_DIR / "reports"
 
 TOKEN_RE = re.compile(r"[A-Za-z_][A-Za-z0-9_]*")
 SKIP_RE = re.compile(r"int_0|sum_\{|\bsum\{|\bdj\b")
@@ -236,6 +236,8 @@ def _steady_state_map(params: dict[str, float]) -> dict[str, float]:
         "g_i_t": ss.government_investment,
         "g_c_exp": ss.government_consumption,
         "g_i_exp": ss.government_investment,
+        "g_c_t_exp": ss.government_consumption,
+        "g_i_t_exp": ss.government_investment,
         "tr": ss.transfers,
         "tr_t": ss.transfers,
         "k_t": ss.capital / (mu_zplus * mu_psi),
@@ -249,15 +251,18 @@ def _steady_state_map(params: dict[str, float]) -> dict[str, float]:
         "f_t": f_bar,
         "rho_t": rho,
         "r_t_k": ss.rental_rate,
+        "r_t_k_bar": ss.rental_rate,
         "R_t_k": fin["gross_return_capital"],
         "R_t": fin["gross_rate"],
         "R_t_f": R_f,
+        "R_t_nu_star": R_bar,
         "mc_t": ss.marginal_cost,
         "pi_t": pi_bar,
         "pi_c_t": pi_bar,
         "pi_i_t": pi_bar,
         "pi_g_c_t": pi_bar,
         "pi_g_i_t": pi_bar,
+        "pi_star": pi_bar,
         "pi_t_star": pi_bar,
         "pi_t_star_x": pi_bar,
         "pi_t_star_m_c": pi_bar,
@@ -269,6 +274,7 @@ def _steady_state_map(params: dict[str, float]) -> dict[str, float]:
         "psi_zplus_t": 1.0,
         "psi_zrplus_t": 1.0,
         "gamma_t": params.get("gamma", 1.0),
+        "gamma_g_t": params.get("gamma_g", 0.0),
         "phi_t": 1.0,
         "omega_bar_t": fin["omega_bar"],
         "sigma_t": fin["sigma_omega"],
@@ -297,6 +303,12 @@ def _steady_state_map(params: dict[str, float]) -> dict[str, float]:
         "Phi_g_t": 1.0,
         "s_t": 1.0,
         "p_f_t": 1.0,
+        "y_f": 1.0,
+        "y_t_f": 1.0,
+        "d_f_t": 0.0,
+        "xi_t_A": 0.0,
+        "xi_t_B": 0.0,
+        "Psi_t": 1.0,
         "mu_zplus_t": mu_zplus,
         "mu_psi_t": mu_psi,
         "mu_z_t": params["mu_z"],
@@ -305,6 +317,15 @@ def _steady_state_map(params: dict[str, float]) -> dict[str, float]:
         "eps_psi_t": 1.0,
         "eps_c_t": 1.0,
     }
+    mapping.update(
+        {
+            "d_g_t": ss.debt,
+            "b_g_t": ss.domestic_debt,
+            "b_g_bar_t": ss.domestic_debt,
+            "b_g_t_star": ss.foreign_debt,
+            "deficit_t": ss.deficit,
+        }
+    )
     # Tax rates at steady state.
     for name in ("tau_c", "tau_y", "tau_w_e", "tau_w_w", "tau_k", "tau_b", "tau_ls"):
         key = f"{name}_t"
@@ -443,48 +464,83 @@ def _lead_name(var: str) -> str:
 
 def main() -> None:
     DOCS_DIR.mkdir(parents=True, exist_ok=True)
+    REPORTS_DIR.mkdir(parents=True, exist_ok=True)
     spec = _load_yaml(MODEL_DIR / "spec.yaml")
     params = load_parameters()
 
-    # Build residuals from the normalized model plus fiscal rules and shock processes.
-    sections = ["appendix_c_normalized_model", "fiscal_rule_equations", "shock_processes"]
-    equations = []
-    for section in sections:
-        equations.extend(_collect_equations(spec, section))
+    catalog = _load_yaml(MODEL_DIR / "catalogs" / "equations_catalog.yaml") or {}
+    allowed_kinds = {"core_dynamic", "closure_or_regime"}
+    catalog_entries = [
+        e
+        for e in catalog.get("equations", [])
+        if isinstance(e, dict) and e.get("kind") in allowed_kinds and e.get("id")
+    ]
+    eq_ids = [e["id"] for e in catalog_entries]
+    sections = sorted({e.get("section") for e in catalog_entries if e.get("section")})
+
+    eq_map: dict[str, dict] = {}
+    for section, entries in spec.items():
+        if not isinstance(entries, list):
+            continue
+        for entry in entries:
+            if isinstance(entry, dict) and entry.get("id"):
+                eq_map[entry["id"]] = entry
+
+    missing_eqs = [eq_id for eq_id in eq_ids if eq_id not in eq_map]
+    gate_report = {
+        "allowed_kinds": sorted(allowed_kinds),
+        "equation_ids": eq_ids,
+        "missing_equations": missing_eqs,
+        "used_sections": sections,
+    }
+    if missing_eqs:
+        (REPORTS_DIR / "catalog_gate.json").write_text(
+            json.dumps(gate_report, indent=2), encoding="utf-8"
+        )
+        raise RuntimeError(
+            "Catalog gate failed; missing equations from spec.yaml: " + ", ".join(missing_eqs)
+        )
+
+    equations = [eq_map[eq_id] for eq_id in eq_ids]
     residuals, funcs, ids, skipped = _build_residual_functions(equations, params)
     full_variables = _collect_variables(residuals, params)
-    variables = list(full_variables)
-    allowlist_path = MODEL_DIR / "endogenous_variables.yaml"
-    allowlist_note = None
-    if allowlist_path.exists():
-        allowlist = _load_yaml(allowlist_path) or {}
-        allow_vars = allowlist.get("variables", [])
-        allow_vars = [v for v in allow_vars if isinstance(v, str)]
-        missing = [v for v in allow_vars if v not in full_variables]
-        if missing:
-            raise RuntimeError(
-                "endogenous_variables.yaml contains variables not present in model equations: "
-                + ", ".join(missing)
-            )
-        variables = allow_vars
-        allowlist_note = allowlist.get("notes")
+
+    allowlist_path = MODEL_DIR / "endogenous_variables_theory.yaml"
+    if not allowlist_path.exists():
+        allowlist_path = MODEL_DIR / "endogenous_variables.yaml"
+    allowlist = _load_yaml(allowlist_path) or {}
+    allow_vars = [v for v in allowlist.get("variables", []) if isinstance(v, str)]
+    missing_allow = [v for v in allow_vars if v not in full_variables]
+    extra_model = [v for v in full_variables if v not in allow_vars]
+    if missing_allow:
+        gate_report.update(
+            {
+                "missing_allowlist_variables": missing_allow,
+                "model_variables": full_variables,
+                "allowlist_source": allowlist_path.name,
+            }
+        )
+        (REPORTS_DIR / "catalog_gate.json").write_text(
+            json.dumps(gate_report, indent=2), encoding="utf-8"
+        )
+        raise RuntimeError(
+            "Endogenous allowlist contains variables not present in core equations: "
+            + ", ".join(missing_allow)
+        )
+
+    variables = allow_vars
     shocks = _collect_shocks(residuals)
 
     ss_map = _steady_state_map(params)
-    # Use the full variable set for steady-state evaluation.
     values = {var: ss_map.get(var, 1.0) for var in full_variables}
-    # Provide steady-state constants even if they are not in the endogenous set.
     values.update(ss_map)
     for shock in shocks:
         values[shock] = ss_map.get(shock, 0.0)
-
-    # Add lag/lead values for evaluation.
     for var in list(full_variables):
         values[_lag_name(var)] = values[var]
         values[_lead_name(var)] = values[var]
 
     eps = 1e-6
-    # Drop equations that fail to evaluate at the steady state baseline.
     eval_ok_funcs = []
     eval_ok_ids = []
     eval_skipped = []
@@ -499,16 +555,32 @@ def main() -> None:
     funcs = eval_ok_funcs
     ids = eval_ok_ids
 
-    allowed_skip_reasons = {"indexed_or_integral"}
-    unexpected_skips = [
-        item
-        for item in (skipped + eval_skipped)
-        if item.get("reason") not in allowed_skip_reasons
-    ]
-    if unexpected_skips:
+    gate_report.update(
+        {
+            "equation_count": len(funcs),
+            "variable_count": len(variables),
+            "shock_count": len(shocks),
+            "missing_allowlist_variables": missing_allow,
+            "extra_model_variables": extra_model,
+            "skipped_equations": skipped + eval_skipped,
+            "allowlist_source": allowlist_path.name,
+        }
+    )
+    (REPORTS_DIR / "catalog_gate.json").write_text(
+        json.dumps(gate_report, indent=2), encoding="utf-8"
+    )
+
+    if skipped or eval_skipped:
         raise RuntimeError(
-            "Core completeness gate failed; unexpected skipped equations: "
-            + json.dumps(unexpected_skips, indent=2)
+            "Core completeness gate failed; skipped equations detected. "
+            f"See {REPORTS_DIR / 'catalog_gate.json'} for details."
+        )
+
+    if len(funcs) != len(variables):
+        raise RuntimeError(
+            "Core system is not square (equations != variables). "
+            f"eqs={len(funcs)}, vars={len(variables)}. "
+            f"See {REPORTS_DIR / 'catalog_gate.json'} for details."
         )
 
     g0 = _numeric_jacobian(funcs, values, variables, eps=eps)
@@ -516,7 +588,6 @@ def main() -> None:
     pi = _numeric_jacobian(funcs, values, [_lead_name(v) for v in variables], eps=eps)
     psi = _numeric_jacobian(funcs, values, shocks, eps=eps) if shocks else np.zeros((len(funcs), 0))
 
-    # Drop equations that generate non-finite Jacobian entries.
     finite_mask = (
         np.isfinite(g0).all(axis=1)
         & np.isfinite(g1).all(axis=1)
@@ -525,55 +596,18 @@ def main() -> None:
     )
     dropped_nonfinite = [eq_id for eq_id, keep in zip(ids, finite_mask) if not keep]
     if not finite_mask.all():
-        g0 = g0[finite_mask, :]
-        g1 = g1[finite_mask, :]
-        pi = pi[finite_mask, :]
-        psi = psi[finite_mask, :]
-        ids = [eq_id for eq_id, keep in zip(ids, finite_mask) if keep]
-        funcs = [func for func, keep in zip(funcs, finite_mask) if keep]
-
-    # Select a square subset of equations/variables if needed.
-    selected_rows = list(range(g0.shape[0]))
-    selected_cols = list(range(g0.shape[1]))
-    m, n = g0.shape
-    selection_note = "none"
-    if allowlist_note:
-        if m < n:
-            raise RuntimeError(
-                "Endogenous allowlist produces underdetermined system: "
-                f"equations={m}, variables={n}."
-            )
-        if m > n:
-            M = np.hstack([g0, g1, pi])
-            _, _, piv = qr(M.T, pivoting=True, mode="economic")
-            selected_rows = sorted(piv[:n].tolist())
-            g0 = g0[selected_rows, :]
-            g1 = g1[selected_rows, :]
-            pi = pi[selected_rows, :]
-            psi = psi[selected_rows, :]
-            ids = [ids[i] for i in selected_rows]
-            selection_note = "allowlist_row_pivot"
-        else:
-            selection_note = "allowlist"
-    elif m > n:
-        M = np.hstack([g0, g1, pi])
-        _, _, piv = qr(M.T, pivoting=True, mode="economic")
-        selected_rows = sorted(piv[:n].tolist())
-        g0 = g0[selected_rows, :]
-        g1 = g1[selected_rows, :]
-        pi = pi[selected_rows, :]
-        psi = psi[selected_rows, :]
-        ids = [ids[i] for i in selected_rows]
-        selection_note = "row_pivot"
-    elif m < n:
-        # Use column pivoting on g0 to select a square system.
-        _, _, piv = qr(g0, pivoting=True, mode="economic")
-        selected_cols = sorted(piv[:m].tolist())
-        g0 = g0[:, selected_cols]
-        g1 = g1[:, selected_cols]
-        pi = pi[:, selected_cols]
-        variables = [variables[i] for i in selected_cols]
-        selection_note = "col_pivot"
+        report = {
+            "equation_count": len(funcs),
+            "variable_count": len(variables),
+            "shock_count": len(shocks),
+            "used_sections": sections,
+            "dropped_nonfinite": dropped_nonfinite,
+            "notes": "Non-finite Jacobian entries detected; fix equations before proceeding.",
+        }
+        (REPORTS_DIR / "linear_system_report.json").write_text(
+            json.dumps(report, indent=2), encoding="utf-8"
+        )
+        raise RuntimeError("Non-finite Jacobian entries detected in core system.")
 
     np.savez_compressed(
         MODEL_DIR / "linear_system.npz",
@@ -590,16 +624,16 @@ def main() -> None:
         "equation_count": len(funcs),
         "variable_count": len(variables),
         "shock_count": len(shocks),
-        "selected_rows": selected_rows,
-        "selected_cols": selected_cols,
-        "used_section": sections,
+        "used_sections": sections,
         "skipped_equations": skipped + eval_skipped,
         "dropped_nonfinite": dropped_nonfinite,
-        "selection_note": selection_note,
-        "endogenous_allowlist": allowlist_note,
-        "notes": "Proto linearization: equations filtered for indexed/integral forms; "
-        "steady-state values default to 1 when unknown.",
+        "selection_note": "none",
+        "endogenous_allowlist": allowlist.get("notes"),
+        "notes": "Core dynamic system; no row/column pivoting applied.",
     }
+    (REPORTS_DIR / "linear_system_report.json").write_text(
+        json.dumps(report, indent=2), encoding="utf-8"
+    )
     (DOCS_DIR / "linear_system_report.json").write_text(
         json.dumps(report, indent=2), encoding="utf-8"
     )

@@ -459,6 +459,11 @@ appendix_c_normalization:
     raw: "p_k0_t = Psi_t * P_k0_t / P_t; r_bar_t_k = Psi_t * r_t_k"
     source: "Appendix C, Eq. (C.1) (post-list paragraph)"
 
+  - id: eqC1k_rbar
+    name: Scaled rental rate definition
+    raw: "r_t_k_bar = Psi_t * r_t_k"
+    source: "Appendix C, Eq. (C.1)"
+
   - id: eqC2
     name: Utilized normalized capital
     raw: "k_t = k_bar_t * u_t"
@@ -608,7 +613,7 @@ appendix_c_normalized_model:
 
   - id: eqC29
     name: Marginal cost for export price setting
-    raw: "mc_t_x = (lambda_x / (S_t * P_t_star)) * r_t_k_bar * [ omega_x * (p_m_x_t)^(1-eta_x) + (1-omega_x) ]^(1/(1-eta_x))"
+    raw: "mc_t_x = (lambda_x / (s_t * p_f_t)) * r_t_k_bar * [ omega_x * (p_m_x_t)^(1-eta_x) + (1-omega_x) ]^(1/(1-eta_x))"
     source: "Appendix C, Eq. (C.29)"
 
   - id: eqC30
@@ -648,7 +653,7 @@ appendix_c_normalized_model:
 
   - id: eqC37
     name: Value of imports for private consumption sector
-    raw: "value_imports_c_t = S_t * P_t_f * R_t_nu_star * c_m_t * (p_tilde_m_c_t)^(lambda_m_c/(1-lambda_m_c))"
+    raw: "value_imports_c_t = s_t * p_f_t * R_t_nu_star * c_m_t * (p_tilde_m_c_t)^(lambda_m_c/(1-lambda_m_c))"
     source: "Appendix C, Eq. (C.37)"
 
   - id: eqC38_c
@@ -706,6 +711,11 @@ appendix_c_normalized_model:
     raw: "g_c_m_t = omega_g_c * (p_g_m_c_t/p_g_c_t)^(1-eta_g_c) * g_c_t"
     source: "Appendix C, Eq. (C.45)"
 
+  - id: eqC45a
+    name: Public consumption expenditure identity (scaled)
+    raw: "g_c_t_exp = g_c_d_t + p_g_m_c_t * g_c_m_t"
+    source: "Appendix C, Eq. (C.13) scaled"
+
   - id: eqC46
     name: Price index for public consumption
     raw: "p_g_c_t = [ (1-omega_g_c) + omega_g_c * (p_g_m_c_t)^(1-eta_g_c) ]^(1/(1-eta_g_c))"
@@ -745,6 +755,11 @@ appendix_c_normalized_model:
     name: Demand for imported public investment inputs
     raw: "g_i_m_t = omega_g_i * (p_g_i_t/p_g_m_i_t)^(eta_g_i) * g_i_t"
     source: "Appendix C, Eq. (C.53)"
+
+  - id: eqC53a
+    name: Public investment expenditure identity (scaled)
+    raw: "g_i_t_exp = g_i_d_t + p_g_m_i_t * g_i_m_t"
+    source: "Appendix C, Eq. (C.7) scaled"
 
   - id: eqC54
     name: Price index for public investment
@@ -888,6 +903,12 @@ appendix_c_normalized_model:
     source: "Appendix B, Eq. (B.19)"
     notes: "Using nu_working_capital_d (Table A.1 lists a common working-capital fraction)."
 
+  - id: eqB19_star
+    name: Foreign working capital rate (temporary)
+    raw: "R_t_nu_star = R_t_star"
+    source: "Temporary closure"
+    notes: "Pinned to foreign nominal rate until foreign block is fully wired."
+
   - id: eqB108
     name: Interest rate peg to foreign rate
     raw: "R_t = Phi_t * R_t_star"
@@ -916,7 +937,7 @@ appendix_c_normalized_model:
 
   - id: eqC68
     name: Free entry condition
-    raw: "Q_t * (j_t - k_h_t) = k_v_t"
+    raw: "Q_t * (j_t - kappa_h) = kappa_v"
     source: "Appendix C, Eq. (C.68)"
 
   - id: eqC69
@@ -956,7 +977,7 @@ appendix_c_normalized_model:
 
   - id: eqC76
     name: Capital return (scaled)
-    raw: "R_t_k+1 = (pi_t+1 / (1+tau_k)) * [ (u_t+1 * r_t_k+1 * P_t+1 - P_t+1 * a(u_t+1) + (1-delta) * P_t+1 + r_t_k+1 * Psi_t * P_t+1) / P_t_k+1 ]"
+    raw: "R_t_k+1 = (pi_t+1 / (1+tau_k)) * [ (u_t+1 * r_t_k+1 - a(u_t+1) + (1-delta) + r_t_k+1 * Psi_t) / p_k0_t+1 ]"
     source: "Appendix C, Eq. (C.76)"
 
   - id: eqC77
@@ -1049,9 +1070,14 @@ appendix_c_normalized_model:
     raw: "y_t - d_t = z_t + g_c_d_t + c_d_t + g_i_d_t + i_d_t + [omega_x*(p_m_x_t)^(1-eta_x) + (1-omega_x)]^(eta_x/(1-eta_x)) * (1-omega_x) * (p_x_t)^(-lambda_x/(lambda_x-1)) * (p_x_t)^(-eta_f) * y_t_f"
     source: "Appendix C, Eq. (C.94)"
 
+  - id: eqC94d
+    name: Frictional costs (scaled)
+    raw: "d_t = mu * G(omega_bar_t, sigma_t-1) * R_t_k * p_k0_t-1 * k_t-1 + (kappa_v / Q_t + kappa_h) * chi_t * L_t-1 + gamma_g * (b_g_t+1 - b_g_bar_t+1)^2 / (2 * b_g_bar_t+1)"
+    source: "Appendix C, Eq. (C.94) (definition of d_t)"
+
   - id: eqC95
     name: Current account (scaled)
-    raw: "a_t + b_g_t * R_g,t-1 + s_t * P_t_star * R_t_nu_star * (c_t_m*(p_m_c_t)^(lambda_m_c/(1-lambda_m_c)) + g_c_m_t*(p_g_m_c_t)^(lambda_m_g_c/(1-lambda_m_g_c)) + i_t_m*(p_m_i_t)^(lambda_m_i/(1-lambda_m_i)) + g_i_m_t*(p_g_m_i_t)^(lambda_m_g_i/(1-lambda_m_g_i)) + x_t_m*(p_m_x_t)^(lambda_m_x/(1-lambda_m_x))) = q_t * p_x_t * x_t - R_t-1_star * Phi_t-1 * s_t * a_t-1 + b_g_t+1_star"
+    raw: "a_t + b_g_t * R_g,t-1 + s_t * p_f_t * R_t_nu_star * (c_m_t*(p_m_c_t)^(lambda_m_c/(1-lambda_m_c)) + g_c_m_t*(p_g_m_c_t)^(lambda_m_g_c/(1-lambda_m_g_c)) + i_m_t*(p_m_i_t)^(lambda_m_i/(1-lambda_m_i)) + g_i_m_t*(p_g_m_i_t)^(lambda_m_g_i/(1-lambda_m_g_i)) + x_m_t*(p_m_x_t)^(lambda_m_x/(1-lambda_m_x))) = q_t * p_x_t * x_t - R_t-1_star * Phi_t-1 * s_t * a_t-1 + b_g_t+1_star"
     source: "Appendix C, Eq. (C.95)"
 
   - id: eqC96
@@ -1066,7 +1092,7 @@ appendix_c_normalized_model:
 
   - id: eqC98
     name: Entrepreneur net worth after settlement
-    raw: "V_t_N = R_t_k * P_t-1 * P_k0_t-1 * K_bar_t_N - Gamma(omega_bar_t, sigma_t-1) * R_t_k * P_t-1 * P_k0_t-1 * K_bar_t_N"
+    raw: "V_t_N = R_t_k * p_k0_t-1 * K_bar_t_N - Gamma(omega_bar_t, sigma_t-1) * R_t_k * p_k0_t-1 * K_bar_t_N"
     source: "Appendix C, Eq. (C.98)"
 
   - id: eqC99
@@ -1076,7 +1102,7 @@ appendix_c_normalized_model:
 
   - id: eqC100
     name: Bank zero profit condition (scaled)
-    raw: "Gamma(omega_bar_t+1, sigma_t) - mu * G(omega_bar_t+1, sigma_t) = R_t / R_t_k+1 * (1 - n_t+1 / (p_k_t+1 * k_t+1))"
+    raw: "Gamma(omega_bar_t+1, sigma_t) - mu * G(omega_bar_t+1, sigma_t) = R_t / R_t_k+1 * (1 - n_t+1 / (p_k0_t+1 * k_t+1))"
     source: "Appendix C, Eq. (C.100)"
 
 shock_processes:
@@ -1194,6 +1220,12 @@ shock_processes:
     source: "RBEC Sec. 3.2.2 (Estimated shock processes)"
     notes: "WP Appendix C, Table 2 (p.21) for rho_t_y and sigma_tau_y."
 
+  - id: shock_tau_k
+    name: Capital income tax shock
+    raw: "log(tau_k_t) = rho_tau_k * log(tau_k_t-1) + eps_tau_k_t"
+    source: "RBEC Sec. 2.2.5 / Appendix C, Eq. (C.102)"
+    notes: "Capital tax follows AR(1). Use rho_tau_k and sigma_tau_k from calibration/estimation."
+
   - id: shock_tau_w_e
     name: SSC employer shock
     raw: "log(tau_w_e_t) = rho_t_w_e * log(tau_w_e_t-1) + eps_tau_w_e_t"
@@ -1211,6 +1243,77 @@ shock_processes:
     raw: "log(t_ls_t) = rho_ls * log(t_ls_t-1) + eps_ls_t"
     source: "RBEC Sec. 3.2.2 (Estimated shock processes)"
     notes: "WP Appendix C, Table 2 (p.21) for rho_ls and sigma_ls."
+
+# Temporary foreign closures (Phase 1)
+foreign_freeze_equations:
+  - id: freeze_R_star
+    name: Foreign nominal rate (frozen)
+    raw: "R_t_star = R_star"
+    source: "Temporary closure"
+    notes: "Freeze foreign rate at steady state until SVAR block is wired."
+
+  - id: freeze_pi_star
+    name: Foreign inflation (frozen)
+    raw: "pi_t_star = pi_star"
+    source: "Temporary closure"
+    notes: "Freeze foreign inflation at steady state until SVAR block is wired."
+
+  - id: freeze_yf
+    name: Foreign demand/output (frozen)
+    raw: "y_t_f = y_f"
+    source: "Temporary closure"
+    notes: "Freeze foreign demand at steady state until SVAR block is wired."
+
+  - id: freeze_s
+    name: Nominal exchange rate growth (frozen)
+    raw: "s_t = 1"
+    source: "Temporary closure"
+    notes: "Freeze nominal exchange rate growth at steady state until SVAR block is wired."
+
+# Additional closure equations (Phase 1)
+closure_equations:
+  - id: close_gamma_g
+    name: Wasteful spending (closure)
+    raw: "gamma_g_t = gamma_g"
+    source: "Temporary closure"
+    notes: "Hold wasteful spending at steady-state share."
+
+  - id: close_d_f
+    name: Dividends (closure)
+    raw: "d_f_t = 0"
+    source: "Temporary closure"
+    notes: "Dividend flow held at zero pending firm profit accounting."
+
+  - id: close_xi_A
+    name: Lump-sum transfer residual A (closure)
+    raw: "xi_t_A = 0"
+    source: "Temporary closure"
+
+  - id: close_xi_B
+    name: Lump-sum transfer residual B (closure)
+    raw: "xi_t_B = 0"
+    source: "Temporary closure"
+
+  - id: close_mu_zplus
+    name: Trend growth of z+ (closure)
+    raw: "mu_zplus_t = mu_zplus"
+    source: "Temporary closure"
+
+  - id: close_mu_psi
+    name: Trend growth of Psi (closure)
+    raw: "mu_psi_t = mu_psi"
+    source: "Temporary closure"
+
+  - id: close_Psi
+    name: Investment-specific technology level (closure)
+    raw: "Psi_t = mu_psi_t * Psi_t-1"
+    source: "Appendix C, Eq. (C.1)"
+
+  - id: close_phi_a_shock
+    name: Risk premium shock (closure)
+    raw: "phi_a_shock_t = 0"
+    source: "Temporary closure"
+
 # Foreign block (Appendix B, Eq. 86)
 foreign_block_equations:
   - id: eq86

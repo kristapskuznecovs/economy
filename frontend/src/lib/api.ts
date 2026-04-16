@@ -286,6 +286,37 @@ export interface ConstructionOverviewResponse {
   series: ConstructionOverviewPoint[];
 }
 
+export interface CitizenshipEntry {
+  citizenship: string;
+  count: number;
+}
+
+export interface CitizenshipSnapshot {
+  snapshot_date: string;
+  year: number;
+  month: number;
+  total_residents: number;
+  latvian_citizens: number;
+  non_citizens_latvian: number;
+  temp_protection: number;
+  foreign_nationals: number;
+  top_foreign: CitizenshipEntry[];
+}
+
+export interface MigrationTimeSeriesPoint {
+  year: number;
+  net_migration: number | null;
+  migrant_stock: number | null;
+}
+
+export interface MigrationOverviewResponse {
+  latest_snapshot: CitizenshipSnapshot;
+  citizenship_series: CitizenshipSnapshot[];
+  wb_series: MigrationTimeSeriesPoint[];
+  source_pmlp_dataset_id: string;
+  source_wb_country: string;
+}
+
 export interface SimulateResponse {
   run_id: string;
   status: string;
@@ -555,5 +586,12 @@ export const api = {
    */
   async health(): Promise<{ status: string }> {
     return fetchApi('/api/health');
+  },
+
+  /**
+   * Get migration overview: PMLP citizenship snapshots + World Bank net migration series.
+   */
+  async getMigrationOverview(): Promise<MigrationOverviewResponse> {
+    return fetchApi<MigrationOverviewResponse>('/api/migration/overview');
   },
 };
