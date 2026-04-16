@@ -1,0 +1,831 @@
+{
+  "source": "PMLP / pmlp.gov.lv",
+  "note": "TUA derīgas at 31 Dec each year, top 20 countries with breakdown by reason.",
+  "years": {
+    "2021": {
+      "total": 46572,
+      "countries": [
+        {
+          "country": "KRIEVIJA",
+          "total": 10368,
+          "work": 1562,
+          "study": 275,
+          "family": 2509,
+          "temp_protection": 0
+        },
+        {
+          "country": "UKRAINA",
+          "total": 7075,
+          "work": 4755,
+          "study": 139,
+          "family": 1069,
+          "temp_protection": 0
+        },
+        {
+          "country": "BALTKRIEVIJA",
+          "total": 2617,
+          "work": 1466,
+          "study": 73,
+          "family": 578,
+          "temp_protection": 0
+        },
+        {
+          "country": "LIETUVA",
+          "total": 2564,
+          "work": 1348,
+          "study": 140,
+          "family": 214,
+          "temp_protection": 0
+        },
+        {
+          "country": "VĀCIJA",
+          "total": 2472,
+          "work": 470,
+          "study": 888,
+          "family": 99,
+          "temp_protection": 0
+        },
+        {
+          "country": "UZBEKISTĀNA",
+          "total": 2375,
+          "work": 930,
+          "study": 1091,
+          "family": 108,
+          "temp_protection": 0
+        },
+        {
+          "country": "INDIJA",
+          "total": 2099,
+          "work": 404,
+          "study": 1496,
+          "family": 97,
+          "temp_protection": 0
+        },
+        {
+          "country": "LIELBRITĀNIJA",
+          "total": 1180,
+          "work": 394,
+          "study": 51,
+          "family": 162,
+          "temp_protection": 0
+        },
+        {
+          "country": "ITĀLIJA",
+          "total": 886,
+          "work": 444,
+          "study": 133,
+          "family": 42,
+          "temp_protection": 0
+        },
+        {
+          "country": "BULGĀRIJA",
+          "total": 864,
+          "work": 744,
+          "study": 15,
+          "family": 20,
+          "temp_protection": 0
+        },
+        {
+          "country": "FRANCIJA",
+          "total": 856,
+          "work": 361,
+          "study": 103,
+          "family": 29,
+          "temp_protection": 0
+        },
+        {
+          "country": "ZVIEDRIJA",
+          "total": 799,
+          "work": 320,
+          "study": 240,
+          "family": 23,
+          "temp_protection": 0
+        },
+        {
+          "country": "IGAUNIJA",
+          "total": 787,
+          "work": 375,
+          "study": 32,
+          "family": 90,
+          "temp_protection": 0
+        },
+        {
+          "country": "POLIJA",
+          "total": 699,
+          "work": 371,
+          "study": 77,
+          "family": 37,
+          "temp_protection": 0
+        },
+        {
+          "country": "SOMIJA",
+          "total": 588,
+          "work": 192,
+          "study": 238,
+          "family": 10,
+          "temp_protection": 0
+        },
+        {
+          "country": "KAZAHSTĀNA",
+          "total": 579,
+          "work": 148,
+          "study": 87,
+          "family": 61,
+          "temp_protection": 0
+        },
+        {
+          "country": "ĶĪNA",
+          "total": 579,
+          "work": 77,
+          "study": 52,
+          "family": 47,
+          "temp_protection": 0
+        },
+        {
+          "country": "AZERBAIDŽĀNA",
+          "total": 570,
+          "work": 135,
+          "study": 135,
+          "family": 98,
+          "temp_protection": 0
+        },
+        {
+          "country": "RUMĀNIJA",
+          "total": 560,
+          "work": 296,
+          "study": 42,
+          "family": 20,
+          "temp_protection": 0
+        },
+        {
+          "country": "AMERIKAS SAVIENOTĀS VALSTIS",
+          "total": 526,
+          "work": 78,
+          "study": 21,
+          "family": 160,
+          "temp_protection": 0
+        }
+      ]
+    },
+    "2022": {
+      "total": 56725,
+      "countries": [
+        {
+          "country": "UKRAINA",
+          "total": 15772,
+          "work": 3940,
+          "study": 139,
+          "family": 1008,
+          "temp_protection": 9686
+        },
+        {
+          "country": "KRIEVIJA",
+          "total": 9023,
+          "work": 1355,
+          "study": 197,
+          "family": 2371,
+          "temp_protection": 12
+        },
+        {
+          "country": "UZBEKISTĀNA",
+          "total": 3343,
+          "work": 1679,
+          "study": 1243,
+          "family": 120,
+          "temp_protection": 6
+        },
+        {
+          "country": "LIETUVA",
+          "total": 2605,
+          "work": 1348,
+          "study": 145,
+          "family": 219,
+          "temp_protection": 0
+        },
+        {
+          "country": "INDIJA",
+          "total": 2550,
+          "work": 788,
+          "study": 1456,
+          "family": 104,
+          "temp_protection": 0
+        },
+        {
+          "country": "VĀCIJA",
+          "total": 2511,
+          "work": 487,
+          "study": 837,
+          "family": 109,
+          "temp_protection": 0
+        },
+        {
+          "country": "BALTKRIEVIJA",
+          "total": 2494,
+          "work": 1403,
+          "study": 56,
+          "family": 507,
+          "temp_protection": 1
+        },
+        {
+          "country": "LIELBRITĀNIJA",
+          "total": 1213,
+          "work": 407,
+          "study": 57,
+          "family": 188,
+          "temp_protection": 0
+        },
+        {
+          "country": "ITĀLIJA",
+          "total": 948,
+          "work": 506,
+          "study": 132,
+          "family": 46,
+          "temp_protection": 0
+        },
+        {
+          "country": "FRANCIJA",
+          "total": 915,
+          "work": 389,
+          "study": 101,
+          "family": 32,
+          "temp_protection": 0
+        },
+        {
+          "country": "BULGĀRIJA",
+          "total": 878,
+          "work": 750,
+          "study": 16,
+          "family": 22,
+          "temp_protection": 0
+        },
+        {
+          "country": "ZVIEDRIJA",
+          "total": 812,
+          "work": 338,
+          "study": 219,
+          "family": 22,
+          "temp_protection": 0
+        },
+        {
+          "country": "IGAUNIJA",
+          "total": 799,
+          "work": 381,
+          "study": 32,
+          "family": 85,
+          "temp_protection": 0
+        },
+        {
+          "country": "POLIJA",
+          "total": 732,
+          "work": 387,
+          "study": 74,
+          "family": 39,
+          "temp_protection": 0
+        },
+        {
+          "country": "SOMIJA",
+          "total": 604,
+          "work": 196,
+          "study": 247,
+          "family": 10,
+          "temp_protection": 0
+        },
+        {
+          "country": "RUMĀNIJA",
+          "total": 590,
+          "work": 309,
+          "study": 43,
+          "family": 19,
+          "temp_protection": 0
+        },
+        {
+          "country": "AZERBAIDŽĀNA",
+          "total": 572,
+          "work": 165,
+          "study": 134,
+          "family": 102,
+          "temp_protection": 1
+        },
+        {
+          "country": "KAZAHSTĀNA",
+          "total": 564,
+          "work": 166,
+          "study": 86,
+          "family": 64,
+          "temp_protection": 0
+        },
+        {
+          "country": "TURCIJA",
+          "total": 533,
+          "work": 160,
+          "study": 208,
+          "family": 110,
+          "temp_protection": 1
+        },
+        {
+          "country": "AMERIKAS SAVIENOTĀS VALSTIS",
+          "total": 528,
+          "work": 65,
+          "study": 32,
+          "family": 175,
+          "temp_protection": 0
+        }
+      ]
+    },
+    "2023": {
+      "total": 76735,
+      "countries": [
+        {
+          "country": "UKRAINA",
+          "total": 31612,
+          "work": 3402,
+          "study": 137,
+          "family": 969,
+          "temp_protection": 26220
+        },
+        {
+          "country": "KRIEVIJA",
+          "total": 8729,
+          "work": 1120,
+          "study": 175,
+          "family": 3331,
+          "temp_protection": 91
+        },
+        {
+          "country": "INDIJA",
+          "total": 4132,
+          "work": 1181,
+          "study": 2544,
+          "family": 101,
+          "temp_protection": 1
+        },
+        {
+          "country": "UZBEKISTĀNA",
+          "total": 3878,
+          "work": 2198,
+          "study": 1200,
+          "family": 133,
+          "temp_protection": 8
+        },
+        {
+          "country": "VĀCIJA",
+          "total": 2636,
+          "work": 508,
+          "study": 855,
+          "family": 116,
+          "temp_protection": 0
+        },
+        {
+          "country": "LIETUVA",
+          "total": 2622,
+          "work": 1328,
+          "study": 159,
+          "family": 216,
+          "temp_protection": 0
+        },
+        {
+          "country": "BALTKRIEVIJA",
+          "total": 2555,
+          "work": 1421,
+          "study": 40,
+          "family": 530,
+          "temp_protection": 11
+        },
+        {
+          "country": "LIELBRITĀNIJA",
+          "total": 1280,
+          "work": 432,
+          "study": 66,
+          "family": 216,
+          "temp_protection": 0
+        },
+        {
+          "country": "ITĀLIJA",
+          "total": 1017,
+          "work": 555,
+          "study": 148,
+          "family": 47,
+          "temp_protection": 0
+        },
+        {
+          "country": "FRANCIJA",
+          "total": 978,
+          "work": 417,
+          "study": 103,
+          "family": 34,
+          "temp_protection": 0
+        },
+        {
+          "country": "BULGĀRIJA",
+          "total": 879,
+          "work": 749,
+          "study": 16,
+          "family": 22,
+          "temp_protection": 0
+        },
+        {
+          "country": "ZVIEDRIJA",
+          "total": 872,
+          "work": 361,
+          "study": 257,
+          "family": 22,
+          "temp_protection": 0
+        },
+        {
+          "country": "IGAUNIJA",
+          "total": 806,
+          "work": 383,
+          "study": 37,
+          "family": 91,
+          "temp_protection": 0
+        },
+        {
+          "country": "ŠRILANKA",
+          "total": 774,
+          "work": 72,
+          "study": 683,
+          "family": 9,
+          "temp_protection": 1
+        },
+        {
+          "country": "POLIJA",
+          "total": 767,
+          "work": 403,
+          "study": 78,
+          "family": 44,
+          "temp_protection": 0
+        },
+        {
+          "country": "TURCIJA",
+          "total": 739,
+          "work": 187,
+          "study": 333,
+          "family": 129,
+          "temp_protection": 2
+        },
+        {
+          "country": "IZRAĒLA",
+          "total": 720,
+          "work": 94,
+          "study": 66,
+          "family": 100,
+          "temp_protection": 3
+        },
+        {
+          "country": "AZERBAIDŽĀNA",
+          "total": 673,
+          "work": 227,
+          "study": 196,
+          "family": 110,
+          "temp_protection": 4
+        },
+        {
+          "country": "SOMIJA",
+          "total": 640,
+          "work": 204,
+          "study": 275,
+          "family": 7,
+          "temp_protection": 0
+        },
+        {
+          "country": "RUMĀNIJA",
+          "total": 632,
+          "work": 322,
+          "study": 45,
+          "family": 19,
+          "temp_protection": 0
+        }
+      ]
+    },
+    "2024": {
+      "total": 85978,
+      "countries": [
+        {
+          "country": "UKRAINA",
+          "total": 36203,
+          "work": 2371,
+          "study": 122,
+          "family": 857,
+          "temp_protection": 32142
+        },
+        {
+          "country": "KRIEVIJA",
+          "total": 10741,
+          "work": 736,
+          "study": 115,
+          "family": 3120,
+          "temp_protection": 111
+        },
+        {
+          "country": "INDIJA",
+          "total": 5245,
+          "work": 1421,
+          "study": 3313,
+          "family": 117,
+          "temp_protection": 5
+        },
+        {
+          "country": "UZBEKISTĀNA",
+          "total": 4077,
+          "work": 2509,
+          "study": 1033,
+          "family": 167,
+          "temp_protection": 10
+        },
+        {
+          "country": "VĀCIJA",
+          "total": 2754,
+          "work": 532,
+          "study": 872,
+          "family": 118,
+          "temp_protection": 0
+        },
+        {
+          "country": "LIETUVA",
+          "total": 2609,
+          "work": 1317,
+          "study": 152,
+          "family": 209,
+          "temp_protection": 0
+        },
+        {
+          "country": "BALTKRIEVIJA",
+          "total": 2455,
+          "work": 1387,
+          "study": 35,
+          "family": 516,
+          "temp_protection": 13
+        },
+        {
+          "country": "LIELBRITĀNIJA",
+          "total": 1309,
+          "work": 432,
+          "study": 67,
+          "family": 250,
+          "temp_protection": 0
+        },
+        {
+          "country": "ITĀLIJA",
+          "total": 1066,
+          "work": 590,
+          "study": 157,
+          "family": 49,
+          "temp_protection": 0
+        },
+        {
+          "country": "FRANCIJA",
+          "total": 1036,
+          "work": 434,
+          "study": 108,
+          "family": 36,
+          "temp_protection": 0
+        },
+        {
+          "country": "ZVIEDRIJA",
+          "total": 913,
+          "work": 372,
+          "study": 282,
+          "family": 22,
+          "temp_protection": 0
+        },
+        {
+          "country": "ŠRILANKA",
+          "total": 882,
+          "work": 105,
+          "study": 753,
+          "family": 12,
+          "temp_protection": 0
+        },
+        {
+          "country": "BULGĀRIJA",
+          "total": 873,
+          "work": 741,
+          "study": 17,
+          "family": 22,
+          "temp_protection": 0
+        },
+        {
+          "country": "TURCIJA",
+          "total": 822,
+          "work": 170,
+          "study": 371,
+          "family": 141,
+          "temp_protection": 4
+        },
+        {
+          "country": "POLIJA",
+          "total": 821,
+          "work": 432,
+          "study": 79,
+          "family": 42,
+          "temp_protection": 0
+        },
+        {
+          "country": "IGAUNIJA",
+          "total": 820,
+          "work": 385,
+          "study": 40,
+          "family": 86,
+          "temp_protection": 0
+        },
+        {
+          "country": "IZRAĒLA",
+          "total": 772,
+          "work": 104,
+          "study": 51,
+          "family": 124,
+          "temp_protection": 5
+        },
+        {
+          "country": "AZERBAIDŽĀNA",
+          "total": 735,
+          "work": 258,
+          "study": 248,
+          "family": 107,
+          "temp_protection": 5
+        },
+        {
+          "country": "SOMIJA",
+          "total": 698,
+          "work": 217,
+          "study": 315,
+          "family": 9,
+          "temp_protection": 0
+        },
+        {
+          "country": "RUMĀNIJA",
+          "total": 683,
+          "work": 333,
+          "study": 51,
+          "family": 24,
+          "temp_protection": 0
+        }
+      ]
+    },
+    "2025": {
+      "total": 82605,
+      "countries": [
+        {
+          "country": "UKRAINA",
+          "total": 33267,
+          "work": 1835,
+          "study": 92,
+          "family": 797,
+          "temp_protection": 29960
+        },
+        {
+          "country": "KRIEVIJA",
+          "total": 8982,
+          "work": 524,
+          "study": 77,
+          "family": 3101,
+          "temp_protection": 100
+        },
+        {
+          "country": "INDIJA",
+          "total": 5954,
+          "work": 1751,
+          "study": 3632,
+          "family": 138,
+          "temp_protection": 11
+        },
+        {
+          "country": "UZBEKISTĀNA",
+          "total": 4796,
+          "work": 3061,
+          "study": 1171,
+          "family": 177,
+          "temp_protection": 10
+        },
+        {
+          "country": "VĀCIJA",
+          "total": 2407,
+          "work": 457,
+          "study": 646,
+          "family": 116,
+          "temp_protection": 0
+        },
+        {
+          "country": "LIETUVA",
+          "total": 2341,
+          "work": 1127,
+          "study": 97,
+          "family": 197,
+          "temp_protection": 0
+        },
+        {
+          "country": "BALTKRIEVIJA",
+          "total": 2302,
+          "work": 1345,
+          "study": 27,
+          "family": 476,
+          "temp_protection": 9
+        },
+        {
+          "country": "LIELBRITĀNIJA",
+          "total": 1227,
+          "work": 369,
+          "study": 72,
+          "family": 276,
+          "temp_protection": 2
+        },
+        {
+          "country": "ITĀLIJA",
+          "total": 1062,
+          "work": 622,
+          "study": 129,
+          "family": 45,
+          "temp_protection": 0
+        },
+        {
+          "country": "TURCIJA",
+          "total": 1046,
+          "work": 151,
+          "study": 534,
+          "family": 151,
+          "temp_protection": 5
+        },
+        {
+          "country": "FRANCIJA",
+          "total": 985,
+          "work": 418,
+          "study": 72,
+          "family": 33,
+          "temp_protection": 0
+        },
+        {
+          "country": "ŠRILANKA",
+          "total": 874,
+          "work": 132,
+          "study": 713,
+          "family": 14,
+          "temp_protection": 0
+        },
+        {
+          "country": "TADŽIKISTĀNA",
+          "total": 868,
+          "work": 779,
+          "study": 17,
+          "family": 28,
+          "temp_protection": 2
+        },
+        {
+          "country": "AZERBAIDŽĀNA",
+          "total": 853,
+          "work": 227,
+          "study": 404,
+          "family": 108,
+          "temp_protection": 8
+        },
+        {
+          "country": "ZVIEDRIJA",
+          "total": 852,
+          "work": 295,
+          "study": 316,
+          "family": 22,
+          "temp_protection": 0
+        },
+        {
+          "country": "IZRAĒLA",
+          "total": 787,
+          "work": 101,
+          "study": 40,
+          "family": 124,
+          "temp_protection": 5
+        },
+        {
+          "country": "IGAUNIJA",
+          "total": 737,
+          "work": 321,
+          "study": 35,
+          "family": 80,
+          "temp_protection": 0
+        },
+        {
+          "country": "POLIJA",
+          "total": 736,
+          "work": 379,
+          "study": 37,
+          "family": 41,
+          "temp_protection": 0
+        },
+        {
+          "country": "BULGĀRIJA",
+          "total": 728,
+          "work": 600,
+          "study": 11,
+          "family": 20,
+          "temp_protection": 0
+        },
+        {
+          "country": "VJETNAMA",
+          "total": 715,
+          "work": 219,
+          "study": 19,
+          "family": 25,
+          "temp_protection": 1
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,382 @@
+version: 1
+rules:
+  - core_dynamic: must be included in g0/g1/π/ψ (no skipping allowed)
+  - definitional: identities/aggregators; may be substituted or kept as identity
+  - resolved_by_recursion: integral/indexed definition replaced by recursion/dispersion (explicitly allowlisted)
+  - measurement: observables mapping; excluded from Phase 1 linear system
+  - closure_or_regime: requires admissible parameters/closure; fail-fast if prerequisites unmet
+
+equations:
+  # ──────────────────────────────────────────────────────────────
+  # equations block (Section 2.2 of the paper)
+  # ──────────────────────────────────────────────────────────────
+  - id: eq04
+    section: equations
+    category: core_dynamic
+  - id: eq05
+    section: equations
+    category: core_dynamic
+  - id: eq06
+    section: equations
+    category: core_dynamic
+  - id: eq07
+    section: equations
+    category: core_dynamic
+  - id: eq08
+    section: equations
+    category: core_dynamic
+  - id: eq09
+    section: equations
+    category: core_dynamic
+  - id: eq10
+    section: equations
+    category: core_dynamic
+  - id: eq11
+    section: equations
+    category: core_dynamic
+  - id: eq12
+    section: equations
+    category: core_dynamic
+  - id: eq13
+    section: equations
+    category: core_dynamic
+  - id: eq14
+    section: equations
+    category: core_dynamic
+  - id: eq15
+    section: equations
+    category: core_dynamic
+  - id: eq16
+    section: equations
+    category: core_dynamic
+  - id: eq17
+    section: equations
+    category: core_dynamic
+  - id: eq18
+    section: equations
+    category: core_dynamic
+  - id: eq19
+    section: equations
+    category: core_dynamic
+  - id: eq20
+    section: equations
+    category: core_dynamic
+  - id: eq21
+    section: equations
+    category: core_dynamic
+  - id: eq22
+    section: equations
+    category: core_dynamic
+  - id: eq23
+    section: equations
+    category: core_dynamic
+  - id: eq24
+    section: equations
+    category: core_dynamic
+  - id: eq25
+    section: equations
+    category: core_dynamic
+  - id: eq26
+    section: equations
+    category: core_dynamic
+  - id: eq27
+    section: equations
+    category: core_dynamic
+  - id: eq28
+    section: equations
+    category: core_dynamic
+  - id: eq29
+    section: equations
+    category: core_dynamic
+  - id: eq30
+    section: equations
+    category: core_dynamic
+  - id: eq31
+    section: equations
+    category: core_dynamic
+  - id: eq32
+    section: equations
+    category: core_dynamic
+  - id: eq33
+    section: equations
+    category: core_dynamic
+  - id: eq34
+    section: equations
+    category: core_dynamic
+  - id: eq35
+    section: equations
+    category: core_dynamic
+
+  # ──────────────────────────────────────────────────────────────
+  # fiscal_rule_equations
+  # ──────────────────────────────────────────────────────────────
+  - id: eq29_g_c
+    section: fiscal_rule_equations
+    category: core_dynamic
+  - id: eq29_g_i
+    section: fiscal_rule_equations
+    category: core_dynamic
+  - id: eq29_tr
+    section: fiscal_rule_equations
+    category: core_dynamic
+  - id: eq29_tau_c
+    section: fiscal_rule_equations
+    category: core_dynamic
+  - id: eq29_tau_y
+    section: fiscal_rule_equations
+    category: core_dynamic
+  - id: eq29_tau_w_e
+    section: fiscal_rule_equations
+    category: core_dynamic
+  - id: eq29_tau_w_w
+    section: fiscal_rule_equations
+    category: core_dynamic
+  - id: eq29_tau_ls
+    section: fiscal_rule_equations
+    category: core_dynamic
+
+  # ──────────────────────────────────────────────────────────────
+  # appendix_a_equations (FOCs)
+  # ──────────────────────────────────────────────────────────────
+  - id: eqE1
+    section: appendix_a_equations
+    category: core_dynamic
+  - id: eqE2
+    section: appendix_a_equations
+    category: core_dynamic
+  - id: eqE3
+    section: appendix_a_equations
+    category: core_dynamic
+  - id: eqE4
+    section: appendix_a_equations
+    category: core_dynamic
+  - id: eqE5
+    section: appendix_a_equations
+    category: core_dynamic
+  - id: eqE6
+    section: appendix_a_equations
+    category: core_dynamic
+  - id: eqE7
+    section: appendix_a_equations
+    category: core_dynamic
+  - id: eqE8
+    section: appendix_a_equations
+    category: core_dynamic
+  - id: eqE9
+    section: appendix_a_equations
+    category: core_dynamic
+
+  # ──────────────────────────────────────────────────────────────
+  # appendix_c_* (normalized model – some are recursions)
+  # ──────────────────────────────────────────────────────────────
+  - id: eqC8
+    section: appendix_c_normalized_model
+    category: core_dynamic
+  - id: eqC13
+    section: appendix_c_normalized_model
+    category: closure_or_regime
+    prerequisites:
+      - "gamma_g != 0"
+    notes: "Public debt FOC – ill-defined when gamma_g=0 (your earlier bomb)"
+  - id: eqC19
+    section: appendix_c_normalized_model
+    category: resolved_by_recursion
+    resolved_by: ["price_index_recursion"]
+    notes: "Integral price index (typical NK recursion)"
+  - id: eqC20
+    section: appendix_c_normalized_model
+    category: resolved_by_recursion
+    resolved_by: ["price_index_recursion"]
+    notes: "Price dispersion recursion"
+  - id: eqC99
+    section: appendix_c_normalized_model
+    category: core_dynamic
+  - id: eqC100
+    section: appendix_c_normalized_model
+    category: core_dynamic
+  # Add any other eqC* you have in your local spec.yaml here
+
+  # ──────────────────────────────────────────────────────────────
+  # shock_processes
+  # ──────────────────────────────────────────────────────────────
+  - id: shock_eps
+    section: shock_processes
+    category: core_dynamic
+  - id: shock_psi
+    section: shock_processes
+    category: core_dynamic
+  - id: shock_zc
+    section: shock_processes
+    category: core_dynamic
+  - id: shock_phi
+    section: shock_processes
+    category: core_dynamic
+  - id: shock_gamma
+    section: shock_processes
+    category: core_dynamic
+  - id: shock_ex
+    section: shock_processes
+    category: core_dynamic
+  - id: shock_wo
+    section: shock_processes
+    category: core_dynamic
+  - id: shock_markup_domestic
+    section: shock_processes
+    category: core_dynamic
+  - id: shock_markup_exports
+    section: shock_processes
+    category: core_dynamic
+  - id: shock_markup_m_c
+    section: shock_processes
+    category: core_dynamic
+  - id: shock_markup_m_i
+    section: shock_processes
+    category: core_dynamic
+  - id: shock_markup_m_x
+    section: shock_processes
+    category: core_dynamic
+  - id: shock_phi_g
+    section: shock_processes
+    category: core_dynamic
+  - id: shock_g_c
+    section: shock_processes
+    category: core_dynamic
+  - id: shock_g_i
+    section: shock_processes
+    category: core_dynamic
+  - id: shock_tr
+    section: shock_processes
+    category: core_dynamic
+  - id: shock_tau_c
+    section: shock_processes
+    category: core_dynamic
+  - id: shock_tau_y
+    section: shock_processes
+    category: core_dynamic
+  - id: shock_tau_w_e
+    section: shock_processes
+    category: core_dynamic
+  - id: shock_tau_w_w
+    section: shock_processes
+    category: core_dynamic
+  - id: shock_tau_ls
+    section: shock_processes
+    category: core_dynamic
+
+  # ──────────────────────────────────────────────────────────────
+  # foreign_block_equations
+  # ──────────────────────────────────────────────────────────────
+  - id: eq86
+    section: foreign_block_equations
+    category: core_dynamic
+
+  # ──────────────────────────────────────────────────────────────
+  # measurement_equations
+  # ──────────────────────────────────────────────────────────────
+  - id: meas087
+    section: measurement_equations
+    category: measurement
+  - id: meas088
+    section: measurement_equations
+    category: measurement
+  - id: meas089
+    section: measurement_equations
+    category: measurement
+  - id: meas090
+    section: measurement_equations
+    category: measurement
+  - id: meas091
+    section: measurement_equations
+    category: measurement
+  - id: meas092
+    section: measurement_equations
+    category: measurement
+  - id: meas093
+    section: measurement_equations
+    category: measurement
+  - id: meas094
+    section: measurement_equations
+    category: measurement
+  - id: meas095
+    section: measurement_equations
+    category: measurement
+  - id: meas096
+    section: measurement_equations
+    category: measurement
+  - id: meas097
+    section: measurement_equations
+    category: measurement
+  - id: meas098
+    section: measurement_equations
+    category: measurement
+  - id: meas099
+    section: measurement_equations
+    category: measurement
+  - id: meas100
+    section: measurement_equations
+    category: measurement
+  - id: meas101
+    section: measurement_equations
+    category: measurement
+  - id: meas102
+    section: measurement_equations
+    category: measurement
+  - id: meas103
+    section: measurement_equations
+    category: measurement
+  - id: meas104
+    section: measurement_equations
+    category: measurement
+  - id: meas105
+    section: measurement_equations
+    category: measurement
+  - id: meas106
+    section: measurement_equations
+    category: measurement
+  - id: meas107
+    section: measurement_equations
+    category: measurement
+  - id: meas108
+    section: measurement_equations
+    category: measurement
+  - id: meas109
+    section: measurement_equations
+    category: measurement
+  - id: meas110
+    section: measurement_equations
+    category: measurement
+  - id: meas111
+    section: measurement_equations
+    category: measurement
+  - id: meas112
+    section: measurement_equations
+    category: measurement
+  - id: meas113
+    section: measurement_equations
+    category: measurement
+  - id: meas114
+    section: measurement_equations
+    category: measurement
+  - id: meas115
+    section: measurement_equations
+    category: measurement
+  - id: meas116
+    section: measurement_equations
+    category: measurement
+  - id: meas117
+    section: measurement_equations
+    category: measurement
+  - id: meas118
+    section: measurement_equations
+    category: measurement
+  - id: meas119
+    section: measurement_equations
+    category: measurement
+  - id: meas120
+    section: measurement_equations
+    category: measurement
+
+notes:
+  - "This catalog is derived 100% from the eq_id values present in your current spec.yaml."
+  - "You only need to manually review/mark the ~15–20 resolved_by_recursion and closure_or_regime entries (price indices, dispersion, financial recursions, gamma_g FOC, etc.)."
+  - "Run the catalog_build_gate after you add any missing eqC* or other IDs from your local spec.yaml."

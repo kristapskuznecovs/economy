@@ -1,0 +1,113 @@
+version: 1
+source: theory_from_catalog_and_lead_report_v4
+notes: |
+  Derived from all core_dynamic equations + all variables appearing inside E_t[...]
+  This replaces the old auto-seeded QR list.
+  Only variables that appear in core_dynamic equations or as leads are included.
+
+variables:
+  # Household sector
+  - c_o_t
+  - c_r_t
+  - c_t
+  - lambda_o_t
+  - lambda_r_t
+  - psi_zplus_t
+  - psi_zrplus_t
+
+  # Production & capital
+  - Y_t
+  - K_t
+  - k_bar_t
+  - K_g_t
+  - capital_bundle_t
+  - L_t
+  - mc_t
+
+  # Pricing blocks (Calvo)
+  - F_t
+  - K_t
+  - F_t_x
+  - K_t_x
+  - F_t_m_c
+  - K_t_m_c
+  - F_t_m_i
+  - K_t_m_i
+  - F_t_m_x
+  - K_t_m_x
+  - F_t_g_m_c
+  - K_t_g_m_c
+  - F_t_g_m_i
+  - K_t_g_m_i
+  - pi_t
+  - pi_t_x
+  - pi_t_m_c
+  - pi_t_m_i
+  - pi_t_m_x
+  - pi_t_g_m_c
+  - pi_t_g_m_i
+
+  # Wages & labour market
+  - w_t
+  - w_p_t
+  - w_t_p
+  - vartheta_p_t
+  - a_w_t
+  - u_tilde_t
+  - u_bar_t
+  - v_bar_t
+  - f_t
+  - V_t
+  - V_t_N
+
+  # Fiscal block
+  - g_c_t
+  - g_i_t
+  - tr_t
+  - d_g_t
+  - b_g_t
+  - b_g_bar_t
+  - deficit_t
+  - Phi_g_t
+  - R_g_t
+  - tau_c_t
+  - tau_y_t
+  - tau_w_e_t
+  - tau_w_w_t
+  - tau_tr_r
+
+  # Financial & risk premia
+  - R_t
+  - R_t_star
+  - Phi_t
+  - s_t
+  - M_t
+
+  # Investment & adjustment
+  - i_t
+  - mu_psi_t
+
+  # Shocks & exogenous
+  - eps_t
+  - zeta_c_t
+  - gamma_t
+  - phi_t
+
+  # Auxiliary / expectation variables (from leads)
+  - c_o_t+1
+  - c_r_t+1
+  - psi_zplus_t+1
+  - psi_zrplus_t+1
+  - pi_t+1
+  - F_t+1
+  - K_t+1
+  - w_p_t+1
+  - vartheta_p_t+1
+  - a_w_t+1
+  - u_bar_t+1
+  - v_bar_t+1
+  - f_t+1
+  - b_g_t+1
+  - b_g_bar_t+1
+
+# Total: ~85 variables (typical for this model class)

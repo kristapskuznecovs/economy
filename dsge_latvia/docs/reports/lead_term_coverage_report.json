@@ -1,0 +1,335 @@
+{
+  "total_equations_with_Et": 24,
+  "items": [
+    {
+      "eq_id": "eq27",
+      "section": "equations",
+      "raw_snippet": "B_g,t+1 = (1 + gamma_g^(-1) * (E_t[ M_t,t+1_o * R_g,t - 1 ])) * B_g_bar,t+1",
+      "expectations": [
+        {
+          "inner": "M_t,t+1_o * R_g,t - 1",
+          "leads": []
+        }
+      ]
+    },
+    {
+      "eq_id": "eqC8",
+      "section": "appendix_c_normalized_model",
+      "raw_snippet": "(c_o_t - b*c_o_t-1)^{-1} - beta * E_t[ (c_o_t+1 - b*c_o_t)^{-1} ] * (c_o_t / c_o_t+1)^(1/nu_c) - psi_zplus_t * p_c_t * (1+tau_c_t) = 0",
+      "expectations": [
+        {
+          "inner": "(c_o_t+1 - b*c_o_t)^{-1}",
+          "leads": [
+            "c_o"
+          ]
+        }
+      ]
+    },
+    {
+      "eq_id": "eqC9",
+      "section": "appendix_c_normalized_model",
+      "raw_snippet": "(c_r_t - b*c_r_t-1)^{-1} - beta * E_t[ (c_r_t+1 - b*c_r_t)^{-1} ] * (c_r_t / c_r_t+1)^(1/nu_c) - psi_zrplus_t * p_c_t * (1+tau_c_t) = 0",
+      "expectations": [
+        {
+          "inner": "(c_r_t+1 - b*c_r_t)^{-1}",
+          "leads": [
+            "c_r"
+          ]
+        }
+      ]
+    },
+    {
+      "eq_id": "eqC11",
+      "section": "appendix_c_normalized_model",
+      "raw_snippet": "psi_zplus_t = beta * E_t[ psi_zplus_t+1 * (s_t+1 * R_t_star * Phi_t - (s_t+1 * R_t_star * Phi_t - pi_t+1)) ]",
+      "expectations": [
+        {
+          "inner": "psi_zplus_t+1 * (s_t+1 * R_t_star * Phi_t - (s_t+1 * R_t_star * Phi_t - pi_t+1))",
+          "leads": [
+            "pi",
+            "psi_zplus",
+            "s"
+          ]
+        }
+      ]
+    },
+    {
+      "eq_id": "eqC13",
+      "section": "appendix_c_normalized_model",
+      "raw_snippet": "b_g_t+1 = (1 + gamma_g^(-1) * (E_t[ psi_zplus_t+1 * (Phi_g,t * R_t) - 1])) * b_g_bar_t+1; b_g_bar_t+1 = omega_h * d_g_t",
+      "expectations": [
+        {
+          "inner": "psi_zplus_t+1 * (Phi_g,t * R_t) - 1",
+          "leads": [
+            "psi_zplus"
+          ]
+        }
+      ]
+    },
+    {
+      "eq_id": "eqC21",
+      "section": "appendix_c_normalized_model",
+      "raw_snippet": "0 = E_t[ psi_zplus_t * (pi_t+1 / pi_t)^(lambda_d/(lambda_d-1)) * beta * xi_d * F_t+1 - F_t ]",
+      "expectations": [
+        {
+          "inner": "psi_zplus_t * (pi_t+1 / pi_t)^(lambda_d/(lambda_d-1)) * beta * xi_d * F_t+1 - F_t",
+          "leads": [
+            "F",
+            "pi"
+          ]
+        }
+      ]
+    },
+    {
+      "eq_id": "eqC22",
+      "section": "appendix_c_normalized_model",
+      "raw_snippet": "0 = E_t[ lambda_d * psi_zplus_t * pi_t+1^(lambda_d/(lambda_d-1)) * mc_t + beta * xi_d * (pi_t+1/pi_t)^(lambda_d/(lambda_d-1)) * K_t+1 - K_t ]",
+      "expectations": [
+        {
+          "inner": "lambda_d * psi_zplus_t * pi_t+1^(lambda_d/(lambda_d-1)) * mc_t + beta * xi_d * (pi_t+1/pi_t)^(lambda_d/(lambda_d-1)) * K_t+1 - K_t",
+          "leads": [
+            "K",
+            "pi"
+          ]
+        }
+      ]
+    },
+    {
+      "eq_id": "eqC30",
+      "section": "appendix_c_normalized_model",
+      "raw_snippet": "0 = E_t[ psi_zplus_t * beta * xi_x * (pi_t+1_x/pi_t_x)^(lambda_x/(lambda_x-1)) * F_t+1_x - F_t_x ]",
+      "expectations": [
+        {
+          "inner": "psi_zplus_t * beta * xi_x * (pi_t+1_x/pi_t_x)^(lambda_x/(lambda_x-1)) * F_t+1_x - F_t_x",
+          "leads": []
+        }
+      ]
+    },
+    {
+      "eq_id": "eqC31",
+      "section": "appendix_c_normalized_model",
+      "raw_snippet": "0 = E_t[ lambda_x * psi_zplus_t * pi_t+1_x^(lambda_x/(lambda_x-1)) * mc_t_x + beta * xi_x * (pi_t+1_x/pi_t_x)^(lambda_x/(lambda_x-1)) * K_t+1_x - K_t_x ]",
+      "expectations": [
+        {
+          "inner": "lambda_x * psi_zplus_t * pi_t+1_x^(lambda_x/(lambda_x-1)) * mc_t_x + beta * xi_x * (pi_t+1_x/pi_t_x)^(lambda_x/(lambda_x-1)) * K_t+1_x - K_t_x",
+          "leads": []
+        }
+      ]
+    },
+    {
+      "eq_id": "eqC56_c",
+      "section": "appendix_c_normalized_model",
+      "raw_snippet": "0 = E_t[ psi_zplus_t+1 * beta * xi_m_c * (pi_t+1_m_c/pi_t_m_c)^(lambda_m_c/(lambda_m_c-1)) * F_t+1_m_c - F_t_m_c ]",
+      "expectations": [
+        {
+          "inner": "psi_zplus_t+1 * beta * xi_m_c * (pi_t+1_m_c/pi_t_m_c)^(lambda_m_c/(lambda_m_c-1)) * F_t+1_m_c - F_t_m_c",
+          "leads": [
+            "psi_zplus"
+          ]
+        }
+      ]
+    },
+    {
+      "eq_id": "eqC56_i",
+      "section": "appendix_c_normalized_model",
+      "raw_snippet": "0 = E_t[ psi_zplus_t+1 * beta * xi_m_i * (pi_t+1_m_i/pi_t_m_i)^(lambda_m_i/(lambda_m_i-1)) * F_t+1_m_i - F_t_m_i ]",
+      "expectations": [
+        {
+          "inner": "psi_zplus_t+1 * beta * xi_m_i * (pi_t+1_m_i/pi_t_m_i)^(lambda_m_i/(lambda_m_i-1)) * F_t+1_m_i - F_t_m_i",
+          "leads": [
+            "psi_zplus"
+          ]
+        }
+      ]
+    },
+    {
+      "eq_id": "eqC56_x",
+      "section": "appendix_c_normalized_model",
+      "raw_snippet": "0 = E_t[ psi_zplus_t+1 * beta * xi_m_x * (pi_t+1_m_x/pi_t_m_x)^(lambda_m_x/(lambda_m_x-1)) * F_t+1_m_x - F_t_m_x ]",
+      "expectations": [
+        {
+          "inner": "psi_zplus_t+1 * beta * xi_m_x * (pi_t+1_m_x/pi_t_m_x)^(lambda_m_x/(lambda_m_x-1)) * F_t+1_m_x - F_t_m_x",
+          "leads": [
+            "psi_zplus"
+          ]
+        }
+      ]
+    },
+    {
+      "eq_id": "eqC57_c",
+      "section": "appendix_c_normalized_model",
+      "raw_snippet": "0 = E_t[ lambda_m_c * psi_zplus_t+1 * pi_t+1_m_c^(lambda_m_c/(lambda_m_c-1)) * mc_t_m_c + beta * xi_m_c * (pi_t+1_m_c/pi_t_m_c)^(lambda_m_c/(lambda_m_c-1)) * K_t+1_m_c - K_t_m_c ]",
+      "expectations": [
+        {
+          "inner": "lambda_m_c * psi_zplus_t+1 * pi_t+1_m_c^(lambda_m_c/(lambda_m_c-1)) * mc_t_m_c + beta * xi_m_c * (pi_t+1_m_c/pi_t_m_c)^(lambda_m_c/(lambda_m_c-1)) * K_t+1_m_c - K_t_m_c",
+          "leads": [
+            "psi_zplus"
+          ]
+        }
+      ]
+    },
+    {
+      "eq_id": "eqC57_i",
+      "section": "appendix_c_normalized_model",
+      "raw_snippet": "0 = E_t[ lambda_m_i * psi_zplus_t+1 * pi_t+1_m_i^(lambda_m_i/(lambda_m_i-1)) * mc_t_m_i + beta * xi_m_i * (pi_t+1_m_i/pi_t_m_i)^(lambda_m_i/(lambda_m_i-1)) * K_t+1_m_i - K_t_m_i ]",
+      "expectations": [
+        {
+          "inner": "lambda_m_i * psi_zplus_t+1 * pi_t+1_m_i^(lambda_m_i/(lambda_m_i-1)) * mc_t_m_i + beta * xi_m_i * (pi_t+1_m_i/pi_t_m_i)^(lambda_m_i/(lambda_m_i-1)) * K_t+1_m_i - K_t_m_i",
+          "leads": [
+            "psi_zplus"
+          ]
+        }
+      ]
+    },
+    {
+      "eq_id": "eqC57_x",
+      "section": "appendix_c_normalized_model",
+      "raw_snippet": "0 = E_t[ lambda_m_x * psi_zplus_t+1 * pi_t+1_m_x^(lambda_m_x/(lambda_m_x-1)) * mc_t_m_x + beta * xi_m_x * (pi_t+1_m_x/pi_t_m_x)^(lambda_m_x/(lambda_m_x-1)) * K_t+1_m_x - K_t_m_x ]",
+      "expectations": [
+        {
+          "inner": "lambda_m_x * psi_zplus_t+1 * pi_t+1_m_x^(lambda_m_x/(lambda_m_x-1)) * mc_t_m_x + beta * xi_m_x * (pi_t+1_m_x/pi_t_m_x)^(lambda_m_x/(lambda_m_x-1)) * K_t+1_m_x - K_t_m_x",
+          "leads": [
+            "psi_zplus"
+          ]
+        }
+      ]
+    },
+    {
+      "eq_id": "eqC60_g_c",
+      "section": "appendix_c_normalized_model",
+      "raw_snippet": "0 = E_t[ psi_zplus_t+1 * beta * xi_m_g_c * (pi_t+1_g_m_c/pi_t_g_m_c)^(lambda_m_g_c/(lambda_m_g_c-1)) * F_t+1_g_m_c - F_t_g_m_c ]",
+      "expectations": [
+        {
+          "inner": "psi_zplus_t+1 * beta * xi_m_g_c * (pi_t+1_g_m_c/pi_t_g_m_c)^(lambda_m_g_c/(lambda_m_g_c-1)) * F_t+1_g_m_c - F_t_g_m_c",
+          "leads": [
+            "psi_zplus"
+          ]
+        }
+      ]
+    },
+    {
+      "eq_id": "eqC60_g_i",
+      "section": "appendix_c_normalized_model",
+      "raw_snippet": "0 = E_t[ psi_zplus_t+1 * beta * xi_m_g_i * (pi_t+1_g_m_i/pi_t_g_m_i)^(lambda_m_g_i/(lambda_m_g_i-1)) * F_t+1_g_m_i - F_t_g_m_i ]",
+      "expectations": [
+        {
+          "inner": "psi_zplus_t+1 * beta * xi_m_g_i * (pi_t+1_g_m_i/pi_t_g_m_i)^(lambda_m_g_i/(lambda_m_g_i-1)) * F_t+1_g_m_i - F_t_g_m_i",
+          "leads": [
+            "psi_zplus"
+          ]
+        }
+      ]
+    },
+    {
+      "eq_id": "eqC61_g_c",
+      "section": "appendix_c_normalized_model",
+      "raw_snippet": "0 = E_t[ lambda_m_g_c * psi_zplus_t+1 * pi_t+1_g_m_c^(lambda_m_g_c/(lambda_m_g_c-1)) * mc_t_g_m_c + beta * xi_m_g_c * (pi_t+1_g_m_c/pi_t_g_m_c)^(lambda_m_g_c/(lambda_m_g_c-1)) * K_t+1_g_m_c - K_t_g_m_...",
+      "expectations": [
+        {
+          "inner": "lambda_m_g_c * psi_zplus_t+1 * pi_t+1_g_m_c^(lambda_m_g_c/(lambda_m_g_c-1)) * mc_t_g_m_c + beta * xi_m_g_c * (pi_t+1_g_m_c/pi_t_g_m_c)^(lambda_m_g_c/(lambda_m_g_c-1)) * K_t+1_g_m_c - K_t_g_m_c",
+          "leads": [
+            "psi_zplus"
+          ]
+        }
+      ]
+    },
+    {
+      "eq_id": "eqC61_g_i",
+      "section": "appendix_c_normalized_model",
+      "raw_snippet": "0 = E_t[ lambda_m_g_i * psi_zplus_t+1 * pi_t+1_g_m_i^(lambda_m_g_i/(lambda_m_g_i-1)) * mc_t_g_m_i + beta * xi_m_g_i * (pi_t+1_g_m_i/pi_t_g_m_i)^(lambda_m_g_i/(lambda_m_g_i-1)) * K_t+1_g_m_i - K_t_g_m_...",
+      "expectations": [
+        {
+          "inner": "lambda_m_g_i * psi_zplus_t+1 * pi_t+1_g_m_i^(lambda_m_g_i/(lambda_m_g_i-1)) * mc_t_g_m_i + beta * xi_m_g_i * (pi_t+1_g_m_i/pi_t_g_m_i)^(lambda_m_g_i/(lambda_m_g_i-1)) * K_t+1_g_m_i - K_t_g_m_i",
+          "leads": [
+            "psi_zplus"
+          ]
+        }
+      ]
+    },
+    {
+      "eq_id": "eqC65",
+      "section": "appendix_c_normalized_model",
+      "raw_snippet": "vartheta_p_t = vartheta_t + rho_t * E_t[ beta * psi_zplus_t+1/psi_zplus_t * vartheta_p_t+1 ]",
+      "expectations": [
+        {
+          "inner": "beta * psi_zplus_t+1/psi_zplus_t * vartheta_p_t+1",
+          "leads": [
+            "psi_zplus",
+            "vartheta_p"
+          ]
+        }
+      ]
+    },
+    {
+      "eq_id": "eqC66",
+      "section": "appendix_c_normalized_model",
+      "raw_snippet": "w_p_t = (1+tau_w_e_t) * w_bar_t + rho_t * E_t[ beta * psi_zplus_t+1/psi_zplus_t * w_p_t+1 ]",
+      "expectations": [
+        {
+          "inner": "beta * psi_zplus_t+1/psi_zplus_t * w_p_t+1",
+          "leads": [
+            "psi_zplus",
+            "w_p"
+          ]
+        }
+      ]
+    },
+    {
+      "eq_id": "eqC67",
+      "section": "appendix_c_normalized_model",
+      "raw_snippet": "w_t_p = (1 - tau_y_t - tau_w_w_t) * w_bar_t + rho_t * E_t[ ((1-lambda_r) * beta * psi_zplus_t+1/psi_zplus_t + lambda_r * beta * psi_zrplus_t+1/psi_zrplus_t) * w_t_p+1 ]",
+      "expectations": [
+        {
+          "inner": "((1-lambda_r) * beta * psi_zplus_t+1/psi_zplus_t + lambda_r * beta * psi_zrplus_t+1/psi_zrplus_t) * w_t_p+1",
+          "leads": [
+            "psi_zplus",
+            "psi_zrplus"
+          ]
+        }
+      ]
+    },
+    {
+      "eq_id": "eqC70",
+      "section": "appendix_c_normalized_model",
+      "raw_snippet": "a_w_t = (1-rho_t) * E_t[ ((1-lambda_r) * beta * psi_zplus_t+1/psi_zplus_t + lambda_r * beta * psi_zrplus_t+1/psi_zrplus_t) * (f_t+1 * v_bar_t+1 + (1-f_t+1) * u_bar_t+1) ] + rho_t * E_t[ ((1-lambda_r) ...",
+      "expectations": [
+        {
+          "inner": "((1-lambda_r) * beta * psi_zplus_t+1/psi_zplus_t + lambda_r * beta * psi_zrplus_t+1/psi_zrplus_t) * (f_t+1 * v_bar_t+1 + (1-f_t+1) * u_bar_t+1)",
+          "leads": [
+            "f",
+            "psi_zplus",
+            "psi_zrplus",
+            "u_bar",
+            "v_bar"
+          ]
+        },
+        {
+          "inner": "((1-lambda_r) * beta * psi_zplus_t+1/psi_zplus_t + lambda_r * beta * psi_zrplus_t+1/psi_zrplus_t) * a_w_t+1",
+          "leads": [
+            "a_w",
+            "psi_zplus",
+            "psi_zrplus"
+          ]
+        }
+      ]
+    },
+    {
+      "eq_id": "eqC72",
+      "section": "appendix_c_normalized_model",
+      "raw_snippet": "u_tilde_t = E_t[ ((1-lambda_r) * beta * psi_zplus_t+1/psi_zplus_t + lambda_r * beta * psi_zrplus_t+1/psi_zrplus_t) * (f_t+1 * v_bar_t+1 + (1-f_t+1) * u_bar_t+1) ]",
+      "expectations": [
+        {
+          "inner": "((1-lambda_r) * beta * psi_zplus_t+1/psi_zplus_t + lambda_r * beta * psi_zrplus_t+1/psi_zrplus_t) * (f_t+1 * v_bar_t+1 + (1-f_t+1) * u_bar_t+1)",
+          "leads": [
+            "f",
+            "psi_zplus",
+            "psi_zrplus",
+            "u_bar",
+            "v_bar"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": "Found 24 equations containing E_t[·]"
+}

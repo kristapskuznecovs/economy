@@ -1,0 +1,183 @@
+{
+  "source": "PMLP / pmlp.gov.lv",
+  "source_urls": [
+    "https://www.pmlp.gov.lv/lv/statistika-uzturesanas-atlaujas-2021-gads",
+    "https://www.pmlp.gov.lv/lv/statistika-uzturesanas-atlaujas-2022-gads",
+    "https://www.pmlp.gov.lv/lv/statistika-uzturesanas-atlaujas-2023-gads",
+    "https://www.pmlp.gov.lv/lv/statistika-uzturesanas-atlaujas-2024-gads",
+    "https://www.pmlp.gov.lv/lv/statistika-uzturesanas-atlaujas-2025-gads"
+  ],
+  "note": "TUA = termiņuzturēšanās atļaujas (temporary residence permits). Stock = valid permits at snapshot date. New = first-time permits issued that year.",
+  "tua_stock": [
+    {
+      "total": 46572,
+      "work": 17285,
+      "study": 6948,
+      "family": 6510,
+      "temp_protection_ukraine": 0,
+      "kf_transition": 0,
+      "investment": 3113,
+      "sufficient_means": 4393,
+      "other": 8323,
+      "date": "2021-12-31"
+    },
+    {
+      "total": 54605,
+      "work": 17901,
+      "study": 7318,
+      "family": 6560,
+      "temp_protection_ukraine": 7217,
+      "kf_transition": 0,
+      "investment": 2898,
+      "sufficient_means": 4463,
+      "other": 8248,
+      "date": "2022-07-01"
+    },
+    {
+      "total": 56725,
+      "work": 18255,
+      "study": 7178,
+      "family": 6383,
+      "temp_protection_ukraine": 9724,
+      "kf_transition": 0,
+      "investment": 2586,
+      "sufficient_means": 4590,
+      "other": 8009,
+      "date": "2022-12-31"
+    },
+    {
+      "total": 62563,
+      "work": 18721,
+      "study": 8074,
+      "family": 6509,
+      "temp_protection_ukraine": 14282,
+      "kf_transition": 0,
+      "investment": 2337,
+      "sufficient_means": 4639,
+      "other": 8001,
+      "date": "2023-07-01"
+    },
+    {
+      "total": 76735,
+      "work": 19244,
+      "study": 8857,
+      "family": 7510,
+      "temp_protection_ukraine": 26395,
+      "kf_transition": 37,
+      "investment": 2003,
+      "sufficient_means": 4759,
+      "other": 7930,
+      "date": "2023-12-31"
+    },
+    {
+      "total": 84292,
+      "work": 19651,
+      "study": 9419,
+      "family": 7634,
+      "temp_protection_ukraine": 29400,
+      "kf_transition": 3951,
+      "investment": 1635,
+      "sufficient_means": 4368,
+      "other": 8234,
+      "date": "2024-07-01"
+    },
+    {
+      "total": 85978,
+      "work": 18820,
+      "study": 9695,
+      "family": 7380,
+      "temp_protection_ukraine": 32365,
+      "kf_transition": 4186,
+      "investment": 1328,
+      "sufficient_means": 4993,
+      "other": 7211,
+      "date": "2024-12-31"
+    },
+    {
+      "total": 81640,
+      "work": 18280,
+      "study": 9935,
+      "family": 7267,
+      "temp_protection_ukraine": 28951,
+      "kf_transition": 3929,
+      "investment": 1297,
+      "sufficient_means": 4935,
+      "other": 7046,
+      "date": "2025-07-01"
+    },
+    {
+      "total": 82605,
+      "work": 18672,
+      "study": 10010,
+      "family": 7354,
+      "temp_protection_ukraine": 30200,
+      "kf_transition": 3254,
+      "investment": 1242,
+      "sufficient_means": 4885,
+      "other": 6988,
+      "date": "2025-12-31"
+    }
+  ],
+  "tua_new_issuances": [
+    {
+      "total": 8041,
+      "work": 3931,
+      "study": 1414,
+      "family": 809,
+      "temp_protection_ukraine": 0,
+      "kf_transition": 0,
+      "investment": 91,
+      "sufficient_means": 456,
+      "other": 1340,
+      "year": "2021"
+    },
+    {
+      "total": 18477,
+      "work": 3750,
+      "study": 1969,
+      "family": 637,
+      "temp_protection_ukraine": 10424,
+      "kf_transition": 0,
+      "investment": 80,
+      "sufficient_means": 302,
+      "other": 1315,
+      "year": "2022"
+    },
+    {
+      "total": 27266,
+      "work": 4031,
+      "study": 3416,
+      "family": 663,
+      "temp_protection_ukraine": 17307,
+      "kf_transition": 0,
+      "investment": 47,
+      "sufficient_means": 320,
+      "other": 1482,
+      "year": "2023"
+    },
+    {
+      "total": 15807,
+      "work": 3681,
+      "study": 3146,
+      "family": 530,
+      "temp_protection_ukraine": 6783,
+      "kf_transition": 0,
+      "investment": 58,
+      "sufficient_means": 403,
+      "other": 1206,
+      "year": "2024"
+    },
+    {
+      "total": 15739,
+      "work": 4399,
+      "study": 3223,
+      "family": 417,
+      "temp_protection_ukraine": 6042,
+      "kf_transition": 0,
+      "investment": 88,
+      "sufficient_means": 418,
+      "other": 1152,
+      "year": "2025"
+    }
+  ]
+}

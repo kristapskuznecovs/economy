@@ -1,0 +1,446 @@
+{
+  "source_name": "Pilsonības un migrācijas lietu pārvalde",
+  "source_type": "manual_download",
+  "description": "Residence permit statistics pages and attachments for 2020-2025.",
+  "generated_at_unix": 1774212104,
+  "years": [
+    {
+      "year": 2020,
+      "page_url": "https://www.pmlp.gov.lv/lv/statistika-uzturesanas-atlaujas-2020-gads",
+      "published": "08.09.2020.",
+      "updated": "06.02.2026.",
+      "source_page": "2020/source_page.html",
+      "attachments": [
+        {
+          "title": "Kopējais ārzemnieku skaits Latvijā ar derīgām TUA uz 01.07.2020",
+          "source_filename": "s20tua20izversts20uz2001.07.20.20445021.pdf",
+          "url": "https://www.pmlp.gov.lv/lv/media/598/download?attachment",
+          "local_path": "2020/kopejais_arzemnieku_skaits_latvija_ar_derigam_tua_uz_01072020.pdf",
+          "status": "downloaded",
+          "error": null
+        },
+        {
+          "title": "Kopējais ārzemnieku skaits Latvijā ar derīgām TUA uz 31.12.2020",
+          "source_filename": "s-tua-izversts-uz-31.12.20.-44948-converted_0.pdf",
+          "url": "https://www.pmlp.gov.lv/lv/media/3025/download?attachment",
+          "local_path": "2020/kopejais_arzemnieku_skaits_latvija_ar_derigam_tua_uz_31122020.pdf",
+          "status": "downloaded",
+          "error": null
+        },
+        {
+          "title": "Kopējais ārzemnieku skaits Latvijā ar derīgām PUA uz 01.07.2020",
+          "source_filename": "s20pua20izversts20uz2001.07.20.20532081.pdf",
+          "url": "https://www.pmlp.gov.lv/lv/media/601/download?attachment",
+          "local_path": "2020/kopejais_arzemnieku_skaits_latvija_ar_derigam_pua_uz_01072020.pdf",
+          "status": "downloaded",
+          "error": null
+        },
+        {
+          "title": "Kopējais ārzemnieku skaits Latvijā ar derīgām PUA uz 31.12.2020",
+          "source_filename": "s-pua-izversts-uz-31.12.20.-53380.pdf",
+          "url": "https://www.pmlp.gov.lv/lv/media/3027/download?attachment",
+          "local_path": "2020/kopejais_arzemnieku_skaits_latvija_ar_derigam_pua_uz_31122020.pdf",
+          "status": "downloaded",
+          "error": null
+        },
+        {
+          "title": "Pirmreizējās TUA, kas izsniegtas 2020. gadā visām valstīm uz 01.07.2020",
+          "source_filename": "s20pirmr.20tua2020.g.20i20pg.2028461.pdf",
+          "url": "https://www.pmlp.gov.lv/lv/media/604/download?attachment",
+          "local_path": "2020/pirmreizejas_tua_kas_izsniegtas_2020_gada_visam_valstim_uz_01072020.pdf",
+          "status": "downloaded",
+          "error": null
+        },
+        {
+          "title": "Pirmreizējās TUA, kas izsniegtas 2020. gadā visām valstīm uz 31.12.2020",
+          "source_filename": "pirmreizejas-tua-kas-izsniegtas-2020.gada-no-visam-110-valstim.pdf",
+          "url": "https://www.pmlp.gov.lv/lv/media/3017/download?attachment",
+          "local_path": "2020/pirmreizejas_tua_kas_izsniegtas_2020_gada_visam_valstim_uz_31122020.pdf",
+          "status": "downloaded",
+          "error": null
+        },
+        {
+          "title": "Pirmreizējās PUA, kas izsniegtas 2020. gadā  visām valstīm uz 01.07.2020",
+          "source_filename": "s20pirmr.20pua20202020i20pg.202171.pdf",
+          "url": "https://www.pmlp.gov.lv/lv/media/607/download?attachment",
+          "local_path": "2020/pirmreizejas_pua_kas_izsniegtas_2020_gada_visam_valstim_uz_01072020.pdf",
+          "status": "downloaded",
+          "error": null
+        },
+        {
+          "title": "Pirmreizējās PUA, kas izsniegtas 2020. gadā visām valstīm uz 31.12.2020",
+          "source_filename": "s-pirmr.-pua-2020.g.-488.pdf",
+          "url": "https://www.pmlp.gov.lv/lv/media/3029/download?attachment",
+          "local_path": "2020/pirmreizejas_pua_kas_izsniegtas_2020_gada_visam_valstim_uz_31122020.pdf",
+          "status": "downloaded",
+          "error": null
+        }
+      ]
+    },
+    {
+      "year": 2021,
+      "page_url": "https://www.pmlp.gov.lv/lv/statistika-uzturesanas-atlaujas-2021-gads",
+      "published": "17.09.2021.",
+      "updated": null,
+      "source_page": "2021/source_page.html",
+      "attachments": [
+        {
+          "title": "2021.gada I pusgadā pirmreizēji izsniegtās pastāvīgās uzturēšanās atļaujas uz 01.07.2021",
+          "source_filename": "s-pirmr.-pua-2021.g.-i-pg-238-ok_0.pdf",
+          "url": "https://www.pmlp.gov.lv/lv/media/6528/download?attachment",
+          "local_path": "2021/2021gada_i_pusgada_pirmreizeji_izsniegtas_pastavigas_uzturesanas_atlaujas_uz_01072021.pdf",
+          "status": "downloaded",
+          "error": null
+        },
+        {
+          "title": "Pirmreizējās TUA, kas izsniegtas 2021.gadā I pusgadā visām valstīm uz 01.07.2021",
+          "source_filename": "pirmreizejas-tua-kas-izsniegtas-2021.gadai-pusgada.pdf",
+          "url": "https://www.pmlp.gov.lv/lv/media/6531/download?attachment",
+          "local_path": "2021/pirmreizejas_tua_kas_izsniegtas_2021gada_i_pusgada_visam_valstim_uz_01072021.pdf",
+          "status": "downloaded",
+          "error": null
+        },
+        {
+          "title": "Pilsoņi ar derīgām PUA, kas izsniegtas 2021. gadā visām valstīm uz 01.07.2021.",
+          "source_filename": "s-pua-izversts-uz-01.07.21.-53133_0.pdf",
+          "url": "https://www.pmlp.gov.lv/lv/media/6534/download?attachment",
+          "local_path": "2021/pilsoni_ar_derigam_pua_kas_izsniegtas_2021_gada_visam_valstim_uz_01072021.pdf",
+          "status": "downloaded",
+          "error": null
+        },
+        {
+          "title": "Kopējais ārzemnieku skaits Latvijā ar derīgām TUA uz 01.07.2021.",
+          "source_filename": "222222222.pdf",
+          "url": "https://www.pmlp.gov.lv/lv/media/6537/download?attachment",
+          "local_path": "2021/kopejais_arzemnieku_skaits_latvija_ar_derigam_tua_uz_01072021.pdf",
+          "status": "downloaded",
+          "error": null
+        },
+        {
+          "title": "Pirmreizejas PUA izsniegtas 2021.gada",
+          "source_filename": "pirmreizejas-pua-izsniegtas-2021.gada.xlsx",
+          "url": "https://www.pmlp.gov.lv/lv/media/10470/download?attachment",
+          "local_path": "2021/pirmreizejas_pua_izsniegtas_2021gada.xlsx",
+          "status": "downloaded",
+          "error": null
+        },
+        {
+          "title": "Pirmreizejas TUA izsniegtas 2021.gada",
+          "source_filename": "pirmreizejas-tua-izsniegtas-2021.gada.xlsx",
+          "url": "https://www.pmlp.gov.lv/lv/media/10473/download?attachment",
+          "local_path": "2021/pirmreizejas_tua_izsniegtas_2021gada.xlsx",
+          "status": "downloaded",
+          "error": null
+        },
+        {
+          "title": "PUA derīgas uz 31.12.2021.",
+          "source_filename": "pua-derigas-uz-31.12.2021.xlsx",
+          "url": "https://www.pmlp.gov.lv/lv/media/10482/download?attachment",
+          "local_path": "2021/pua_derigas_uz_31122021.xlsx",
+          "status": "downloaded",
+          "error": null
+        },
+        {
+          "title": "TUA derīgas uz 31.12.2021.",
+          "source_filename": "tua-derigas-uz-31.12.2021.xlsx",
+          "url": "https://www.pmlp.gov.lv/lv/media/10485/download?attachment",
+          "local_path": "2021/tua_derigas_uz_31122021.xlsx",
+          "status": "downloaded",
+          "error": null
+        }
+      ]
+    },
+    {
+      "year": 2022,
+      "page_url": "https://www.pmlp.gov.lv/lv/statistika-uzturesanas-atlaujas-2022-gads",
+      "published": "28.08.2023.",
+      "updated": null,
+      "source_page": "2022/source_page.html",
+      "attachments": [
+        {
+          "title": "Pirmreizējās PUA izsniegtas 2022.gada I.pusgadā",
+          "source_filename": "pirmreizejas-pua-izsniegtas-2022.gada-i-pusgada.xlsx",
+          "url": "https://www.pmlp.gov.lv/lv/media/10488/download?attachment",
+          "local_path": "2022/pirmreizejas_pua_izsniegtas_2022gada_ipusgada.xlsx",
+          "status": "downloaded",
+          "error": null
+        },
+        {
+          "title": "Pirmreizējās TUA izsniegtas2022.gada I.pusgadā",
+          "source_filename": "pirmreizejas-tua-izsniegtas-2022.gada-i-pusgada.xlsx",
+          "url": "https://www.pmlp.gov.lv/lv/media/10491/download?attachment",
+          "local_path": "2022/pirmreizejas_tua_izsniegtas2022gada_ipusgada.xlsx",
+          "status": "downloaded",
+          "error": null
+        },
+        {
+          "title": "Pirmreizējās PUA izsniegtas 2022.gada.",
+          "source_filename": "pirmreizejas-pua-izsniegtas-2022.gada.xlsx",
+          "url": "https://www.pmlp.gov.lv/lv/media/10494/download?attachment",
+          "local_path": "2022/pirmreizejas_pua_izsniegtas_2022gada.xlsx",
+          "status": "downloaded",
+          "error": null
+        },
+        {
+          "title": "Pirmreizejas TUA izsniegtas 2022.gada",
+          "source_filename": "pirmreizejas-tua-izsniegtas-2022.gada.xlsx",
+          "url": "https://www.pmlp.gov.lv/lv/media/10497/download?attachment",
+          "local_path": "2022/pirmreizejas_tua_izsniegtas_2022gada.xlsx",
+          "status": "downloaded",
+          "error": null
+        },
+        {
+          "title": "TUA derigas uz 01.07.2022.",
+          "source_filename": "tua-derigas-uz-01.07.2022.xlsx",
+          "url": "https://www.pmlp.gov.lv/lv/media/10479/download?attachment",
+          "local_path": "2022/tua_derigas_uz_01072022.xlsx",
+          "status": "downloaded",
+          "error": null
+        },
+        {
+          "title": "PUA derigas uz 01.07.2022",
+          "source_filename": "pua-derigas-uz-01.07.2022.xlsx",
+          "url": "https://www.pmlp.gov.lv/lv/media/10476/download?attachment",
+          "local_path": "2022/pua_derigas_uz_01072022.xlsx",
+          "status": "downloaded",
+          "error": null
+        },
+        {
+          "title": "PUA derīgas uz 31.12.2022.",
+          "source_filename": "pua-derigas-uz-31.12.2022.xlsx",
+          "url": "https://www.pmlp.gov.lv/lv/media/10500/download?attachment",
+          "local_path": "2022/pua_derigas_uz_31122022.xlsx",
+          "status": "downloaded",
+          "error": null
+        },
+        {
+          "title": "TUA derīgas uz 31.12.2022.",
+          "source_filename": "tua-derigas-uz-31.12.2022.xlsx",
+          "url": "https://www.pmlp.gov.lv/lv/media/10503/download?attachment",
+          "local_path": "2022/tua_derigas_uz_31122022.xlsx",
+          "status": "downloaded",
+          "error": null
+        }
+      ]
+    },
+    {
+      "year": 2023,
+      "page_url": "https://www.pmlp.gov.lv/lv/statistika-uzturesanas-atlaujas-2023-gads",
+      "published": "28.08.2023.",
+      "updated": "06.02.2026.",
+      "source_page": "2023/source_page.html",
+      "attachments": [
+        {
+          "title": "Pirmreizējās PUA izsniegtas 2023.gada I.pusgadā",
+          "source_filename": "pirmreizejas-pua-izsniegtas-2023.gada-i-pusgada.xlsx",
+          "url": "https://www.pmlp.gov.lv/lv/media/10506/download?attachment",
+          "local_path": "2023/pirmreizejas_pua_izsniegtas_2023gada_ipusgada.xlsx",
+          "status": "downloaded",
+          "error": null
+        },
+        {
+          "title": "Pirmreizējās TUA izsniegtas 2023.gada I.pusgadā",
+          "source_filename": "pirmreizejas-tua-izsniegtas-2023.gada-i-pusgada.xlsx",
+          "url": "https://www.pmlp.gov.lv/lv/media/10509/download?attachment",
+          "local_path": "2023/pirmreizejas_tua_izsniegtas_2023gada_ipusgada.xlsx",
+          "status": "downloaded",
+          "error": null
+        },
+        {
+          "title": "PUA derīgas uz 01.07.2023.",
+          "source_filename": "pua-derigas-uz-01.07.2023.xlsx",
+          "url": "https://www.pmlp.gov.lv/lv/media/10512/download?attachment",
+          "local_path": "2023/pua_derigas_uz_01072023.xlsx",
+          "status": "downloaded",
+          "error": null
+        },
+        {
+          "title": "TUA derīgas uz 01.07.2023.",
+          "source_filename": "tua-derigas-uz-01.07.2023.xlsx",
+          "url": "https://www.pmlp.gov.lv/lv/media/10515/download?attachment",
+          "local_path": "2023/tua_derigas_uz_01072023.xlsx",
+          "status": "downloaded",
+          "error": null
+        },
+        {
+          "title": "Pirmreizējās PUA, izsniegtās 2023.gadā",
+          "source_filename": "pirmreizejas-pua-izsniegtas-2023.gada.xlsx",
+          "url": "https://www.pmlp.gov.lv/lv/media/11421/download?attachment",
+          "local_path": "2023/pirmreizejas_pua_izsniegtas_2023gada.xlsx",
+          "status": "downloaded",
+          "error": null
+        },
+        {
+          "title": "Pirmreizējās TUA, izsniegtās 2023.gadā",
+          "source_filename": "pirmreizejas-tua-izsniegtas-2023.gada.xlsx",
+          "url": "https://www.pmlp.gov.lv/lv/media/11424/download?attachment",
+          "local_path": "2023/pirmreizejas_tua_izsniegtas_2023gada.xlsx",
+          "status": "downloaded",
+          "error": null
+        },
+        {
+          "title": "PUA derīgas uz 31.12.2023.",
+          "source_filename": "pua-derigas-uz-31.12.2023.xlsx",
+          "url": "https://www.pmlp.gov.lv/lv/media/11427/download?attachment",
+          "local_path": "2023/pua_derigas_uz_31122023.xlsx",
+          "status": "downloaded",
+          "error": null
+        },
+        {
+          "title": "TUA derīgas uz 31.12.2023.",
+          "source_filename": "tua-derigas-uz-31.12.2023.xlsx",
+          "url": "https://www.pmlp.gov.lv/lv/media/11430/download?attachment",
+          "local_path": "2023/tua_derigas_uz_31122023.xlsx",
+          "status": "downloaded",
+          "error": null
+        }
+      ]
+    },
+    {
+      "year": 2024,
+      "page_url": "https://www.pmlp.gov.lv/lv/statistika-uzturesanas-atlaujas-2024-gads",
+      "published": "15.07.2024.",
+      "updated": "06.02.2026.",
+      "source_page": "2024/source_page.html",
+      "attachments": [
+        {
+          "title": "Pirmreizējās PUA, izsniegtās 2024.gada I pusgadā",
+          "source_filename": "pirmreizejas-pua-izsniegtas-2024.gada-i-pusgada.xlsx",
+          "url": "https://www.pmlp.gov.lv/lv/media/12108/download?attachment",
+          "local_path": "2024/pirmreizejas_pua_izsniegtas_2024gada_i_pusgada.xlsx",
+          "status": "downloaded",
+          "error": null
+        },
+        {
+          "title": "Pirmreizējās TUA, izsniegtās 2024.gada I pusgadā",
+          "source_filename": "pirmreizejas-tua-izsniegtas-2024.gada-i-pusgada.xlsx",
+          "url": "https://www.pmlp.gov.lv/lv/media/12099/download?attachment",
+          "local_path": "2024/pirmreizejas_tua_izsniegtas_2024gada_i_pusgada.xlsx",
+          "status": "downloaded",
+          "error": null
+        },
+        {
+          "title": "PUA derīgas uz 01.07.2024.",
+          "source_filename": "pua-derigas-uz-01.07.2024.xlsx",
+          "url": "https://www.pmlp.gov.lv/lv/media/12102/download?attachment",
+          "local_path": "2024/pua_derigas_uz_01072024.xlsx",
+          "status": "downloaded",
+          "error": null
+        },
+        {
+          "title": "TUA derīgas uz 01.07.2024.",
+          "source_filename": "tua-derigas-uz-01.07.2024.xlsx",
+          "url": "https://www.pmlp.gov.lv/lv/media/12105/download?attachment",
+          "local_path": "2024/tua_derigas_uz_01072024.xlsx",
+          "status": "downloaded",
+          "error": null
+        },
+        {
+          "title": "Pirmreizējās TUA, izsniegtās 2024.gadā",
+          "source_filename": "Pirmreizējās TUA, izsniegtās 2024.gadā.xlsx",
+          "url": "https://www.pmlp.gov.lv/lv/media/13002/download?attachment",
+          "local_path": "2024/pirmreizejas_tua_izsniegtas_2024gada.xlsx",
+          "status": "downloaded",
+          "error": null
+        },
+        {
+          "title": "Pirmreizējās PUA, izsniegtās 2024.gadā",
+          "source_filename": "Pirmreizējās PUA, izsniegtās 2024.gadā.xlsx",
+          "url": "https://www.pmlp.gov.lv/lv/media/13005/download?attachment",
+          "local_path": "2024/pirmreizejas_pua_izsniegtas_2024gada.xlsx",
+          "status": "downloaded",
+          "error": null
+        },
+        {
+          "title": "PUA derīgas uz 31.12.2024",
+          "source_filename": "PUA derīgas uz 31.12.2024..xlsx",
+          "url": "https://www.pmlp.gov.lv/lv/media/13008/download?attachment",
+          "local_path": "2024/pua_derigas_uz_31122024.xlsx",
+          "status": "downloaded",
+          "error": null
+        },
+        {
+          "title": "TUA derīgas uz 31.12.2024",
+          "source_filename": "TUA derīgas uz 31.12.2024..xlsx",
+          "url": "https://www.pmlp.gov.lv/lv/media/13011/download?attachment",
+          "local_path": "2024/tua_derigas_uz_31122024.xlsx",
+          "status": "downloaded",
+          "error": null
+        }
+      ]
+    },
+    {
+      "year": 2025,
+      "page_url": "https://www.pmlp.gov.lv/lv/statistika-uzturesanas-atlaujas-2025-gads",
+      "published": "29.07.2025.",
+      "updated": "06.02.2026.",
+      "source_page": "2025/source_page.html",
+      "attachments": [
+        {
+          "title": "Pirmreizējās PUA, izsniegtās 2025.gadā",
+          "source_filename": "Pirmreizējās PUA, izsniegtās 2025.gadā.xlsx",
+          "url": "https://www.pmlp.gov.lv/lv/media/14702/download?attachment",
+          "local_path": "2025/pirmreizejas_pua_izsniegtas_2025gada.xlsx",
+          "status": "downloaded",
+          "error": null
+        },
+        {
+          "title": "Pirmreizējās TUA, izsniegtās 2025.gadā",
+          "source_filename": "Pirmreizējās TUA, izsniegtās 2025.gadā.xlsx",
+          "url": "https://www.pmlp.gov.lv/lv/media/14696/download?attachment",
+          "local_path": "2025/pirmreizejas_tua_izsniegtas_2025gada.xlsx",
+          "status": "downloaded",
+          "error": null
+        },
+        {
+          "title": "PUA derīgas uz 31.12.2025",
+          "source_filename": "PUA derīgas uz 31.12.2025.xlsx",
+          "url": "https://www.pmlp.gov.lv/lv/media/14699/download?attachment",
+          "local_path": "2025/pua_derigas_uz_31122025.xlsx",
+          "status": "downloaded",
+          "error": null
+        },
+        {
+          "title": "TUA derīgas uz 31.12.2025",
+          "source_filename": "TUA derīgas uz 31.12.2025_0.xlsx",
+          "url": "https://www.pmlp.gov.lv/lv/media/14705/download?attachment",
+          "local_path": "2025/tua_derigas_uz_31122025.xlsx",
+          "status": "downloaded",
+          "error": null
+        },
+        {
+          "title": "Pirmreizējās PUA, izsniegtās 2025.gada 1.pusgadā",
+          "source_filename": "Pirmreizējās PUA, izsniegtās 2025.gada 1.pusgadā.xlsx",
+          "url": "https://www.pmlp.gov.lv/lv/media/14183/download?attachment",
+          "local_path": "2025/pirmreizejas_pua_izsniegtas_2025gada_1pusgada.xlsx",
+          "status": "downloaded",
+          "error": null
+        },
+        {
+          "title": "Pirmreizējās TUA, izsniegtās 2025.gada 1.pusgadā",
+          "source_filename": "Pirmreizējās TUA, izsniegtās 2025.gada 1.pusgadā.xlsx",
+          "url": "https://www.pmlp.gov.lv/lv/media/14186/download?attachment",
+          "local_path": "2025/pirmreizejas_tua_izsniegtas_2025gada_1pusgada.xlsx",
+          "status": "downloaded",
+          "error": null
+        },
+        {
+          "title": "PUA derīgas uz 01.07.2025.",
+          "source_filename": "PUA derīgas uz 01.07.2025..xlsx",
+          "url": "https://www.pmlp.gov.lv/lv/media/14189/download?attachment",
+          "local_path": "2025/pua_derigas_uz_01072025.xlsx",
+          "status": "downloaded",
+          "error": null
+        },
+        {
+          "title": "TUA derīgas uz 01.07.2025.",
+          "source_filename": "TUA derīgas uz 01.07.2025..xlsx",
+          "url": "https://www.pmlp.gov.lv/lv/media/14192/download?attachment",
+          "local_path": "2025/tua_derigas_uz_01072025.xlsx",
+          "status": "downloaded",
+          "error": null
+        }
+      ]
+    }
+  ]
+}

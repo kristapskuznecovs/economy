@@ -1,0 +1,96 @@
+{
+  "source": "PMLP pmlp.gov.lv",
+  "note": "TUA derīgas - valid residence permits at snapshot date",
+  "series": [
+    {
+      "date": "2021-12-31",
+      "total": 46572,
+      "work": 17285,
+      "study": 2824,
+      "family": 6510,
+      "temp_protection": 0,
+      "investment": 3113,
+      "other": 16840
+    },
+    {
+      "date": "2022-07-01",
+      "total": 54605,
+      "work": 17901,
+      "study": 3016,
+      "family": 6560,
+      "temp_protection": 0,
+      "investment": 2898,
+      "other": 24230
+    },
+    {
+      "date": "2022-12-31",
+      "total": 56725,
+      "work": 18255,
+      "study": 3029,
+      "family": 6383,
+      "temp_protection": 0,
+      "investment": 2586,
+      "other": 26472
+    },
+    {
+      "date": "2023-07-01",
+      "total": 62563,
+      "work": 18721,
+      "study": 3481,
+      "family": 6509,
+      "temp_protection": 0,
+      "investment": 2337,
+      "other": 31515
+    },
+    {
+      "date": "2023-12-31",
+      "total": 76735,
+      "work": 19244,
+      "study": 3992,
+      "family": 7510,
+      "temp_protection": 0,
+      "investment": 2003,
+      "other": 43986
+    },
+    {
+      "date": "2024-07-01",
+      "total": 84292,
+      "work": 19651,
+      "study": 4313,
+      "family": 7634,
+      "temp_protection": 0,
+      "investment": 1635,
+      "other": 51059
+    },
+    {
+      "date": "2024-12-31",
+      "total": 85978,
+      "work": 18820,
+      "study": 4533,
+      "family": 7380,
+      "temp_protection": 0,
+      "investment": 1328,
+      "other": 53917
+    },
+    {
+      "date": "2025-07-01",
+      "total": 81640,
+      "work": 18280,
+      "study": 4604,
+      "family": 7267,
+      "temp_protection": 0,
+      "investment": 1297,
+      "other": 50192
+    },
+    {
+      "date": "2025-12-31",
+      "total": 82605,
+      "work": 18672,
+      "study": 4407,
+      "family": 7354,
+      "temp_protection": 0,
+      "investment": 1242,
+      "other": 50930
+    }
+  ]
+}
